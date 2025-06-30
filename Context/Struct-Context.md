@@ -1,0 +1,3 @@
+# Struct-Context
+
+This file contains the context and background information for the Struct in the application. Add your detailed context here for Struct. 
