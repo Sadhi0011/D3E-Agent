@@ -1,0 +1,22 @@
+(Model UserEmail {
+    name 'User Email'
+    
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (email {
+            name 'Email'
+            type ({
+                primitive String
+            })
+            required true
+        })
+    ]
+})

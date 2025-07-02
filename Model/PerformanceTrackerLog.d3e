@@ -1,0 +1,39 @@
+(Model PerformanceTrackerLog {
+    name 'Performance Tracker Log'
+    master #PerformanceTracker
+    package 'rewahr.com'
+    properties [
+        (log {
+            name 'Log'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (comments {
+            name 'Comments'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (positive {
+            name 'Positive'
+            type ({
+                primitive Boolean
+            })
+        })
+        (addedDate {
+            name 'Added Date'
+            type ({
+                primitive DateTime
+            })
+        })
+        (modifiedDate {
+            name 'Modified Date'
+            type ({
+                primitive DateTime
+            })
+        })
+    ]
+})

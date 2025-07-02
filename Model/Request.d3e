@@ -1,0 +1,326 @@
+(Model Request {
+    name 'Request'
+    master #Company
+    allowDynamicReport true
+    package 'rewa.hr.2'
+    properties [
+        (type {
+            name 'Type'
+            type ({
+                model #RequestType
+            })
+        })
+        (title {
+            name 'Title'
+            type ({
+                primitive String
+            })
+        })
+        (createdBy {
+            name 'CreatedBy'
+            type ({
+                model #Employee
+            })
+        })
+        (pendingWith{
+            type ({
+                model #Employee
+            })
+        })
+        (priority {
+            name 'Priority'
+            type ({
+                optionSet #RequestPriority
+            })
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+        })
+        (resolutionDate {
+            name 'Resolution Date'
+            type ({
+                primitive Date
+            })
+        })
+        (submittedDate {
+            name 'Submitted Date'
+            type ({
+                primitive Date
+            })
+        })
+        (vacancyName {
+            name 'Vacancy Name'
+            type ({
+                primitive String
+            })
+        })
+        (jobTitle {
+            name 'Job title'
+            type ({
+                model #JobTitle
+            })
+        })
+        (location {
+            name 'Location'
+            type ({
+                model #Location
+            })
+        })
+        (subUnit {
+            name 'Sub Unit'
+            type ({
+                model #SubUnit
+            })
+        })
+        (hiringManagers {
+            name 'Hiring Managers'
+            collection true
+            type ({
+                model #Employee
+            })
+        })
+        (numberOfPositions {
+            name 'Number of positions'
+            type ({
+                primitive Integer
+            })
+        })
+        (attachments {
+            name 'Attachments'
+            collection true
+            type ({
+                model #Attachment
+            })
+            inverse true
+            inverseProperty #request
+        })
+        (requestID {
+            name 'Request ID'
+            type ({
+                primitive String
+            })
+        })
+        (status {
+            name 'Status'
+            type ({
+                optionSet #RequestStatus
+            })
+        })
+        (resolvedDate {
+            name 'Resolved Date'
+            type ({
+                primitive DateTime
+            })
+        })
+        (level1Approver{
+            type ({
+                model #Employee
+            })
+        })
+        (level2Approver{
+            type ({
+                model #Employee
+            })
+        })
+        (level3Approver{
+            type ({
+                model #Employee
+            })
+        })
+        (level4Approver{
+            type ({
+                model #Employee
+            })
+        })
+        (level5Approver{
+            type ({
+                model #Employee
+            })
+        })
+    ]
+    actions [
+        (SendEmailOnRequestUpdate {
+            runOn OnUpdate
+            name 'SendEmailOnRequestUpdate'
+            block ```
+                // Leave Approvals
+                // Leave Cancellations
+                // Leave Rejections
+                
+                EndUser user = CurrentUser.get() as EndUser;
+                EmailContext repl = EmailContext(Map.fromIterables([
+                    'template',
+                    'recipientFullName',
+                    'id',
+                    'title',
+                    'description',
+                    'requester',
+                    'requestOwner',
+                    'resolutionDate',
+                    'extraInformation',
+                    'newComment',
+                    'prevComment',
+                    'requestedInfo'
+                ], [
+                    '<TEMPLATE>',
+                    user.employee.name,
+                    requestID,
+                    title,
+                    description,
+                    type.primaryRequestOwner.name,
+                    type.primaryRequestOwner.name,
+                    resolutionDate.toString(),
+                    '<EXTRA INFORMATION>',
+                    '<NEW COMMENT>',
+                    '<OLD COMMENT>',
+                    '<REQUESTED INFO>'
+                ]));
+                
+                String email = null;
+                if (type != null && type.primaryRequestOwner != null) {
+                    email = type.primaryRequestOwner.email;
+                }
+                
+                NotificationHelper.sendActionBasedEmails(
+                    RequestDeskNonApproveRequestReopenTheRequest,
+                    repl,
+                    createdBy,
+                    EmailNotificationUtil.getRequestState(old.status),
+                    EmailNotificationUtil.getRequestState(this.status),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    RequestDeskNonApproveRequestRequestMoreInformation,
+                    repl,
+                    createdBy,
+                    EmailNotificationUtil.getRequestState(old.status),
+                    EmailNotificationUtil.getRequestState(this.status),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    RequestDeskNonApproveRequestSubmitMoreInformation,
+                    repl,
+                    createdBy,
+                    EmailNotificationUtil.getRequestState(old.status),
+                    EmailNotificationUtil.getRequestState(this.status),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    RequestDeskReopenTheRequest,
+                    repl,
+                    createdBy,
+                    EmailNotificationUtil.getRequestState(old.status),
+                    EmailNotificationUtil.getRequestState(this.status),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    RequestDeskReopenTheRequest,
+                    repl,
+                    createdBy,
+                    EmailNotificationUtil.getRequestState(old.status),
+                    EmailNotificationUtil.getRequestState(this.status),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    RequestDeskRequestApproval,
+                    repl,
+                    createdBy,
+                    EmailNotificationUtil.getRequestState(old.status),
+                    EmailNotificationUtil.getRequestState(this.status),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    RequestDeskRequestApprovalCompleted,
+                    repl,
+                    createdBy,
+                    EmailNotificationUtil.getRequestState(old.status),
+                    EmailNotificationUtil.getRequestState(this.status),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    RequestDeskRequestEditingComment,
+                    repl,
+                    createdBy,
+                    EmailNotificationUtil.getRequestState(old.status),
+                    EmailNotificationUtil.getRequestState(this.status),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    RequestDeskRequestMoreInformation,
+                    repl,
+                    createdBy,
+                    EmailNotificationUtil.getRequestState(old.status),
+                    EmailNotificationUtil.getRequestState(this.status),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    RequestDeskRequestRejection,
+                    repl,
+                    createdBy,
+                    EmailNotificationUtil.getRequestState(old.status),
+                    EmailNotificationUtil.getRequestState(this.status),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    RequestDeskRequestSubmission,
+                    repl,
+                    createdBy,
+                    EmailNotificationUtil.getRequestState(old.status),
+                    EmailNotificationUtil.getRequestState(this.status),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    RequestDeskRequestSubmissionWithoutApprovers,
+                    repl,
+                    createdBy,
+                    EmailNotificationUtil.getRequestState(old.status),
+                    EmailNotificationUtil.getRequestState(this.status),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    RequestDeskResolveNonApproveRequest,
+                    repl,
+                    createdBy,
+                    EmailNotificationUtil.getRequestState(old.status),
+                    EmailNotificationUtil.getRequestState(this.status),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    RequestDeskResolveTheRequest,
+                    repl,
+                    createdBy,
+                    EmailNotificationUtil.getRequestState(old.status),
+                    EmailNotificationUtil.getRequestState(this.status),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    RequestDeskSubmitMoreInformation,
+                    repl,
+                    createdBy,
+                    EmailNotificationUtil.getRequestState(old.status),
+                    EmailNotificationUtil.getRequestState(this.status),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    RequestDeskWithdrawTheNonApprovableRequest,
+                    repl,
+                    createdBy,
+                    EmailNotificationUtil.getRequestState(old.status),
+                    EmailNotificationUtil.getRequestState(this.status),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    RequestDeskWithdrawTheRequest,
+                    repl,
+                    createdBy,
+                    EmailNotificationUtil.getRequestState(old.status),
+                    EmailNotificationUtil.getRequestState(this.status),
+                );
+            ```
+        })
+    ]
+    needCreatedDate true
+})

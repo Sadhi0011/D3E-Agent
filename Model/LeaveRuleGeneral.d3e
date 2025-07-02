@@ -1,0 +1,86 @@
+(Model LeaveRuleGeneral {
+    name 'Leave Rule General'
+    embedded true
+    package 'rewa.hr.2'
+    properties [
+        (leavePeriod {
+            name 'Leave Period'
+            type ({
+                model #LeavePeriod
+            })
+        })
+        (employeesCanApplyForThisLeaveType {
+            name 'Employees Can Apply For This Leave Type'
+            type ({
+                primitive Boolean
+            })
+        })
+        (adminCanAssignLeaveToEmployees {
+            name 'Admin Can Assign Leave to Employees'
+            type ({
+                primitive Boolean
+            })
+        })
+        (supervisorAndHodCanAssignLeaveToEmployees {
+            name 'Supervisor And Hod Can Assign Leave To Employees'
+            type ({
+                primitive Boolean
+            })
+        })
+        (adminCanAddAndAdjustLeaveEntitlements {
+            name 'Admin Can Add And Adjust Leave Entitlements'
+            type ({
+                primitive Boolean
+            })
+        })
+        (enableLeaveAccrue {
+            name 'Enable Leave Accrue'
+            type ({
+                primitive Boolean
+            })
+        })
+        (enableLeaveCarriedForward {
+            name 'Enable Leave Carried Forward'
+            type ({
+                primitive Boolean
+            })
+        })
+        (showWarningIfBalanceIsNotSufficientWhenAllowedToApplyAssignMoreThanTheLeaveBalance {
+            name 'Show Warning If Balance Is Not Sufficient When Allowed To Apply Assign More Than The Leave Balance'
+            type ({
+                primitive Boolean
+            })
+        })
+        (showProjectedBalanceWhenApplyingAssigning {
+            name 'Show Projected Balance When Applying Assigning'
+            type ({
+                primitive Boolean
+            })
+        })
+        (enableAttachment {
+            name 'Enable Attachment'
+            type ({
+                primitive Boolean
+            })
+        })
+        (attachmentIsMandatory {
+            name 'Attachment Is Mandatory'
+            type ({
+                primitive Boolean
+            })
+        })
+        (considerHolidaysAsWorkingDays {
+            name 'Consider Holidays As Working Days'
+            type ({
+                primitive Boolean
+            })
+        })
+        (considerWeekendsAsWorkingDays {
+            name 'Consider Weekends As Working Days'
+            type ({
+                primitive Boolean
+            })
+        })
+    ]
+    creatable false
+})

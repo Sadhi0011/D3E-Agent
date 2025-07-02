@@ -1,0 +1,58 @@
+(Model OnlineCourseAssessment {
+    name 'Online Course Assessment'
+    package 'rewa.hr.2'
+    allowDynamicReport true
+    properties [
+        (course {
+            name 'Course'
+            type ({
+                model #OnlineCourse
+            })
+        })
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+        })
+        (passingGrade {
+            name 'Passing Grade'
+            type ({
+                primitive Double
+            })
+        })
+        (timeLimit {
+            name 'Time Limit'
+            type ({
+                primitive Double
+            })
+        })
+        (numberOfAttempts {
+            name 'Number of attempts'
+            type ({
+                primitive Integer
+            })
+        })
+        (randomQuestions {
+            name 'Random Questions'
+            type ({
+                primitive Boolean
+            })
+        })
+        (numberOfQuestions {
+            name 'Number of Questions'
+            type ({
+                primitive Integer
+            })
+        })
+        (assesmentQuestions {
+            name 'Assesment Questions'
+            collection true
+            type ({
+                model #CourseAssessmentQuestion
+            })
+            child true
+        })
+    ]
+    needCreatedDate true
+})

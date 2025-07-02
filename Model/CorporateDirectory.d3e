@@ -1,0 +1,111 @@
+(Model CorporateDirectory {
+    name 'Corporate Directory'
+    
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (name{
+            name 'Name'
+            type ({
+                primitive String
+            })
+        })
+        (employeeNumber {
+            name 'Employee Number'
+            type ({
+                primitive Boolean
+            })
+        })
+        (street1 {
+            name 'Street 1'
+            type ({
+                primitive Boolean
+            })
+        })
+        (street2 {
+            name 'Street 2'
+            type ({
+                primitive Boolean
+            })
+        })
+        (city {
+            name 'City'
+            type ({
+                primitive Boolean
+            })
+        })
+        (province {
+            name 'Province'
+            type ({
+                primitive Boolean
+            })
+        })
+        (country {
+            name 'Country'
+            type ({
+                primitive Boolean
+            })
+        })
+        (zipCode {
+            name 'Zip Code'
+            type ({
+                primitive Boolean
+            })
+        })
+        (employeeHomeTelephone {
+            name 'Employee Home Telephone'
+            type ({
+                primitive Boolean
+            })
+        })
+        (employeeWorkTelephone {
+            name 'Employee Work Telephone'
+            type ({
+                primitive Boolean
+            })
+        })
+        (employeeWorkEmail {
+            name 'Employee Work Email'
+            type ({
+                primitive Boolean
+            })
+        })
+        (employeeMobile {
+            name 'Employee Mobile'
+            type ({
+                primitive Boolean
+            })
+        })
+        (employeeOtherEmail {
+            name 'Employee Other Email'
+            type ({
+                primitive Boolean
+            })
+        })
+        (employeeFacebookContact {
+            name 'Employee Facebook Contact'
+            type ({
+                primitive Boolean
+            })
+        })
+        (employeeTwitterContact {
+            name 'Employee Twitter Contact'
+            type ({
+                primitive Boolean
+            })
+        })
+        (employeeLinkedInContact {
+            name 'Employee LinkedIn Contact'
+            type ({
+                primitive Boolean
+            })
+        })
+        (customFields {
+            name 'Custom Fields'
+            collection true
+            type ({
+                model #CustomField
+            })
+        })
+    ]
+})

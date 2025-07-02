@@ -1,0 +1,29 @@
+Model {
+    package 'rewahr.com'
+    name 'Email Settings'
+    master Company
+    properties [
+        {
+            name 'Sender Email'
+            type String
+            required true
+        }
+        {
+            name 'Sending Method'
+            type String
+            required true
+        }
+        {
+            name 'Sender Name'
+            type String
+        }
+        {
+            name 'Enable Birthday And Anniversary Mails'
+            type Boolean
+        }
+        {
+            name 'Group MailID'
+            type String
+        }
+    ]
+}

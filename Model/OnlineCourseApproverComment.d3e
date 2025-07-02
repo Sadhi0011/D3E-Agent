@@ -1,0 +1,25 @@
+(Model OnlineCourseApproverComment {
+    name 'Online Course Approver Comment'
+    
+    package 'rewa.hr.2'
+    properties [
+        (course {
+            name 'Course'
+            type ({
+                model #OnlineCourse
+            })
+        })
+        (employee {
+            name 'Employee'
+            type ({
+                model #Employee
+            })
+        })
+        (comment {
+            name 'Comment'
+            type ({
+                primitive String
+            })
+        })
+    ]
+})

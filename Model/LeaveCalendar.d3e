@@ -1,0 +1,74 @@
+(Model LeaveCalendar {
+    name 'Leave Calendar'
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (showEmployeeAndLeaveOfEmployeesOf {
+            name 'Show Employee And Leave Of Employees Of'
+            type ({
+                optionSet #RolesAndRegion
+            })
+        })
+        (showEmployeeAndLeaveOfSupervisors {
+            name 'Show Employee And Leave Of Supervisors'
+            type ({
+                primitive Boolean
+            })
+        })
+        (showSupervisorsAndLeaveOfSubordinates {
+            name 'Show Supervisors And Leave Of Subordinates'
+            type ({
+                primitive Boolean
+            })
+            defaultValue `true`
+        })
+        (showAdminsAndLeaveOfEmployeesInTheirAdministrativeRegion {
+            name 'Show Admins And Leave Of Employees In Their Administrative Region'
+            type ({
+                primitive Boolean
+            })
+            defaultValue `true`
+        })
+        (excludeLeaveHavingLeaveTypes {
+            name 'Exclude Leave Having Leave Types'
+            collection true
+            type ({
+                model #LeaveType
+            })
+        })
+        (showEmployeeAndLeaveOfSupervisorsWithHideLeaveStatus {
+            name 'Show Employee And Leave Of Supervisors With Hide Leave Status'
+            collection true
+            type ({
+                optionSet #LeaveStatus
+            })
+            existsIf `this.showEmployeeAndLeaveOfSupervisors`
+            needAllChildren false
+        })
+        (showSupervisorsAndLeaveOfSubordinatesWithHideLeaveStatus {
+            name 'Show Supervisors And Leave Of Subordinates With Hide Leave Status'
+            collection true
+            type ({
+                optionSet #LeaveStatus
+            })
+            existsIf `this.showSupervisorsAndLeaveOfSubordinates`
+            needAllChildren false
+        })
+        (showAdminsAndLeaveOfEmployeesInTheirAdministrativeRegionWithHideLeaveStatus {
+            name 'Show Admins and Leave Of Employees in their Administrative Region With Hide Leave Status'
+            collection true
+            type ({
+                optionSet #LeaveStatus
+            })
+            existsIf `this.showAdminsAndLeaveOfEmployeesInTheirAdministrativeRegion`
+            needAllChildren false
+        })
+        (showEmployeeAndLeaveOfEmployeesWithHideLeaveStatus {
+            name 'Show Employee And Leave Of Employees With Hide Leave Status'
+            collection true
+            type ({
+                optionSet #LeaveStatus
+            })
+        })
+    ]
+})

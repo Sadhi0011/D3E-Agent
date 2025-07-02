@@ -1,0 +1,61 @@
+(Model DisciplinaryDocumentTemplate {
+    name 'Disciplinary Document Template'
+    master #Company
+    package 'rewa.hr.2'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+            unique true
+        })
+        (section {
+            name 'Section'
+            type ({
+                model #FieldSection
+            })
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (attachments {
+            name 'Attachments'
+            collection true
+            type ({
+                primitive DFile
+            })
+        })
+        (pageSize {
+            name 'Page Size'
+            type ({
+                optionSet #PageSize
+            })
+        })
+        (margin {
+            name 'Margin'
+            type ({
+                model #PageMargins
+            })
+            child true
+        })
+        (content {
+            name 'Content'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (action {
+            name 'Action'
+            type ({
+                optionSet #DisciplinaryActionType
+            })
+        })
+    ]
+})

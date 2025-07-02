@@ -1,0 +1,31 @@
+(Model JobApplicationQuestion {
+    name 'Job Application Question'
+    package 'rewahr.com'
+    properties [
+        (question {
+            name 'Question'
+            type ({
+                model #InterviewQuestion
+            })
+        })
+        (answerFormat {
+            name 'Answer Format'
+            type ({
+                optionSet #AnswerFormat
+            })
+        })
+        (required {
+            name 'Required'
+            type ({
+                primitive Boolean
+            })
+        })
+        (options {
+            name 'Options'
+            type ({
+                primitive String
+            })
+        })
+    ]
+    creatable false
+})

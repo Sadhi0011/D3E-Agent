@@ -1,0 +1,17 @@
+(Model JobCategory {
+    name 'Job Category'
+    master #Company
+    allowDynamicReport true
+    package 'rewahr.com'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+            unique true
+        })
+    ]
+    display `this.name`
+})

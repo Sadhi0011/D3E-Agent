@@ -1,0 +1,14 @@
+Model {
+    name 'CustomReport'
+    creatable true
+    properties [
+        {
+            name 'Report'
+            type Report
+        }
+        {
+            name 'Name'
+            type String
+        }
+    ]
+}

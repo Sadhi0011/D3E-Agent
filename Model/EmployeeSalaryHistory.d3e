@@ -1,0 +1,79 @@
+(Model EmployeeSalaryHistory {
+    name 'Employee Salary History'
+    master #Employee
+    allowDynamicReport true
+    package 'rewa.hr.2'
+    properties [
+        (event {
+            name 'Event'
+            type ({
+                optionSet #SalaryEvent
+            })
+        })
+        (effectiveFrom {
+            name 'Effective From'
+            type ({
+                primitive Date
+            })
+        })
+        (payGrade {
+            name 'Pay Grade'
+            type ({
+                primitive String
+            })
+        })
+        (currency {
+            name 'Currency'
+            type ({
+                primitive String
+            })
+        })
+        (comment {
+            name 'Comment'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (payGradeNew {
+            name 'Pay Grade New'
+            type ({
+                model #PayGrade
+            })
+        })
+        (currencyNew {
+            name 'Currency New'
+            type ({
+                primitive String
+            })
+        })
+        (commentNew {
+            name 'Comment New'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (fields {
+            name 'Fields'
+            collection true
+            type ({
+                model #SalaryBreakupHistory
+            })
+            child true
+        })
+        
+    ]
+    needCreatedDate true
+    needUpdatedDate true
+    actions [
+        (updateEmployeeSalaryObject {
+            runOn OnUpdate
+            block ```
+                if(effectiveFrom <= Date.now()) {
+                    EmployeeUtil.updateEmployeeSalary(effectiveFrom, this.employee);
+                }
+            ```
+        })
+    ]
+})

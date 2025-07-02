@@ -1,0 +1,27 @@
+(Model Currency {
+    name 'Currency'
+    master #Company
+    allowDynamicReport true
+    package 'rewahr.com'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+        })
+        (code {
+            name 'Code'
+            type ({
+                primitive String
+            })
+        })
+        (sign {
+            name 'Sign'
+            type ({
+                primitive String
+            })
+        })
+    ]
+    display `this.name`
+})

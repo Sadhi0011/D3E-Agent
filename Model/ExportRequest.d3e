@@ -1,0 +1,10 @@
+(Model ExportRequest {
+    name 'ExportRequest'
+    
+    master #Company
+    package 'rewahr.com'
+    properties [
+        
+    ]
+    transient true
+})

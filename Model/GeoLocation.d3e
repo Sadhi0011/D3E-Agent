@@ -1,0 +1,16 @@
+Model {
+    package 'rewahr.com'
+    name 'Geo Location'
+    embedded true
+    properties [
+        {
+            name 'Lat'
+            type Double
+        }
+        {
+            name 'Lng'
+            type Double
+        }
+    ]
+    creatable false
+}

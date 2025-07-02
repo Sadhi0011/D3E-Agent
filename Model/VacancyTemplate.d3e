@@ -1,0 +1,92 @@
+(Model VacancyTemplate {
+    name 'Vacancy Template'
+    
+    master #Company
+    package 'rewa.hr.2'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+        })
+        (addedOn{
+            name 'Added On'
+            type({
+                primitive Date
+            })
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+        })
+        (vacancy {
+            name 'Vacancy'
+            type ({
+                primitive String
+            })
+        })
+        (jobTitle {
+            name 'Job Title'
+            type ({
+                model #JobTitle
+            })
+        })
+        (location {
+            name 'Location'
+            type ({
+                model #Location
+            })
+        })
+        (subUnit {
+            name 'Sub Unit'
+            type ({
+                model #SubUnit
+            })
+        })
+        (hiringManager {
+            name 'Hiring Manager'
+            collection true
+            type ({
+                model #Employee
+            })
+        })
+        (numberOfPositions {
+            name 'Number Of Positions'
+            type ({
+                primitive Integer
+            })
+        })
+        (consentRequired {
+            name 'Consent Required'
+            type ({
+                primitive Boolean
+            })
+        })
+        (resumeRequired {
+            name 'Resume Required'
+            type ({
+                primitive Boolean
+            })
+            defaultValue `true`
+        })
+        (workflowStages {
+            name 'Workflow Stages'
+            collection true
+            type ({
+                model #TemplateWorkflowStage
+            })
+            child true
+        })
+    ]
+    display `this.name`
+    actions [
+        (createDefaultWorkflowStages {
+            block ```
+                
+            ```
+        })
+    ]
+})

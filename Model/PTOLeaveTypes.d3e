@@ -1,0 +1,14 @@
+DataQuery {
+    name 'PTOLeaveTypes'
+    query `LeaveType.all
+    .where(a => a.company == inputs.company)
+    .where(a => a.isUniversalPTOType)
+    .where(a => a.isMonthlyAccrual)`
+    inputs [
+        {
+            name 'Company'
+            type Company
+            required true
+        }
+    ]
+}

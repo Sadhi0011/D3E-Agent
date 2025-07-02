@@ -1,0 +1,111 @@
+(Model EmployeeLanguage {
+    name 'Employee Language'
+    
+    master #Employee
+    package 'rewahr.com'
+    properties [
+        (language {
+            name 'Language'
+            type ({
+                model #Language
+            })
+            required true
+            referenceFrom `this.employee.company.languages`
+        })
+        (fluency {
+            name 'Fluency'
+            type ({
+                optionSet #Fluency
+            })
+            required true
+        })
+        (skill {
+            name 'Skill'
+            type ({
+                optionSet #LanguageSkill
+            })
+            required true
+        })
+        (competency {
+            name 'Competency'
+            type ({
+                optionSet #LanguageCompetency
+            })
+        })
+        (comments {
+            name 'Comments'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+    ]
+    actions [
+        (saveAuditRecordOnCreate {
+            runOn OnCreate
+            block ```
+                List<String> changes = [
+                    EmployeeUtil.getChangedStringForNewField('Language', language.name),
+                    EmployeeUtil.getChangedStringForNewField('Fluency', fluency.name),
+                    EmployeeUtil.getChangedStringForNewField('Skill', skill.name),
+                    EmployeeUtil.getChangedStringForNewField('Compentency', competency.name),
+                    EmployeeUtil.getChangedStringForNewField('Comments', comments),
+                ].where((x) => x != null);
+
+                if (changes.isNotEmpty) {
+                    EmployeeUtil.addAuditRecord(
+                        company: employee.company,
+                        action: 'ADD LANGUAGE DETAILS -I',
+                        employee: employee,
+                        section: 'Qualification',
+                        actionDescription: changes.join('\n'),
+                    );
+                }
+            ```
+        })
+        (saveAuditRecordOnUpdate {
+            runOn OnUpdate
+            block ```
+                if (old == null) {
+                    return;
+                }
+
+                List<String> changes = [
+                    EmployeeUtil.getChangedFromString('Language', language.name, old.language.name),
+                    EmployeeUtil.getChangedFromString('Fluency', fluency.name, old.fluency.name),
+                    EmployeeUtil.getChangedFromString('Skill', skill.name, old.skill.name),
+                    EmployeeUtil.getChangedFromString('Compentency', competency.name, old.competency.name),
+                    EmployeeUtil.getChangedFromString('Comments', comments, old.comments),
+                ].where((x) => x != null);
+
+                if (changes.isNotEmpty) {
+                    EmployeeUtil.addAuditRecord(
+                        company: employee.company,
+                        action: 'UPDATE LANGUAGE DETAILS -U',
+                        employee: employee,
+                        section: 'Qualification',
+                        actionDescription: changes.join('\n'),
+                    );
+                }
+            ```
+        })
+        (saveAuditRecordOnDelete {
+            runOn OnDelete
+            block ```
+                EmployeeUtil.addAuditRecord(
+                    company: employee.company,
+                    action: 'DELETE LANGUAGE DETAILS',
+                    employee: employee,
+                    section: 'Qualification',
+                    actionDescription: [
+                        language.name,
+                        fluency.name,
+                        skill.name,
+                        competency.name,
+                        comments,
+                    ].join('\n'),
+                );
+            ```
+        })
+    ]
+})

@@ -1,0 +1,24 @@
+(Model ExportPerfomanceRecord {
+    name 'Export Perfomance Record'
+    package 'rewa.hr.2'
+    properties [
+        (fileName {
+            name 'File Name'
+            type ({
+                primitive String
+            })
+        })
+        (createdBy {
+            name 'Created By'
+            type ({
+                model #UserRole
+            })
+        })
+        (createdAt {
+            name 'Created At'
+            type ({
+                primitive DateTime
+            })
+        })
+    ]
+})

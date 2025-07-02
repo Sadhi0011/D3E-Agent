@@ -1,0 +1,64 @@
+(Model TaskType {
+    name 'Task Type'
+    
+    master #Company
+    package 'rewa.hr.2'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (notifiedBefore {
+            name 'Notified Before'
+            type ({
+                primitive Integer
+            })
+            description 'Number of Days or Weeks'
+        })
+        (weeks {
+            name 'Weeks'
+            type ({
+                primitive Boolean
+            })
+        })
+        (defaultOwner {
+            name 'Default Owner'
+            type ({
+                model #Employee
+            })
+        })
+        (notifyEmail {
+            name 'Notify Email'
+            type ({
+                primitive String
+            })
+            validations [
+                ({
+                    errorMsg 'Expected format: admin@example.com'
+                    expression `it == null || it.isEmpty || FieldValidation.isEmail(it)`
+                })
+            ]
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+        })
+        (createdBy {
+            name 'Created By'
+            type ({
+                model #Employee
+            })
+        })
+        (attachments {
+            type ({
+                primitive DFile
+            })
+            collection true
+        })
+    ]
+})

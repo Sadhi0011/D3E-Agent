@@ -1,0 +1,45 @@
+(Model Competency {
+    name 'Competency'
+    master #Company
+    allowDynamicReport true
+    package 'rewahr.com'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (markAsGroup {
+            name 'Mark As Group'
+            type ({
+                primitive Boolean
+            })
+        })
+        (parent {
+            name 'Parent'
+            type ({
+                model #Competency
+            })
+            existsIf `!markAsGroup`
+        })
+        (children {
+            name 'Children'
+            type ({
+                model #Competency
+            })
+            collection true
+            inverse true
+            inverseProperty #parent
+        })
+    ]
+    display `this.name`
+})

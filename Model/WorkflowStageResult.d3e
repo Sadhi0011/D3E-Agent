@@ -1,0 +1,31 @@
+(Model WorkflowStageResult {
+    name 'Workflow Stage Result'
+    package 'rewahr.com'
+    properties [
+        (stage {
+            name 'Stage'
+            type ({
+                model #VacancyWorkflowStage
+            })
+        })
+        (dateAndTime {
+            name 'Date And Time'
+            type ({
+                primitive DateTime
+            })
+        })
+        (result {
+            name 'Result'
+            type ({
+                primitive String
+            })
+        })
+        (notes {
+            name 'Notes'
+            type ({
+                primitive String
+            })
+        })
+    ]
+    creatable false
+})

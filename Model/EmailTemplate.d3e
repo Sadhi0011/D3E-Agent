@@ -1,0 +1,42 @@
+(Model EmailTemplate {
+    name 'Email Template'
+    
+    master #EmailNotification
+    package 'rewahr.com'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (subject {
+            name 'Subject'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (body {
+            name 'Body'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (attachments {
+            name 'Attachments'
+            type ({
+                primitive DFile
+            })
+        })
+        (canDelete {
+            name 'Can Delete'
+            type ({
+                primitive Boolean
+            })
+            defaultValue `true`
+        })
+    ]
+})

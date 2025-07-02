@@ -1,0 +1,31 @@
+(Model Customer {
+    name 'Customer'
+    
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+            unique true
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (costCenter {
+            name 'Cost Center'
+            type ({
+                model #CostCenter
+            })
+            referenceFrom `this.company.costCenters`
+        })
+    ]
+    display `this.name`
+})

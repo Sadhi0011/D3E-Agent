@@ -1,0 +1,15 @@
+(Model AttendanceLeaveTime{
+    properties [
+        (leaveType{
+            type ({
+                model #LeaveType
+            })
+        })
+        (duration{
+            type ({
+                primitive Duration
+            })
+        })
+    ]
+    creatable false
+})

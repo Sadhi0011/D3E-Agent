@@ -1,0 +1,28 @@
+Model {
+    name 'Leave Audit Record'
+    master Employee
+    properties [
+        {
+            name 'Leave Type'
+            type LeaveType
+            required true
+        }
+        {
+            name 'Added Entitlement'
+            type Integer 
+
+        }
+        {
+            name 'Consumed Leaves'
+            type Integer
+        }
+        {
+            name 'Balance'
+            type Integer
+        }
+        {
+            name 'Month'
+            type Months
+        }
+    ]
+}

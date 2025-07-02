@@ -1,0 +1,19 @@
+(Model AppraisalCustomGoal {
+    name 'Appraisal Custom Goal'
+    package 'rewahr.com'
+    properties [
+        (goal {
+            name 'Goal'
+            type ({
+                model #Goal
+            })
+        })
+        (weight {
+            name 'Weight'
+            type ({
+                primitive Integer
+            })
+        })
+    ]
+    creatable false
+})

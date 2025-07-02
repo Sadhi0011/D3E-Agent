@@ -1,0 +1,145 @@
+(Model IndividualDevelopmentPlan {
+    name 'Individual Development Plan'
+    
+    master #Company
+    package 'rewa.hr.2'
+    properties [
+        (employee {
+            name 'Employee'
+            type ({
+                model #Employee
+            })
+        })
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+        })
+        (employeeName {
+            type ({
+                primitive String
+            })
+            computed true
+            computation `employee != null ? employee.name : ''`
+        })
+        (coach {
+            name 'Coach'
+            type ({
+                model #Employee
+            })
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+        })
+        (closedOn {
+            name 'Closed On'
+            type ({
+                primitive DateTime
+            })
+        })
+        (status {
+            name 'Status'
+            type ({
+                optionSet #IDPStatus
+            })
+        })
+        (currentRoleGoals {
+            name 'Current Role Goals'
+            collection true
+            type ({
+                model #Goal
+            })
+        })
+        (futureRoleGoals {
+            name 'Future Role Goals'
+            collection true
+            type ({
+                model #Goal
+            })
+        })
+        (generalGoals {
+            name 'General Goals'
+            collection true
+            type ({
+                model #Goal
+            })
+        })
+    ]
+    needCreatedDate true
+    actions [
+        (ModelAction sendEmailOnIDPCreate {
+            runOn OnCreate
+            block ```
+                EmailContext repl = EmailContext(Map.fromIterables([
+                    'idpOwnerName'
+                ], [
+                    employee.name
+                ])).addLink('here', Link('IndividualDevelopmentPlan', [this]));
+
+                NotificationHelper.sendActionBasedEmails(
+                    IndividualDevelopmentPlanCreation,
+                    repl,
+                    coach,
+                    NotInitiated,
+                    EmailNotificationUtil.getIDPState(this.status),
+                );
+            ```
+        })
+        (ModelAction sendEmailOnIDPUpdate {
+            runOn OnUpdate
+            block ```
+                EmailContext repl = EmailContext(Map.fromIterables([
+                    'idpOwnerName',
+                    'idpName'
+                ], [
+                    employee.name,
+                    name
+                ])).addLink('here', Link('IndividualDevelopmentPlan', [this]));
+
+                NotificationHelper.sendActionBasedEmails(
+                    IndividualDevelopmentPlanAcknowledgment,
+                    repl,
+                    coach,
+                    EmailNotificationUtil.getIDPState(old.status),
+                    EmailNotificationUtil.getIDPState(this.status),
+                );
+
+                NotificationHelper.sendActionBasedEmails(
+                    IndividualDevelopmentPlanClosure,
+                    repl,
+                    employee,
+                    EmailNotificationUtil.getIDPState(old.status),
+                    EmailNotificationUtil.getIDPState(this.status),
+                );
+
+                NotificationHelper.sendActionBasedEmails(
+                    IndividualDevelopmentPlanInitiation,
+                    repl,
+                    employee,
+                    EmailNotificationUtil.getIDPState(old.status),
+                    EmailNotificationUtil.getIDPState(this.status),
+                );
+
+                NotificationHelper.sendActionBasedEmails(
+                    IndividualDevelopmentPlanReopening,
+                    repl,
+                    employee,
+                    EmailNotificationUtil.getIDPState(old.status),
+                    EmailNotificationUtil.getIDPState(this.status),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    IndividualDevelopmentPlanUpdate,
+                    repl,
+                    employee,
+                    EmailNotificationUtil.getIDPState(old.status),
+                    EmailNotificationUtil.getIDPState(this.status),
+                );
+            ```
+        })
+    ]
+})

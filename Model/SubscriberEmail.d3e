@@ -1,0 +1,18 @@
+(Model SubscriberEmail{
+    properties [
+        (email{
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (name{
+            type ({
+                primitive String
+            })
+            required true
+        })
+    ]
+    creatable false
+    transient true
+})

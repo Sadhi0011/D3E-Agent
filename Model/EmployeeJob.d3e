@@ -1,0 +1,349 @@
+(Model EmployeeJob {
+    name 'EmployeeJob'
+    package 'rewa.hr.2'
+    allowDynamicReport true
+    properties [
+        (employee {
+            name 'Employee'
+            type ({
+                model #Employee
+            })
+        })
+        (jobTitle {
+            name 'jobTitle'
+            type ({
+                model #JobTitle
+            })
+        })
+        (jobSpecification {
+            name 'Job Specification'
+            type ({
+                primitive String
+            })
+        })
+        (employmentStatus {
+            name 'Employment Status'
+            type ({
+                model #EmploymentStatus
+            })
+        })
+        (jobCategory {
+            name 'Job Category'
+            type ({
+                model #JobCategory
+            })
+        })
+        (joinedDate {
+            name 'Joined Date'
+            type ({
+                primitive Date
+            })
+        })
+        (wishedCount {
+            type ({
+                primitive Integer
+            })
+        })
+        (probationEndDate {
+            name 'Probation End Date'
+            type ({
+                primitive Date
+            })
+        })
+        (dateOfPermanency {
+            name 'Date Of Permanency'
+            type ({
+                primitive Date
+            })
+        })
+        (subUnit {
+            name 'SubUnit'
+            type ({
+                model #SubUnit
+            })
+        })
+        (location {
+            name 'Location'
+            type ({
+                model #Location
+            })
+        })
+        (startDate {
+            name 'Start Date'
+            type ({
+                primitive Date
+            })
+        })
+        (endDate {
+            name 'End Date'
+            type ({
+                primitive Date
+            })
+        })
+        (workShift {
+            name 'Work Shift'
+            type ({
+                model #WorkShift
+            })
+        })
+        (payPolicy {
+            name 'Pay Policy'
+            type ({
+                model #PayPolicy
+            })
+            onDelete DeleteThis
+        })
+        (costCenter {
+            name 'costCenter'
+            type ({
+                model #CostCenter
+            })
+        })
+        (comments {
+            name 'Comments'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (includeEmploymentContractDetails {
+            name 'Include Employment Contract Details'
+            type ({
+                primitive Boolean
+            })
+        })
+        (contractStartDate {
+            name 'Contract Start Date'
+            type ({
+                primitive Date
+            })
+            existsIf `this.includeEmploymentContractDetails`
+        })
+        (contractEndDate {
+            name 'Contract End Date'
+            type ({
+                primitive Date
+            })
+            existsIf `this.includeEmploymentContractDetails`
+        })
+        (contractDetails {
+            name 'Contract Details'
+            type ({
+                primitive DFile
+            })
+            existsIf `this.includeEmploymentContractDetails`
+        })
+        (includeEmploymentH1BDetails {
+            name 'Include Employment H1B Details'
+            type ({
+                primitive Boolean
+            })
+        })
+        (h1bStartDate {
+            name 'h1bStartDate'
+            type ({
+                primitive Date
+            })
+            existsIf `this.includeEmploymentH1BDetails`
+        })
+        (h1bEndDate {
+            name 'h1bEndDate'
+            type ({
+                primitive Date
+            })
+            existsIf `this.includeEmploymentH1BDetails`
+        })
+        (h1bNoticeApprovalDate {
+            name 'h1bNoticeApprovalDate'
+            type ({
+                primitive Date
+            })
+            existsIf `this.includeEmploymentH1BDetails`
+        })
+        (h1bAttachments {
+            name 'h1bAttachments'
+            collection true
+            type ({
+                primitive DFile
+            })
+            existsIf `this.includeEmploymentH1BDetails`
+        })
+        (region {
+            name 'Region'
+            type ({
+                primitive String
+            })
+        })
+        (fte {
+            name 'Fte'
+            type ({
+                primitive Double
+            })
+        })
+        (temporaryDepartment {
+            name 'Temporary Department'
+            type ({
+                primitive String
+            })
+        })
+        (attachments {
+            name 'Attachments'
+            collection true
+            type ({
+                model #Attachment
+            })
+            inverse true
+            inverseProperty #job
+        })
+        (termination {
+            name 'Termination'
+            type ({
+                model #EmployeeTermination
+            })
+        })
+        (contractProjects {
+            name 'Contract Projects'
+            type ({
+                model #ContractProject
+            })
+            collection true
+            inverse true
+            inverseProperty #employeeJob
+        })
+    ]
+    actions [
+        (SaveAuditRecordOnCreate {
+            name 'SaveAuditRecordOnCreate'
+            block ```
+                if(workShift == null){
+                    List<WorkShift> workShifts = Database.getWorkShiftsInCompany();
+                    WorkShift defaultShift = workShifts.firstWhere((ws) => ws.default);
+                    this.workShift = defaultShift;
+                }
+                LeaveUtils.updateEmployeeWorkWeek(null, this.workShift, employee);
+                List<String> changes = [
+                    EmployeeUtil.getChangedStringForNewField('Joined Date', joinedDate),
+                    EmployeeUtil.getChangedStringForNewField('Probation End Date', probationEndDate),
+                    EmployeeUtil.getChangedStringForNewField('Date Of Permanency', dateOfPermanency),
+                    EmployeeUtil.getChangedStringForNewField('Job Title', jobTitle),
+                    EmployeeUtil.getChangedStringForNewField('Employment Status', employmentStatus == null ? 'None' : employmentStatus.name),
+                    EmployeeUtil.getChangedStringForNewField('Job Specification', jobSpecification),
+                    EmployeeUtil.getChangedStringForNewField('Job Category', jobCategory),                         
+                    EmployeeUtil.getChangedStringForNewField('Sub Unit', subUnit),
+                    EmployeeUtil.getChangedStringForNewField('Cost Center', costCenter),
+                    EmployeeUtil.getChangedStringForNewField('Location', location),
+                    EmployeeUtil.getChangedStringForNewField('Start Date', startDate),
+                    EmployeeUtil.getChangedStringForNewField('End Date', endDate),
+                    EmployeeUtil.getChangedStringForNewField('Pay Policy', payPolicy),
+                    EmployeeUtil.getChangedStringForNewField('Comments', comments),
+                    EmployeeUtil.getChangedStringForNewField('Include Employment Contract Details', includeEmploymentContractDetails),
+                    if (includeEmploymentContractDetails)
+                    ...[
+                        EmployeeUtil.getChangedStringForNewField('Contract Start Date', contractStartDate),
+                        EmployeeUtil.getChangedStringForNewField('Contract End Date', contractEndDate),
+                        EmployeeUtil.getChangedStringForNewField('Contract Details', contractDetails?.id ?? ''),
+                    ]
+                ].where((x) => x != null);
+                
+                if (changes.isNotEmpty) {
+                    EmployeeUtil.addAuditRecord(
+                        company: employee.company,
+                        action: 'ADD JOB RECORD -I',
+                        employee: employee,
+                        section: 'Job Details',
+                        actionDescription: changes.join('\n'),
+                    );
+                }
+            ```
+        })
+        (SaveAuditRecordOnUpdate {
+            runOn OnUpdate
+            name 'SaveAuditRecordOnUpdate'
+            block ```
+                if (old == null) {
+                    return;
+                }
+                List<String> changes = [
+                    EmployeeUtil.getChangedFromStringFromObjects('Job Title', old.jobTitle, jobTitle),
+                    EmployeeUtil.getChangedFromStringFromObjects('Job Specification', old.jobSpecification, jobSpecification),
+                    if (old.employmentStatus == null || employmentStatus == null || old.employmentStatus.name != employmentStatus.name)
+                        EmployeeUtil.getChangedFromString('Employment Status', old.employmentStatus == null ? '' : old.employmentStatus.name, employmentStatus == null ? '' : employmentStatus.name),
+                    EmployeeUtil.getChangedFromStringFromObjects('Job Category', old.jobCategory, jobCategory),
+                    EmployeeUtil.getChangedFromStringFromObjects('Joined Date', old.joinedDate, joinedDate),
+                    EmployeeUtil.getChangedFromStringFromObjects('Sub Unit', old.subUnit, subUnit),
+                    EmployeeUtil.getChangedFromStringFromObjects('Cost Center', old.costCenter, costCenter),
+                    EmployeeUtil.getChangedFromStringFromObjects('Location', old.location, location),
+                    EmployeeUtil.getChangedFromStringFromObjects('Start Date', old.startDate, startDate),
+                    EmployeeUtil.getChangedFromStringFromObjects('End Date', old.endDate, endDate),
+                    EmployeeUtil.getChangedFromStringFromObjects('Date Of Permanency', old.dateOfPermanency, dateOfPermanency),
+                    EmployeeUtil.getChangedFromStringFromObjects('Probation End Date', old.probationEndDate, probationEndDate),
+                    EmployeeUtil.getChangedFromStringFromObjects('Pay Policy', old.payPolicy, payPolicy),
+                    EmployeeUtil.getChangedFromStringFromObjects('Comments', old.comments, comments),
+                    EmployeeUtil.getChangedFromStringFromObjects('Include Employment Contract Details', old.includeEmploymentContractDetails, includeEmploymentContractDetails),
+                    if (includeEmploymentContractDetails)
+                    ...[
+                        EmployeeUtil.getChangedFromStringFromObjects('Contract Start Date', old.contractStartDate, contractStartDate),
+                        EmployeeUtil.getChangedFromStringFromObjects('Contract End Date', old.contractEndDate, contractEndDate),
+                        if (old.contractDetails != contractDetails)
+                            EmployeeUtil.getChangedFromStringFromObjects('Contract Details', old.contractDetails.id, contractDetails.id),
+                    ],
+                ].where((x) => x != null);
+                
+                if (changes.isNotEmpty) {
+                    EmployeeUtil.addAuditRecord(
+                        company: employee.company,
+                        action: 'UPDATE JOB RECORD -U',
+                        employee: employee,
+                        section: 'Job Details',
+                        actionDescription: changes.join('\n'),
+                    );
+                }
+                // update employee location and subunit from job subunit and location
+                Boolean updateEmployee = false;
+                if(location != null && old.location != location) {
+                    this.employee.location = this.location;
+                    updateEmployee = true;
+                }
+                if(subUnit != null && old.subUnit != subUnit) {
+                    this.employee.subUnit = this.subUnit;
+                    updateEmployee = true;
+                }
+                if(this.termination == null){
+                    this.employee.status = true;
+                    updateEmployee = true;
+                }
+                if(workShift != old.workShift){
+                    // update employee workweek
+                    LeaveUtils.updateEmployeeWorkWeek(employee.workweek, workShift, employee);
+                }
+                if(updateEmployee){
+                    Database.save(this.employee);
+                }
+            ```
+        })
+        (DeleteAuditRecordOnDelete {
+            runOn OnDelete
+            name 'DeleteAuditRecordOnDelete'
+            block ```
+                EmployeeUtil.addAuditRecord(
+                    company: employee.company,
+                    action: 'DELETE JOB RECORD',
+                    employee: employee,
+                    section: 'Job Details',
+                    actionDescription: [
+                        jobTitle,
+                        jobSpecification,
+                        employmentStatus,
+                        jobCategory,
+                        joinedDate,
+                        probationEndDate,
+                        dateOfPermanency,
+                        subUnit,
+                        location,
+                    ].join('\n'),
+                );
+            ```
+        })
+    ]
+    enableCustomFields true
+})

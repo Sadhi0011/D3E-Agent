@@ -1,0 +1,158 @@
+(Model Authentication {
+    name 'Authentication'
+    
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (defaultSettingsStatus {
+            name 'Default Settings Status'
+            type ({
+                primitive Boolean
+            })
+            required true
+            
+        })
+        (userResetPassword {
+            name 'User Reset Password'
+            type ({
+                primitive Boolean
+            })
+        })
+        (adminResetPassword {
+            name 'Admin Reset Password'
+            type ({
+                primitive Boolean
+            })
+        })
+        (enableSecondaryPassword {
+            name 'Enable Secondary Password'
+            type ({
+                primitive Boolean
+            })
+        })
+        (notifyEmployeeToSetPassword {
+            name 'Notify Employee To Set Password'
+            type ({
+                primitive Boolean
+            })
+        })
+        (enablePasswordExpiration {
+            name 'Enable Password Expiration'
+            type ({
+                primitive Boolean
+            })
+        })
+        (enforceRequiredPasswordStrength {
+            name 'Enforce Required Password Strength'
+            type ({
+                primitive Boolean
+            })
+        })
+        (showCaptchaWhenFailedAttemptsExceeds {
+            name 'Show Captcha When Failed Attempts Exceeds'
+            type ({
+                primitive Boolean
+            })
+        })
+        (blockAccessWhenFailedAttemptsExceeds {
+            name 'Block Access When Failed Attempts Exceeds'
+            type ({
+                primitive Boolean
+            })
+        })
+        (minimumRequiredPasswordStrength {
+            name 'Minimum Required Password Strength'
+            type ({
+                optionSet #PasswordStrength
+            })
+            existsIf `enforceRequiredPasswordStrength`
+        })
+        (months {
+            name 'Months'
+            type ({
+                primitive Integer
+            })
+            existsIf `enablePasswordExpiration`
+        })
+        (captchaAttempts {
+            name 'Captcha Attempts'
+            type ({
+                primitive Integer
+            })
+            existsIf `showCaptchaWhenFailedAttemptsExceeds`
+        })
+        (blockAccessAttempts {
+            name 'Block Access Attempts'
+            type ({
+                primitive Integer
+            })
+            existsIf `blockAccessWhenFailedAttemptsExceeds`
+        })
+        (blockAccessFor {
+            name 'Block Access For'
+            type ({
+                primitive DateTime
+            })
+        })
+        (lDAPServer {
+            name 'LDAP Server'
+            type ({
+                primitive String
+            })
+        })
+        (lDAPPort {
+            name 'LDAP Port'
+            type ({
+                primitive Integer
+                })
+        })
+        (lDAPImplementation {
+            name 'LDAP Implementation'
+            type ({
+                primitive String
+            })
+        })
+        (lDAPProtocol {
+            name 'LDAP Protocol'
+            type ({
+                primitive String
+            })
+        })
+        (lDAPUserSuffix {
+            name 'LDAP User Suffix'
+            type ({
+                primitive String
+            })
+        })
+        (lDAPFilterFields {
+            name 'LDAP Filter Fields'
+            type ({
+                primitive String
+            })
+        })
+        (enableLDAPAuthentication {
+            name 'Enable LDAP Authentication'
+            type ({
+                primitive Boolean
+            })
+        })
+        (useAnonymousBinding {
+            name 'Use Anonymous Binding'
+            type ({
+                primitive Boolean
+            })
+        })
+        (menuItemName {
+            name 'MenuItemName'
+            type ({
+                model #Authentication
+            })
+        })
+        (status {
+            name 'Status'
+            type ({
+               primitive String
+            })
+        })
+    ]
+})

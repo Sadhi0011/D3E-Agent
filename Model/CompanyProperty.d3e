@@ -1,0 +1,15 @@
+(Model CompanyProperty {
+    name 'Company Property'
+    
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (propertyName {
+            name 'Property Name'
+            type ({
+                primitive String
+            })
+            required true
+        })
+    ]
+})

@@ -1,0 +1,23 @@
+Model {
+    name  'EmployeeImportFile'
+    properties [
+        {
+            name  'File'
+            type DFile
+        }
+        {
+            name 'Company'
+            type Company
+        }
+    ]
+    transient true
+    actions [
+        {
+            name 'createOldEmployee'
+            block ```
+                ImportCSVFileUtils.createEmployeeData(this.file, company);
+            
+            ```
+        }
+    ]
+}

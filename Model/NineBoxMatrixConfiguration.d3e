@@ -1,0 +1,46 @@
+(Model NineBoxMatrixConfiguration {
+    name 'Nine Box Matrix Configuration'
+    
+    master #Company
+    package 'rewa.hr.2'
+    properties [
+        (enable9BoxMatrix {
+            name 'Enable 9 Box Matrix'
+            type ({
+                primitive Boolean
+            })
+        })
+        (employeePotentialAssessmentQuestion {
+            name 'Employee Potential Assessment Question'
+            type ({
+                primitive String
+            })
+            required true
+            existsIf `enable9BoxMatrix`
+        })
+        (low {
+            name 'Low'
+            type ({
+                primitive String
+            })
+            required true
+            existsIf `enable9BoxMatrix`
+        })
+        (medium {
+            name 'Medium'
+            type ({
+                primitive String
+            })
+            required true
+            existsIf `enable9BoxMatrix`
+        })
+        (high {
+            name 'High'
+            type ({
+                primitive String
+            })
+            required true
+            existsIf `enable9BoxMatrix`
+        })
+    ]
+})

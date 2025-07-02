@@ -1,0 +1,85 @@
+(Model LeaveNotification {
+    name 'Leave Notification'
+    
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (notificationName {
+            name 'Notification Name'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (sendOn {
+            name 'Send on'
+            type ({
+                optionSet #SendOnNotification
+            })
+            required true
+        })
+        (numberOfDaysForLeave {
+            name 'Number Of Days For Leave'
+            type ({
+                primitive Integer
+            })
+            required true
+        })
+        (mailSubject {
+            name 'Mail Subject'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (includeLeaveType {
+            name 'Include Leave Type'
+            type ({
+                primitive Boolean
+            })
+            defaultValue `true`
+        })
+        (sendToEmployeesWithJobTitle {
+            name 'Send To Employees With Job Title'
+            type ({
+                model #JobTitle
+            })
+            referenceFrom `this.company.jobTitles.where(j => j.active).toList()`
+        })
+        (sendToEmployeesWithSubUnit {
+            name 'Send To Employees With Sub Unit'
+            type ({
+                model #SubUnit
+            })
+            referenceFrom `this.company.subUnits`
+        })
+        (sendToEmployeesWithLocation {
+            name 'Send To Employees With Location'
+            type ({
+                model #Location
+            })
+            referenceFrom `this.company.locations`
+        })
+        (includeLeaveOfEmployeesWithJobTitle {
+            name 'Include Leave Of Employees With Job Title'
+            type ({
+                model #JobTitle
+            })
+            referenceFrom `this.company.jobTitles.where(j => j.active).toList()`
+        })
+        (includeLeaveOfEmployeesWithSubUnit {
+            name 'Include Leave Of Employees With Sub Unit'
+            type ({
+                model #SubUnit
+            })
+            referenceFrom `this.company.subUnits`
+        })
+        (includeLeaveOfEmployeesWithLocation {
+            name 'Include Leave Of Employees With Location'
+            type ({
+                model #Location
+            })
+            referenceFrom `this.company.locations`
+        })
+    ]
+})

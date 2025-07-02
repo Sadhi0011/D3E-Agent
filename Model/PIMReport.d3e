@@ -1,0 +1,63 @@
+(Model PIMReport {
+    name 'PIM Report'
+    master #Company
+    allowDynamicReport true
+    package 'rewahr.com'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+        })
+        (detailedReport {
+            type ({
+                model #DynamicReport
+            })
+        })
+        (summaryReport {
+            type ({
+                model #DynamicReport
+            })
+        })
+        (chartType {
+            name 'Chart Type'
+            type ({
+                optionSet #ReportChartType
+            })
+        })
+        (showSummaryTable {
+            name 'Show Summary Table'
+            type ({
+                primitive Boolean
+            })
+        })
+        (hideDetailedData {
+            name 'Hide Detailed Data'
+            type ({
+                primitive Boolean
+            })
+        })
+        (addToDashboard {
+            name 'Add To Dashboard'
+            type ({
+                primitive Boolean
+            })
+        })
+        (include{
+            type ({
+               optionSet #IncludeEmployees
+            })
+        })
+        (standard{
+            type ({
+                primitive Boolean
+            })
+        })
+        (folder {
+            type ({
+                model  #CustomReportSection
+            })
+        })
+    ]
+})

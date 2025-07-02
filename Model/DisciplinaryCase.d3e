@@ -1,0 +1,49 @@
+(Model DisciplinaryCase {
+    name 'Disciplinary Case'
+    
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (employee {
+            name 'Employee'
+            type ({
+                model #Employee
+            })
+            required true
+        })
+        (caseName {
+            name 'Case Name'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+        })
+        (createdBy {
+            name 'Created By'
+            type ({
+                model #Employee
+            })
+        })
+        (status {
+            name 'Status'
+            type ({
+                optionSet #DisciplinaryCaseStatus
+            })
+        })
+        (actions {
+            type ({
+                model #DisciplinaryAction
+            })
+            collection true
+            inverse true
+            inverseProperty #case
+        })
+    ]
+    needCreatedDate true
+})

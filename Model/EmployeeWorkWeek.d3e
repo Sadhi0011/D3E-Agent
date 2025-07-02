@@ -1,0 +1,461 @@
+(Model EmployeeWorkWeek {
+    name 'EmployeeWorkWeek'
+    master #Employee
+    package 'rewa.hr.2'
+    properties [
+        (enable {
+            name 'Enable'
+            type ({
+                primitive Boolean
+            })
+        })
+        (mondayDuration {
+            name 'Monday Duration'
+            type ({
+                primitive Duration
+            })
+            computed true
+            computation `mondayType == WorkingDay ? HRMCSUtils.calculateWorkDuration(mondayShiftIn, mondayShiftOut, mondayLunchIn, mondayLunchOut) : null`
+        })
+        (mondayShiftIn {
+            name 'Monday Shift In'
+            type ({
+                primitive Time
+            })
+        })
+        (mondayShiftOut {
+            name 'Monday Shift Out'
+            type ({
+                primitive Time
+            })
+        })
+        (mondayLunchIn {
+            name 'Monday Lunch In'
+            type ({
+                primitive Time
+            })
+        })
+        (mondayLunchOut {
+            name 'Monday Lunch Out'
+            type ({
+                primitive Time
+            })
+        })
+        (mondayType {
+            name 'Monday Type'
+            type ({
+                optionSet #EmployeeDayCycleType
+            })
+        })
+        (tuesdayDuration {
+            name 'Tuesday Duration'
+            type ({
+                primitive Duration
+            })
+            computed true
+            computation `tuesdayType == WorkingDay ? HRMCSUtils.calculateWorkDuration(tuesdayShiftIn, tuesdayShiftOut, tuesdayLunchIn, tuesdayLunchOut) : null`
+        })
+        (tuesdayShiftIn {
+            name 'Tuesday Shift In'
+            type ({
+                primitive Time
+            })
+        })
+        (tuesdayShiftOut {
+            name 'Tuesday Shift Out'
+            type ({
+                primitive Time
+            })
+        })
+        (tuesdayLunchIn {
+            name 'Tuesday Lunch In'
+            type ({
+                primitive Time
+            })
+        })
+        (tuesdayLunchOut {
+            name 'Tuesday Lunch Out'
+            type ({
+                primitive Time
+            })
+        })
+        (tuesdayType {
+            name 'Tuesday Type'
+            type ({
+                optionSet #EmployeeDayCycleType
+            })
+        })
+        (wednesdayDuration {
+            name 'Wednesday Duration'
+            type ({
+                primitive Duration
+            })
+            computed true
+            computation `wednesdayType == WorkingDay ? HRMCSUtils.calculateWorkDuration(wednesdayShiftIn, wednesdayShiftOut, wednesdayLunchIn, wednesdayLunchOut) : null`
+        })
+        (wednesdayShiftIn {
+            name 'Wednesday Shift In'
+            type ({
+                primitive Time
+            })
+        })
+        (wednesdayShiftOut {
+            name 'Wednesday Shift Out'
+            type ({
+                primitive Time
+            })
+        })
+        (wednesdayLunchIn {
+            name 'Wednesday Lunch In'
+            type ({
+                primitive Time
+            })
+        })
+        (wednesdayLunchOut {
+            name 'Wednesday Lunch Out'
+            type ({
+                primitive Time
+            })
+        })
+        (wednesdayType {
+            name 'Wednesday Type'
+            type ({
+                optionSet #EmployeeDayCycleType
+            })
+        })
+        (thursdayDuration {
+            name 'Thursday Duration'
+            type ({
+                primitive Duration
+            })
+            computed true
+            computation `thursdayType == WorkingDay ? HRMCSUtils.calculateWorkDuration(thursdayShiftIn, thursdayShiftOut, thursdayLunchIn, thursdayLunchOut) : null`
+        })
+        (thursdayShiftIn {
+            name 'Thursday Shift In'
+            type ({
+                primitive Time
+            })
+        })
+        (thursdayShiftOut {
+            name 'Thursday Shift Out'
+            type ({
+                primitive Time
+            })
+        })
+        (thursdayLunchIn {
+            name 'Thursday Lunch In'
+            type ({
+                primitive Time
+            })
+        })
+        (thursdayLunchOut {
+            name 'Thursday Lunch Out'
+            type ({
+                primitive Time
+            })
+        })
+        (thursdayType {
+            name 'Thursday Type'
+            type ({
+                optionSet #EmployeeDayCycleType
+            })
+        })
+        (fridayDuration {
+            name 'Friday Duration'
+            type ({
+                primitive Duration
+            })
+            computed true
+            computation `fridayType == WorkingDay ? HRMCSUtils.calculateWorkDuration(fridayShiftIn, fridayShiftOut, fridayLunchIn, fridayLunchOut) : null`
+        })
+        (fridayShiftIn {
+            name 'Friday Shift In'
+            type ({
+                primitive Time
+            })
+        })
+        (fridayShiftOut {
+            name 'Friday Shift Out'
+            type ({
+                primitive Time
+            })
+        })
+        (fridayLunchIn {
+            name 'Friday Lunch In'
+            type ({
+                primitive Time
+            })
+        })
+        (fridayLunchOut {
+            name 'Friday Lunch Out'
+            type ({
+                primitive Time
+            })
+        })
+        (fridayType {
+            name 'Friday Type'
+            type ({
+                optionSet #EmployeeDayCycleType
+            })
+        })
+        (saturdayDuration {
+            name 'Saturday Duration'
+            type ({
+                primitive Duration
+            })
+            computed true
+            computation `saturdayType == WorkingDay ? HRMCSUtils.calculateWorkDuration(saturdayShiftIn, saturdayShiftOut, saturdayLunchIn, saturdayLunchOut) : null`
+        })
+        (saturdayShiftIn {
+            name 'Saturday Shift In'
+            type ({
+                primitive Time
+            })
+        })
+        (saturdayShiftOut {
+            name 'Saturday Shift Out'
+            type ({
+                primitive Time
+            })
+        })
+        (saturdayLunchIn {
+            name 'Saturday Lunch In'
+            type ({
+                primitive Time
+            })
+        })
+        (saturdayLunchOut {
+            name 'Saturday Lunch Out'
+            type ({
+                primitive Time
+            })
+        })
+        (saturdayType {
+            name 'Saturday Type'
+            type ({
+                optionSet #EmployeeDayCycleType
+            })
+        })
+        (sundayDuration {
+            name 'Sunday Duration'
+            type ({
+                primitive Duration
+            })
+            computed true
+            computation `sundayType == WorkingDay ? HRMCSUtils.calculateWorkDuration(sundayShiftIn, sundayShiftOut, sundayLunchIn, sundayLunchOut) : null`
+        })
+        (sundayShiftIn {
+            name 'Sunday Shift In'
+            type ({
+                primitive Time
+            })
+        })
+        (sundayShiftOut {
+            name 'Sunday Shift Out'
+            type ({
+                primitive Time
+            })
+        })
+        (sundayLunchIn {
+            name 'Sunday Lunch In'
+            type ({
+                primitive Time
+            })
+        })
+        (sundayLunchOut {
+            name 'Sunday Lunch Out'
+            type ({
+                primitive Time
+            })
+        })
+        (sundayType {
+            name 'Sunday Type'
+            type ({
+                optionSet #EmployeeDayCycleType
+            })
+        })
+    ]
+    actions [
+        (saveAuditRecordOnCreate {
+            runOn OnCreate
+            block ```
+                List<String> changes = [
+                    EmployeeUtil.getChangedStringForNewField('Enable', enable),
+                    EmployeeUtil.getChangedStringForNewField('Monday Duration', mondayDuration),
+                    EmployeeUtil.getChangedStringForNewField('Monday Shift In', mondayShiftIn),
+                    EmployeeUtil.getChangedStringForNewField('Monday Shift Out', mondayShiftOut),
+                    EmployeeUtil.getChangedStringForNewField('Monday Lunch In', mondayLunchIn),
+                    EmployeeUtil.getChangedStringForNewField('Monday Lunch Out', mondayLunchOut),
+                    EmployeeUtil.getChangedStringForNewField('Monday Type', mondayType),
+                    EmployeeUtil.getChangedStringForNewField('Tuesday Duration', tuesdayDuration),
+                    EmployeeUtil.getChangedStringForNewField('Tuesday Shift In', tuesdayShiftIn),
+                    EmployeeUtil.getChangedStringForNewField('Tuesday Shift Out', tuesdayShiftOut),
+                    EmployeeUtil.getChangedStringForNewField('Tuesday Lunch In', tuesdayLunchIn),
+                    EmployeeUtil.getChangedStringForNewField('Tuesday Lunch Out', tuesdayLunchOut),
+                    EmployeeUtil.getChangedStringForNewField('Tuesday Type', tuesdayType),
+                    EmployeeUtil.getChangedStringForNewField('Wednesday Duration', wednesdayDuration),
+                    EmployeeUtil.getChangedStringForNewField('Wednesday Shift In', wednesdayShiftIn),
+                    EmployeeUtil.getChangedStringForNewField('Wednesday Shift Out', wednesdayShiftOut),
+                    EmployeeUtil.getChangedStringForNewField('Wednesday Lunch In', wednesdayLunchIn),
+                    EmployeeUtil.getChangedStringForNewField('Wednesday Lunch Out', wednesdayLunchOut),
+                    EmployeeUtil.getChangedStringForNewField('Wednesday Type', wednesdayType),
+                    EmployeeUtil.getChangedStringForNewField('Thursday Duration', thursdayDuration),
+                    EmployeeUtil.getChangedStringForNewField('Thursday Shift In', thursdayShiftIn),
+                    EmployeeUtil.getChangedStringForNewField('Thursday Shift Out', thursdayShiftOut),
+                    EmployeeUtil.getChangedStringForNewField('Thursday Lunch In', thursdayLunchIn),
+                    EmployeeUtil.getChangedStringForNewField('Thursday Lunch Out', thursdayLunchOut),
+                    EmployeeUtil.getChangedStringForNewField('Thursday Type', thursdayType),
+                    EmployeeUtil.getChangedStringForNewField('Friday Duration', fridayDuration),
+                    EmployeeUtil.getChangedStringForNewField('Friday Shift In', fridayShiftIn),
+                    EmployeeUtil.getChangedStringForNewField('Friday Shift Out', fridayShiftOut),
+                    EmployeeUtil.getChangedStringForNewField('Friday Lunch In', fridayLunchIn),
+                    EmployeeUtil.getChangedStringForNewField('Friday Lunch Out', fridayLunchOut),
+                    EmployeeUtil.getChangedStringForNewField('Friday Type', fridayType),
+                    EmployeeUtil.getChangedStringForNewField('Saturday Duration', saturdayDuration),
+                    EmployeeUtil.getChangedStringForNewField('Saturday Shift In', saturdayShiftIn),
+                    EmployeeUtil.getChangedStringForNewField('Saturday Shift Out', saturdayShiftOut),
+                    EmployeeUtil.getChangedStringForNewField('Saturday Lunch In', saturdayLunchIn),
+                    EmployeeUtil.getChangedStringForNewField('Saturday Lunch Out', saturdayLunchOut),
+                    EmployeeUtil.getChangedStringForNewField('Saturday Type', saturdayType),
+                    EmployeeUtil.getChangedStringForNewField('Sunday Duration', sundayDuration),
+                    EmployeeUtil.getChangedStringForNewField('Sunday Shift In', sundayShiftIn),
+                    EmployeeUtil.getChangedStringForNewField('Sunday Shift Out', sundayShiftOut),
+                    EmployeeUtil.getChangedStringForNewField('Sunday Lunch In', sundayLunchIn),
+                    EmployeeUtil.getChangedStringForNewField('Sunday Lunch Out', sundayLunchOut),
+                    EmployeeUtil.getChangedStringForNewField('Sunday Type', sundayType),
+                ].where((x)=> x != null);
+
+                if(changes.isNotEmpty) {
+                    EmployeeUtil.addAuditRecord(
+                        company: employee.company,
+                        action: 'ADD WORK WEEK DETAILS -I',
+                        employee: employee,
+                        section: 'Leave',
+                        actionDescription: changes.join('\n'),
+                    );
+                }
+            ```
+        })
+        (saveAuditRecordOnUpdate {
+            runOn OnUpdate
+            block ```
+                if (old == null) {
+                    return;
+                }
+
+                List<String> changes = [
+                    EmployeeUtil.getChangedFromStringFromObjects('Enable', old.enable, enable),
+                    EmployeeUtil.getChangedFromStringFromObjects('Monday Duration', old.mondayDuration, mondayDuration),
+                    EmployeeUtil.getChangedFromStringFromObjects('Monday Shift In', old.mondayShiftIn, mondayShiftIn),
+                    EmployeeUtil.getChangedFromStringFromObjects('Monday Shift Out', old.mondayShiftOut, mondayShiftOut),
+                    EmployeeUtil.getChangedFromStringFromObjects('Monday Lunch In', old.mondayLunchIn, mondayLunchIn),
+                    EmployeeUtil.getChangedFromStringFromObjects('Monday Lunch Out', old.mondayLunchOut, mondayLunchOut),
+                    EmployeeUtil.getChangedFromStringFromObjects('Monday Type', old.mondayType, mondayType),
+                    EmployeeUtil.getChangedFromStringFromObjects('Tuesday Duration', old.tuesdayDuration, tuesdayDuration),
+                    EmployeeUtil.getChangedFromStringFromObjects('Tuesday Shift In', old.tuesdayShiftIn, tuesdayShiftIn),
+                    EmployeeUtil.getChangedFromStringFromObjects('Tuesday Shift Out', old.tuesdayShiftOut, tuesdayShiftOut),
+                    EmployeeUtil.getChangedFromStringFromObjects('Tuesday Lunch In', old.tuesdayLunchIn, tuesdayLunchIn),
+                    EmployeeUtil.getChangedFromStringFromObjects('Tuesday Lunch Out', old.tuesdayLunchOut, tuesdayLunchOut),
+                    EmployeeUtil.getChangedFromStringFromObjects('Tuesday Type', old.tuesdayType, tuesdayType),
+                    EmployeeUtil.getChangedFromStringFromObjects('Wednesday Duration', old.wednesdayDuration, wednesdayDuration),
+                    EmployeeUtil.getChangedFromStringFromObjects('Wednesday Shift In', old.wednesdayShiftIn, wednesdayShiftIn),
+                    EmployeeUtil.getChangedFromStringFromObjects('Wednesday Shift Out', old.wednesdayShiftOut, wednesdayShiftOut),
+                    EmployeeUtil.getChangedFromStringFromObjects('Wednesday Lunch In', old.wednesdayLunchIn, wednesdayLunchIn),
+                    EmployeeUtil.getChangedFromStringFromObjects('Wednesday Lunch Out', old.wednesdayLunchOut, wednesdayLunchOut),
+                    EmployeeUtil.getChangedFromStringFromObjects('Wednesday Type', old.wednesdayType, wednesdayType),
+                    EmployeeUtil.getChangedFromStringFromObjects('Thursday Duration', old.thursdayDuration, thursdayDuration),
+                    EmployeeUtil.getChangedFromStringFromObjects('Thursday Shift In', old.thursdayShiftIn, thursdayShiftIn),
+                    EmployeeUtil.getChangedFromStringFromObjects('Thursday Shift Out', old.thursdayShiftOut, thursdayShiftOut),
+                    EmployeeUtil.getChangedFromStringFromObjects('Thursday Lunch In', old.thursdayLunchIn, thursdayLunchIn),
+                    EmployeeUtil.getChangedFromStringFromObjects('Thursday Lunch Out', old.thursdayLunchOut, thursdayLunchOut),
+                    EmployeeUtil.getChangedFromStringFromObjects('Thursday Type', old.thursdayType, thursdayType),
+                    EmployeeUtil.getChangedFromStringFromObjects('Friday Duration', old.fridayDuration, fridayDuration),
+                    EmployeeUtil.getChangedFromStringFromObjects('Friday Shift In', old.fridayShiftIn, fridayShiftIn),
+                    EmployeeUtil.getChangedFromStringFromObjects('Friday Shift Out', old.fridayShiftOut, fridayShiftOut),
+                    EmployeeUtil.getChangedFromStringFromObjects('Friday Lunch In', old.fridayLunchIn, fridayLunchIn),
+                    EmployeeUtil.getChangedFromStringFromObjects('Friday Lunch Out', old.fridayLunchOut, fridayLunchOut),
+                    EmployeeUtil.getChangedFromStringFromObjects('Friday Type', old.fridayType, fridayType),
+                    EmployeeUtil.getChangedFromStringFromObjects('Saturday Duration', old.saturdayDuration, saturdayDuration),
+                    EmployeeUtil.getChangedFromStringFromObjects('Saturday Shift In', old.saturdayShiftIn, saturdayShiftIn),
+                    EmployeeUtil.getChangedFromStringFromObjects('Saturday Shift Out', old.saturdayShiftOut, saturdayShiftOut),
+                    EmployeeUtil.getChangedFromStringFromObjects('Saturday Lunch In', old.saturdayLunchIn, saturdayLunchIn),
+                    EmployeeUtil.getChangedFromStringFromObjects('Saturday Lunch Out', old.saturdayLunchOut, saturdayLunchOut),
+                    EmployeeUtil.getChangedFromStringFromObjects('Saturday Type', old.saturdayType, saturdayType),
+                    EmployeeUtil.getChangedFromStringFromObjects('Sunday Duration', old.sundayDuration, sundayDuration),
+                    EmployeeUtil.getChangedFromStringFromObjects('Sunday Shift In', old.sundayShiftIn, sundayShiftIn),
+                    EmployeeUtil.getChangedFromStringFromObjects('Sunday Shift Out', old.sundayShiftOut, sundayShiftOut),
+                    EmployeeUtil.getChangedFromStringFromObjects('Sunday Lunch In', old.sundayLunchIn, sundayLunchIn),
+                    EmployeeUtil.getChangedFromStringFromObjects('Sunday Lunch Out', old.sundayLunchOut, sundayLunchOut),
+                    EmployeeUtil.getChangedFromStringFromObjects('Sunday Type', old.sundayType, sundayType),
+                ].where((x) => x != null);
+
+                if(changes.isNotEmpty) {
+                    EmployeeUtil.addAuditRecord(
+                        company: employee.company,
+                        action: 'UPDATE WORK WEEK DETAILS -U',
+                        employee: employee,
+                        section: 'Leave',
+                        actionDescription: changes.join('\n'),
+                    );
+                }
+            ```
+        })
+        (deleteAuditRecordOnDelete {
+            runOn OnDelete
+            block ```
+               EmployeeUtil.addAuditRecord(
+                    company: employee.company,
+                    action: 'DELETE WORK WEEK DETAILS',
+                    employee: employee,
+                    section: 'Leave',
+                    actionDescription: [
+                        enable,
+                        mondayDuration,
+                        mondayShiftIn,
+                        mondayShiftOut,
+                        mondayLunchIn,
+                        mondayLunchOut,
+                        mondayType,
+                        tuesdayDuration,
+                        tuesdayShiftIn,
+                        tuesdayShiftOut,
+                        tuesdayLunchIn,
+                        tuesdayLunchOut,
+                        tuesdayType,
+                        wednesdayDuration,
+                        wednesdayShiftIn,
+                        wednesdayShiftOut,
+                        wednesdayLunchIn,
+                        wednesdayLunchOut,
+                        wednesdayType,
+                        thursdayDuration,
+                        thursdayShiftIn,
+                        thursdayShiftOut,
+                        thursdayLunchIn,
+                        thursdayLunchOut,
+                        thursdayType,
+                        fridayDuration,
+                        fridayShiftIn,
+                        fridayShiftOut,
+                        fridayLunchIn,
+                        fridayLunchOut,
+                        fridayType,
+                        saturdayDuration,
+                        saturdayShiftIn,
+                        saturdayShiftOut,
+                        saturdayLunchIn,
+                        saturdayLunchOut,
+                        saturdayType,
+                        sundayDuration,
+                        sundayShiftIn,
+                        sundayShiftOut,
+                        sundayLunchIn,
+                        sundayLunchOut,
+                        sundayType,
+                    ].join('\n'),
+                );
+            ```
+        })
+    ]
+})

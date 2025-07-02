@@ -1,0 +1,17 @@
+(Model Education {
+    name 'Education'
+    
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+            unique true
+        })
+    ]
+    display `this.name`
+})

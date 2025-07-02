@@ -1,0 +1,52 @@
+(Model EmailNotification {
+    name 'Email Notification'
+    
+    package 'rewa.hr.2'
+    master #Company
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                optionSet #NotificationActionType
+            })
+        })
+        (enabled {
+            name 'Enabled'
+            type ({
+                primitive Boolean
+            })
+        })
+        (scenarioConfig {
+            name 'Scenario Config'
+            collection true
+            type ({
+                model #EmailWorkflowActionScenarioConfig
+            })
+            child true
+        })
+        (subscribers {
+            name 'Subscribers'
+            collection true
+            type ({
+                model #EmailNotificationSubscriber
+            })
+            inverse true
+            inverseProperty #emailNotification
+        })
+        (templates {
+            name 'Templates'
+            collection true
+            type ({
+                model #EmailTemplate
+            })
+            inverse true
+            inverseProperty #emailNotification
+        })
+        (type {
+            name 'Type'
+            type ({
+                optionSet #NotificationType
+            })
+        })
+    ]
+})

@@ -1,0 +1,128 @@
+(Model Attachment {
+    name 'Attachment'
+    package 'rewahr.com'
+    properties [
+        (file {
+            name 'File'
+            type ({
+                primitive DFile
+            })
+            required true
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (addedBy{
+            type ({
+                model #Employee
+            })
+        })
+        (employee {
+            type ({
+                model #Employee
+            })
+        })
+        (dependentEmployee {
+            type ({
+                model #Employee
+            })
+        })
+        (emergencyEmployee {
+            type ({
+                model #Employee
+            })
+        })
+        (contactEmployee {
+            type ({
+                model #Employee
+            })
+        })
+        (immigrationEmployee {
+            type ({
+                model #Employee
+            })
+        })
+        (membershipEmployee {
+            type ({
+                model #Employee
+            })
+        })
+        (qualificationEmployee {
+            type ({
+                model #Employee
+            })
+        })
+        (reportToEmployee {
+            type ({
+                model #Employee
+            })
+        })
+        (document {
+            name 'Document'
+            type ({
+                model #Document
+            })
+        })
+        (contactDetails {
+            type ({
+                model #EmployeeContactDetails
+            })
+        })
+        (dependent {
+            type ({
+                model #EmployeeDependent
+            })
+        })
+        (job {
+            type ({
+                model #EmployeeJob
+            })
+        })
+        (salary {
+            type ({
+                model #EmployeeSalary
+            })
+        })
+        (taxExemption {
+            type ({
+                model #EmployeeTaxExemptions
+            })
+        })
+        (expenseClaim {
+            type ({
+                model #ExpenseClaim
+            })
+        })
+        (travelRequest {
+            type ({
+                model #TravelRequest
+            })
+        })
+        (leaveRequest {
+            type ({
+                model #LeaveRequest
+            })
+        })
+        (leaveShortcut {
+            type ({
+                model #LeaveShorcut
+            })
+        })
+        (request {
+            type ({
+                model #Request
+            })
+        })
+        (session {
+            name 'Session'
+            type ({
+                model #TrainingSession
+            })
+        })
+    ]
+    needCreatedDate true
+})

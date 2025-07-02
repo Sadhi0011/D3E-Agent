@@ -1,0 +1,31 @@
+(Model OnlineCourseReviewer {
+    name 'Online Course Reviewer'
+    
+    package 'rewa.hr.2'
+    properties [
+        (course {
+            name 'Course'
+            type ({
+                model #OnlineCourse
+            })
+        })
+        (employee {
+            name 'Employee'
+            type ({
+                model #Employee
+            })
+        })
+        (dueDate {
+            name 'Due Date'
+            type ({
+                primitive Date
+            })
+        })
+        (status {
+            name 'Status'
+            type ({
+                optionSet #OnlineCourseReviewerStatus
+            })
+        })
+    ]
+})

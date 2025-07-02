@@ -1,0 +1,65 @@
+(Model DisciplinaryAction {
+    name 'Disciplinary Action'
+    package 'rewahr.com'
+    master #Employee
+    properties [
+        (createdBy {
+            name 'Created By'
+            type ({
+                model #Employee
+            })
+        })
+        (owner {
+            type ({
+                model #Employee
+            })
+            required true
+        })
+        (action {
+            name 'Action'
+            type ({
+                optionSet #DisciplinaryActionType
+            })
+        })
+        (case {
+            name 'Case'
+            type ({
+                model #DisciplinaryCase
+            })
+        })
+        (dueDate {
+            name 'Due Date'
+            type ({
+                primitive Date
+            })
+        })
+        (status {
+            name 'Status'
+            type ({
+                optionSet #DisciplinaryCaseActionStatus
+            })
+            required true
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (documents {
+            name 'Documents'
+            collection true
+            type ({
+                model #DisciplinaryDocumentTemplate
+            })
+        })
+        (endDate {
+            name 'End Date'
+            type ({
+                primitive Date
+            })
+            existsIf `action == PutOnProbation || action == SendOnAdministrativeLeave || action == Suspend`
+        })
+    ]
+})

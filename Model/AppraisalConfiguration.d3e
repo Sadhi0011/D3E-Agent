@@ -1,0 +1,42 @@
+(Model AppraisalConfiguration {
+    name 'Appraisal Configuration'
+    package 'rewa.hr.2'
+    embedded true
+    creatable false
+    properties [
+        (mainEvaluator {
+            name 'Main Evaluator '
+            type ({
+                primitive Boolean
+            })
+            defaultValue`true`
+        })
+        (self {
+            name 'Self'
+            type ({
+                primitive Boolean
+            })
+            defaultValue`true`
+        })
+        (supervisors {
+            name 'Supervisors'
+            type ({
+                primitive Boolean
+            })
+            defaultValue`true`
+        })
+        (peers {
+            name 'Peers'
+            type ({
+                primitive Boolean
+            })
+            defaultValue`true`
+        })
+        (subordinates {
+            name 'Subordinates'
+            type ({
+                primitive Boolean
+            })
+        })
+    ]
+})

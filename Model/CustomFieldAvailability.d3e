@@ -1,0 +1,23 @@
+(Model CustomFieldAvailability {
+    name 'Custom Field Availability'
+    
+    package 'rewahr.com'
+    creatable false
+    properties [
+        (field {
+            name 'Field'
+            type ({
+                model #CustomField
+            })
+            required true
+            onDelete DeleteThis
+        })
+        (locations {
+            name 'Locations'
+            type ({
+                model #Location
+            })
+            collection true
+        })
+    ]
+})

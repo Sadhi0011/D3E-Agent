@@ -1,0 +1,21 @@
+(Model PayPolicyPeriod {
+    creatable true
+    properties [
+        (from {
+            type ({
+                primitive Date
+            })
+        })
+        (to {
+            type ({
+                primitive Date
+            })
+        })
+        (payPolicy {
+            type ({
+                model #PayPolicy
+            })
+            onDelete DeleteThis
+        })
+    ]
+})

@@ -1,0 +1,234 @@
+(Model OnlineCourse {
+    name 'Online Course'
+    
+    master #Company
+    package 'rewa.hr.2'
+    needCreatedDate true
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (validityLength {
+            name 'Validity Length'
+            type ({
+                primitive Integer
+          
+            })
+            required true
+        })
+        (validityType {
+            name 'Validity Type'
+            type ({
+                optionSet #CourseValidityLengthType
+            })
+            required true
+        })
+        (duration {
+            name 'Duration'
+            type ({
+                primitive Integer
+            })
+        })
+        (durationType {
+            name 'Duration Type'
+            type ({
+                optionSet #CourseDurationType
+            })
+        })
+        (jobTitles {
+            name 'Job Titles'
+            collection true
+            type ({
+                model #JobTitle
+            })
+        })
+        (subUnits {
+            name 'Sub Units'
+            collection true
+            type ({
+                model #SubUnit
+            })
+        })
+        (locations {
+            name 'Locations'
+            collection true
+            type ({
+                model #Location
+            })
+        })
+        (approvalRequired {
+            name 'Approval Required'
+            type ({
+                primitive Boolean
+            })
+        })
+        (assessmentRequired {
+            name 'Assessment Required'
+            type ({
+                primitive Boolean
+            })
+        })
+        (createdUser {
+            name 'Created User'
+            type ({
+                model #Employee
+            })
+        })
+        (createdTime {
+            name 'Created Time'
+            type ({
+                primitive DateTime
+            })
+        })
+        (expired {
+            name 'Expired'
+            type ({
+                primitive Boolean
+            })
+        })
+        (courseStatus {
+            name 'Course Status'
+            type ({
+                optionSet #OnlineCourseStatus
+            })
+        })
+        (expiryDate {
+            name 'ExpiryDate'
+            type ({
+                primitive Date
+            })
+        })
+        (assessment {
+            name 'Assessment'
+            type ({
+                model #OnlineCourseAssessment
+            })
+            inverse true
+            inverseProperty #course
+        })
+        (materialView {
+            name 'MaterialView'
+            type ({
+                model #MaterialView
+            })
+            child true
+        })
+        (participants {
+            name 'Participants'
+            collection true
+            type ({
+                model #OnlineCourseParticipant
+            })
+            inverse true
+            inverseProperty #onlineCourse
+        })
+        (onlineCourseReviewers{
+            name 'OnlineCourseReviewers'
+            type ({
+                model #OnlineCourseReviewer
+            })
+            collection true
+            inverse true
+            inverseProperty #course
+        })
+        (onlineCourseApprovers{
+            name 'OnlineCourseApprovers'
+            type ({
+                model #OnlineCourseApprover
+            })
+            collection true
+            inverse true
+            inverseProperty #course
+        })
+        (onlineCourseEmployees{
+            name 'onlineCourseEmployees'
+            type ({
+                model #OnlineCourseEmployee
+            })
+            collection true
+            inverse true
+            inverseProperty #course
+        })
+    ]
+    actions [
+        (SendEmailOnAssessmentCourseUpdate {
+            runOn OnUpdate
+            name 'SendEmailOnAssessmentCourseUpdate'
+            block ```
+                // Leave Approvals
+                // Leave Cancellations
+                // Leave Rejections
+                EndUser user = CurrentUser.get() as EndUser;
+                Double daysLeft;
+                Duration toAdd;
+                if (durationType == Hours) {
+                    toAdd = Duration(
+                        days: duration
+                    );
+                    daysLeft = duration.toDouble();
+                } else {
+                    toAdd = Duration(
+                        minutes: duration
+                    );
+                    // Convert from minutes
+                    daysLeft = duration / (24 * 60);
+                }
+                DateTime dueDate = createdTime.add(toAdd);
+                EmailContext repl = EmailContext(Map.fromIterables([
+                    'courseName',
+                    'recipient',
+                    'performerFullName',
+                    'dueDate',
+                    'NAME',
+                    'DAYSLEFT',
+                    'EXPIRY_DATE',
+                ], [
+                    name,
+                    createdUser.name,
+                    user.employee.name,
+                    dueDate.toString(),
+                    name,
+                    daysLeft.toString(),
+                    dueDate.toString()
+                ]));
+                
+                NotificationHelper.sendActionBasedEmails(
+                    OnlineAssessmentCourseApproveComplete,
+                    repl,
+                    createdUser,
+                    EmailNotificationUtil.getOnlineCourseState(old.courseStatus),
+                    EmailNotificationUtil.getOnlineCourseState(this.courseStatus),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    OnlineAssessmentCourseApproverReject,
+                    repl,
+                    createdUser,
+                    EmailNotificationUtil.getOnlineCourseState(old.courseStatus),
+                    EmailNotificationUtil.getOnlineCourseState(this.courseStatus),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    OnlineAssessmentCoursePublish,
+                    repl,
+                    createdUser,
+                    EmailNotificationUtil.getOnlineCourseState(old.courseStatus),
+                    EmailNotificationUtil.getOnlineCourseState(this.courseStatus),
+                );
+                
+                NotificationHelper.sendActionBasedEmails(
+                    OnlineAssessmentCourseReviewComplete,
+                    repl,
+                    createdUser,
+                    EmailNotificationUtil.getOnlineCourseState(old.courseStatus),
+                    EmailNotificationUtil.getOnlineCourseState(this.courseStatus),
+                );
+            ```
+        })
+    ]
+    needCreatedDate true
+})

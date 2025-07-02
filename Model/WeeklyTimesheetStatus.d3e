@@ -1,0 +1,16 @@
+(OptionSet WeeklyTimesheetStatus {
+    options [
+        (NotSubmitted {
+            name 'Not Submitted'
+        })
+        (Submitted {
+            name 'Submitted'
+        })
+        (Approved {
+            name 'Approved'
+        })
+        (Rejected {
+            name 'Rejected'
+        })
+    ]
+})

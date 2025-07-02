@@ -1,0 +1,123 @@
+(Model EmployeeTask {
+    name 'Employee Task'
+    master #Company
+    allowDynamicReport true
+    package 'rewa.hr.2'
+    properties [
+        (event {
+            name 'Event'
+            type ({
+                model #OnboardingEvent
+            })
+            required true
+        })
+        (participant {
+            name 'Participant'
+            type ({
+                model #Employee
+            })
+            required true
+        })
+        (taskOwner {
+            name 'Task Owner'
+            type ({
+                model #Employee
+            })
+            required true
+        })
+        (taskType {
+            name 'Task Type'
+            type ({
+                model #TaskType
+            })
+            required true
+        })
+        (taskTypeName {
+            type ({
+                primitive String
+            })
+            computed true
+            computation `taskType != null ? taskType.name : ''`
+        })
+        (dueDate {
+            name 'Due Date'
+            type ({
+                primitive Date
+            })
+        })
+        (effectiveDate {
+            name 'Effective Date'
+            type ({
+                primitive Date
+            })
+        })
+        (priority {
+            name 'Priority'
+            type ({
+                optionSet #TaskPriority
+            })
+            required true
+        })
+        (comments {
+            name 'Comments'
+            type ({
+                primitive String
+            })
+        })
+        (completedDate {
+            name 'Completed Date'
+            type ({
+                primitive Date
+            })
+        })
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (notifyEmail {
+            name 'Notify Email'
+            type ({
+                primitive String
+            })
+            validations [
+                ({
+                    errorMsg 'Invalid email'
+                    expression `it == null || it.isEmpty || FieldValidation.isEmail(it)`
+                })
+            ]
+        })
+        (notifiedBefore {
+            name 'Notified Before'
+            type ({
+                primitive String
+            })
+            validations [
+                ({
+                    errorMsg ' Should be a valid number  And Should not exceed 2 characters'
+                    expression `it.isEmpty || it == '' || RegExp(r'([1-9][0-9]?)$').hasMatch(it)`
+                })
+            ]
+        })
+        (weeks {
+            name 'Weeks'
+            type ({
+                primitive Boolean
+            })
+        })
+        (completed {
+            type ({
+                primitive Boolean
+            })
+        })
+    ]
+})

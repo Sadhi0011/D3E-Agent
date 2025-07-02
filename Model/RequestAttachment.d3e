@@ -1,0 +1,38 @@
+(Model RequestAttachment {
+    name 'Request Attachment'
+    
+    package 'rewahr.com'
+    properties [
+        (request {
+            name 'Request'
+            type ({
+                model #Request
+            })
+        })
+        (file {
+            name 'File'
+            type ({
+                primitive DFile
+            })
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (createdDate {
+            name 'Created Date'
+            type ({
+                primitive DateTime
+            })
+        })
+        (createdBy {
+            name 'Created By'
+            type ({
+                model #EndUser
+            })
+        })
+    ]
+})

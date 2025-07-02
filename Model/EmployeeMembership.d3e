@@ -1,0 +1,131 @@
+(Model EmployeeMembership {
+    name 'Employee Membership'
+    
+    master #Employee
+    enableCustomFields true
+    package 'rewa.hr.2'
+    properties [
+        (membership {
+            name 'Membership'
+            type ({
+                model #Membership
+            })
+            required true
+        })
+        (subscriptionPaidBy {
+            name 'Subscription Paid By'
+            type ({
+                optionSet #SubscriptionPaidType
+            })
+        })
+        (subscriptionAmount {
+            name 'Subscription Amount'
+            type ({
+                primitive Double
+            })
+        })
+        (currency {
+            name 'Currency'
+            type ({
+                model #Currency
+            })
+        })
+        (subscriptionCommenceDate {
+            name 'Subscription Commence Date'
+            type ({
+                primitive Date
+            })
+        })
+        (subscriptionRenewalDate {
+            name 'Subscription Renewal Date'
+            type ({
+                primitive Date
+            })
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+    ]
+    actions [
+        (saveAuditRecordOnCreate {
+            runOn OnCreate
+            block ```
+                List<String> changes = [
+                    EmployeeUtil.getChangedStringForNewField('Membership', membership.name),
+                    EmployeeUtil.getChangedStringForNewField('Subscription Paid By', subscriptionPaidBy.name),
+                    EmployeeUtil.getChangedStringForNewField('Subscription Amount', subscriptionAmount),
+                    if (currency != null)
+                        EmployeeUtil.getChangedStringForNewField('Currency', currency.name),
+                    EmployeeUtil.getChangedStringForNewField('Subscription Commence Date', subscriptionCommenceDate),
+                    EmployeeUtil.getChangedStringForNewField('Subscription Renewal Date', subscriptionRenewalDate),
+                    EmployeeUtil.getChangedStringForNewField('Description', description),
+                ].where((x) => x != null);
+
+                if (changes.isNotEmpty) {
+                    EmployeeUtil.addAuditRecord(
+                        company: employee.company,
+                        action: 'ADD MEMBERSHIP DETAILS -I',
+                        employee: employee,
+                        section: 'Qualification',
+                        actionDescription: changes.join('\n'),
+                    );
+                }
+            ```
+        })
+        (saveAuditRecordOnUpdate {
+            runOn OnUpdate
+            block ```
+                if (old == null) {
+                    return;
+                }
+
+                List<String> changes = [
+                    EmployeeUtil.getChangedFromString('Membership', old.membership == null ? '' : old.membership.name, membership == null ? '' : membership.name),
+                    EmployeeUtil.getChangedFromString('Subscription Paid By', old.subscriptionPaidBy.name, subscriptionPaidBy.name),
+                    EmployeeUtil.getChangedFromStringFromObjects('Subscription Amount', old.subscriptionAmount, subscriptionAmount),
+                    EmployeeUtil.getChangedFromString('Currency', old.currency == null ? '' : old.currency.name, currency == null ? '' : currency.name),
+                    EmployeeUtil.getChangedFromStringFromObjects('Subscription Commence Date', old.subscriptionCommenceDate, subscriptionCommenceDate),
+                    EmployeeUtil.getChangedFromStringFromObjects('Subscription Renewal Date', old.subscriptionRenewalDate, subscriptionRenewalDate),
+                    EmployeeUtil.getChangedFromString('Description', old.description, description),
+                ].where((x) => x != null);
+
+                if (changes.isNotEmpty) {
+                    EmployeeUtil.addAuditRecord(
+                        company: employee.company,
+                        action: 'UPDATE MEMBERSHIP DETAILS -U',
+                        employee: employee,
+                        section: 'Qualification',
+                        actionDescription: changes.join('\n'),
+                    );
+                }
+            ```
+        })
+        (saveAuditRecordOnDelete {
+            runOn OnDelete
+            block ```
+                EmployeeUtil.addAuditRecord(
+                    company: employee.company,
+                    action: 'DELETE MEMBERSHIP DETAILS',
+                    employee: employee,
+                    section: 'Qualification',
+                    actionDescription: [
+                        membership.name,
+                        subscriptionPaidBy.name,
+                        subscriptionAmount.toString(),
+                        if (currency != null)
+                            currency.name,
+                        if (subscriptionCommenceDate != null)
+                            subscriptionCommenceDate.toString(),
+                        if ( subscriptionRenewalDate != null)
+                            subscriptionRenewalDate.toString(),
+                            description
+                    ].join('\n'),
+                );
+            ```
+        })
+    ]
+})

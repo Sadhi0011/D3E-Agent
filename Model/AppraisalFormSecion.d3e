@@ -1,0 +1,78 @@
+(Model AppraisalFormSecion {
+    name 'Appraisal Form Secion'
+    
+    master #AppraisalTemplate
+    package 'rewa.hr.2'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (sectionWeight {
+            name 'Section Weight'
+            type ({
+                primitive Integer
+            })
+        })
+        (includeCompetencies {
+            name 'Include Competencies'
+            type ({
+                primitive Boolean
+            })
+        })
+        (includeGoals {
+            name 'Include Goals'
+            type ({
+                primitive Boolean
+            })
+        })
+        (includeQuestion {
+            name 'IncludeQuestion'
+            type ({
+                primitive Boolean
+            })
+        })
+        (needCustomCompetencies {
+            name 'Need Custom Competencies'
+            type ({
+                primitive Boolean
+            })
+        })
+        (needCustomGoals {
+            name 'Need Custom Goals'
+            type ({
+                primitive Boolean
+            })
+        })
+        (needCustomQuestions {
+            name 'Need Custom Questions'
+            type ({
+                primitive Boolean
+            })
+        })
+        (customCompetencies {
+            name 'Custom Competencies'
+            collection true
+            type ({
+                model #AppraisalCustomCompetency
+            })
+        })
+        (customGoals {
+            name 'Custom Goals'
+            collection true
+            type ({
+                model #AppraisalCustomGoal
+            })
+        })
+        (customQuestions {
+            name 'Custom Questions'
+            collection true
+            type ({
+                model #AppraisalCustomQuestion
+            })
+        })
+    ]
+})

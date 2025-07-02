@@ -1,0 +1,39 @@
+(Model InterviewQuestion {
+    name 'Interview Question'
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (competency {
+            name 'Competency'
+            type ({
+                model #Competency
+            })
+        })
+        (question {
+            name 'Question'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (difficulty {
+            name 'Difficulty'
+            type ({
+                primitive Integer
+            })
+        })
+        (questionToInterviewer {
+            name 'Question To Interviewer'
+            type ({
+                primitive Boolean
+            })
+        })
+        (answerGuide {
+            name 'Answer Guide'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+    ]
+})

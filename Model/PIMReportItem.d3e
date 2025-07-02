@@ -1,0 +1,30 @@
+Model {
+    name 'PIMReportItem'
+    creatable false
+    properties [
+        {
+            name 'Title'
+            type String
+        }
+        {
+            name 'Standard'
+            type Boolean
+        }
+        {
+            name 'Chart'
+            type Boolean
+        }
+        {
+            name 'Can Edit'
+            type Boolean
+        }
+        {
+            name 'Report'
+            type PIMReport
+        }
+        {
+            name 'Section'
+            type String
+        }
+    ]
+}

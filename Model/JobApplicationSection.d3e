@@ -1,0 +1,22 @@
+(Model JobApplicationSection {
+    name 'Job Application Section'
+    
+    package 'rewa.hr.2'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (questions {
+            name 'Questions'
+            collection true
+            type ({
+                model #JobApplicationQuestion
+            })
+        })
+    ]
+    creatable false
+})

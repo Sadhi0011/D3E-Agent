@@ -1,0 +1,20 @@
+(Model TrainingSessionAttachment {
+    name 'Training Session Attachment'
+    
+    master #Company
+    package 'rewa.hr.2'
+    properties [
+        (session {
+            name 'Session'
+            type ({
+                model #TrainingSession
+            })
+        })
+        (attachment {
+            name 'Attachment'
+            type ({
+                model #Attachment
+            })
+        })
+    ]
+})

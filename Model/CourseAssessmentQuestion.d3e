@@ -1,0 +1,50 @@
+(Model CourseAssessmentQuestion {
+    name 'Course Assessment Question'
+    package 'rewahr.com'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+        })
+        (displayText {
+            name 'Display Text'
+            type ({
+                primitive String
+            })
+        })
+        (answerFormat {
+            name 'Answer Format'
+            type ({
+                primitive Boolean
+            })
+            description 'Yes for Radio No, for Checkbox'
+        })
+        (options {
+            name 'Options'
+            type ({
+                primitive String
+            })
+        })
+        (correctAnswer {
+            name 'Correct Answer'
+            type ({
+                primitive String
+            })
+        })
+        (mandatory {
+            name 'Mandatory'
+            type ({
+                primitive Boolean
+            })
+        })
+        (order {
+            name 'Order'
+            type ({
+                primitive Integer
+            })
+        })
+    ]
+    creatable false
+})

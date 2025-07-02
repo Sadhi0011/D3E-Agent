@@ -1,0 +1,48 @@
+(Model TravelRequestEstimate {
+    name 'Travel Request Estimate'
+    package 'rewa.hr.2'
+    properties [
+        (expenseType {
+            name 'Expense Type'
+            type ({
+                model #ExpenseType
+            })
+        })
+        (remarks {
+            name 'Remarks'
+            type ({
+                primitive String
+            })
+            required true
+            existsIf`expenseType != null && expenseType.applicableClaimForm == ApplicableClaimCategory.Hotel`
+        })
+        (currency {
+            name 'Currency'
+            type ({
+                model #Currency
+            })
+            required true
+        })
+        (amount {
+            name 'Amount'
+            type ({
+                primitive Double
+            })
+            required true
+        })
+        (paidByStaff {
+            name 'Paid By Staff'
+            type ({
+                primitive Boolean
+            })
+            required true
+        })
+        (exchangeRate {
+            name 'Exchange Rate'
+            type ({
+                primitive Double
+            })
+        })
+    ]
+    creatable false
+})

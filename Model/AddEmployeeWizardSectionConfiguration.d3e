@@ -1,0 +1,22 @@
+(Model AddEmployeeWizardSectionConfiguration {
+    name 'Add Employee Wizard Section Configuration'
+    
+    package 'rewa.hr.2'
+    master #Company
+    properties [
+        (enableAddEmployeeWizard {
+            name 'Enable Add Employee Wizard'
+            type ({
+                primitive Boolean
+            })
+        })
+        (sections {
+            name 'Sections'
+            type ({
+                model #AddEmployeeWizardSection
+            })
+            child true
+            collection true
+        })
+    ]
+})

@@ -1,0 +1,40 @@
+(Model EmailWorkflowActionScenarioConfig {
+    name 'Email Workflow Action Scenario Config'
+    
+    package 'rewahr.com'
+    creatable false
+    properties [
+        (type {
+            name 'Type'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (workflow {
+            name 'Workflow'
+            type ({
+                primitive String
+            })
+        })
+        (initialState {
+            name 'Initial State'
+            type ({
+                optionSet #WorkflowActionState
+            })
+        })
+        (resultingState {
+            name 'Resulting State'
+            type ({
+                optionSet #WorkflowActionState
+            })
+        })
+        (defaultNotify {
+            name 'Default Notify'
+            type ({
+                primitive Boolean
+            })
+        })
+    ]
+    creatable false
+})

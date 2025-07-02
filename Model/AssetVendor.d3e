@@ -1,0 +1,56 @@
+(Model AssetVendor {
+    name 'Asset Vendor'
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (vendorID {
+            name 'Vendor ID'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (contactNumber {
+            name 'Contact Number'
+            type ({
+                primitive String
+            })
+        })
+        (email {
+            name 'Email'
+            type ({
+                primitive String
+            })
+        })
+        (website {
+            name 'Website'
+            type ({
+                primitive String
+            })
+        })
+        (address {
+            name 'Address'
+            type ({
+                primitive String
+            })
+        })
+    ]
+    display `this.name`
+    actions [
+        (vendorNextId {
+           name 'vendorNextId'
+           block ```
+                this.company.assetVenderNumber = company.assetVenderNumber+1;
+                Database.save(company);
+           ```
+         })
+        
+    ]
+})

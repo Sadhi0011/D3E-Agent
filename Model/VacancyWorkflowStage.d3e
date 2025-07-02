@@ -1,0 +1,67 @@
+(Model VacancyWorkflowStage {
+    name 'Vacancy Workflow Stage'
+    
+    master #Vacancy
+    package 'rewa.hr.2'
+    properties [
+        (position {
+            name 'Position'
+            type ({
+                optionSet #WorkflowStagePosition
+            })
+        })
+        (type {
+            name 'Type'
+            type ({
+                optionSet #WorkflowEventType
+            })
+        })
+        (taskName {
+            name 'Task Name'
+            type ({
+                primitive String
+            })
+        })
+        (coordinators {
+            name 'Coordinators'
+            collection true
+            type ({
+                model #Employee
+            })
+        })
+        (standardTest {
+            name 'Standard Test'
+            type ({
+                model #StandardTest
+            })
+        })
+        (interviewName {
+            name 'Interview Name'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (interviewType {
+            name 'Interview Type'
+            type ({
+                optionSet #InterviewType
+            })
+        })
+        (interviewTemplate {
+            name 'Interview Template'
+            type ({
+                model #InterviewTemplate
+            })
+            required true
+        })
+        (level {
+            name 'Level'
+            type ({
+                primitive Integer
+            })
+            description 'Used to define order of stages'
+        })
+    ]
+    creatable false
+})

@@ -1,0 +1,146 @@
+(Model BulkGoal {
+    master #Employee
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+             validations [
+                ({
+                    expression `name.length < 30`
+                    errorMsg 'Name should not exceeds 30 characters'
+                })
+            ]
+            required true
+        })
+        (individual {
+            name 'Individual'
+            type ({
+                primitive Boolean
+            })
+        })
+        (priority {
+            name 'Priority'
+            type ({
+                optionSet #GoalPriority
+            })
+        })
+        (parentGoal {
+            name 'Parent Goal'
+            type ({
+                model #Goal
+            })
+        })
+        (dueDate {
+            name 'Due Date'
+            type ({
+                primitive Date
+            })
+            required true
+        })
+        (mainEvaluator {
+            name 'Main Evaluator'
+            type ({
+                primitive Boolean
+            })
+        })
+        (self {
+            name 'Self'
+            type ({
+                primitive Boolean
+            })
+        })
+        (supervisor {
+            name 'Supervisor'
+            type ({
+                primitive Boolean
+            })
+        })
+        (peers {
+            name 'Peers'
+            type ({
+                primitive Boolean
+            })
+        })
+        (completion {
+            name 'Completion'
+            type ({
+                primitive Integer
+            })
+        })
+        (addToLibrary {
+            name 'Add To Library'
+            type ({
+                primitive Boolean
+            })
+        })
+        (readOnly {
+            name 'Read Only'
+            type ({
+                primitive Boolean
+            })
+        })
+        (okr {
+            name 'okr'
+            type ({
+                primitive Boolean
+            })
+        })
+        (company{
+            name 'Company'
+            type ({
+                model #Company
+            })
+            computed true
+            computation `employee.company`
+        })
+        (jobTitles {
+            name 'JobTitles'
+            type ({
+                model #JobTitle
+            })
+            collection true
+        })
+        (subUnit {
+            name 'SubUnit'
+            type ({
+                model #SubUnit
+            })
+        })
+        (location {
+            name 'Location'
+            type ({
+                model #Location
+            })
+        })
+    ]
+    transient true
+     actions [
+        (onCreate{
+            runOn OnCreate
+            block ```
+                List<Employee> employees = Database.getEmployeesByLocationAndSubunitAndJobTitle(company: company, subUnit:subUnit, location: location, jobTitles: jobTitles);
+                List<Goal> all = [];
+                for(Employee e in employees) {
+                    all.add(
+                        Goal (
+                           employee: e,
+                           assignedTo: e,
+                           name: name,
+                           individual: individual,
+                           priority: priority,
+                           dueDate: dueDate,
+                           completion: completion,
+                           addToLibrary: addToLibrary,
+                           readOnly: readOnly,
+                           company: company,
+                        )
+                    );
+                }
+                Database.saveAll(all);
+            ```
+        })
+    ]
+
+})

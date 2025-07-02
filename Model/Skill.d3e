@@ -1,0 +1,23 @@
+(Model Skill {
+    name 'Skill'
+    
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+            unique true
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+        })
+    ]
+    display `this.name`
+})

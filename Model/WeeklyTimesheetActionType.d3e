@@ -1,0 +1,19 @@
+(OptionSet WeeklyTimesheetActionType {
+    options [
+        (Initiate {
+            name 'Initiate'
+        })
+        (Submit {
+            name 'Submit'
+        })
+        (Approve {
+            name 'Approve'
+        })
+        (Reject {
+            name 'Reject'
+        })
+        (Reset {
+            name 'Reset'
+        })
+    ]
+})

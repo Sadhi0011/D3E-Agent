@@ -1,0 +1,57 @@
+(Model PayPolicyRule {
+    name 'Pay Policy Rule'
+    package 'rewahr.com'
+    properties [
+        (type {
+            type ({
+                optionSet #PayPolicyRuleType
+            })
+        })
+        (after {
+            type ({
+                primitive Boolean
+            })
+            defaultValue `false`
+            description 'Signifies whether this rule applies upto "hours", or after "hours"'
+        })
+        (hours {
+            name 'Hours'
+            type ({
+                primitive Integer
+            })
+            required true
+            description 'The number of hours for which this rule applies. May mean upto or after a given number of hours.'
+        })
+        (payCode {
+            name 'Pay Code'
+            type ({
+                primitive String
+            })
+            required true
+            description 'Code that identifies a rule'
+        })
+        (payCodeName {
+            name 'Pay Code Name'
+            type ({
+                primitive String
+            })
+            required true
+            description 'Rule name'
+        })
+        (pay {
+            name 'Pay'
+            type ({
+                primitive Double
+            })
+            required true
+            description 'Multiplier of the base pay for this rule'
+            validations [
+                ({
+                    errorMsg 'value should be less than 10.0'
+                    expression `it <= 10.0`
+                })
+            ]
+        })
+    ]
+    creatable false
+})

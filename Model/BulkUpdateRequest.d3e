@@ -1,0 +1,291 @@
+(Model BulkUpdateRequest {
+    name 'BulkUpdateRequest'
+    package 'rewa.hr.2'
+    properties [
+        (employees {
+            name 'Employees'
+            collection true
+            type ({
+                model #Employee
+            })
+        })
+        (supervisor {
+            name 'Supervisor'
+            type ({
+                model #EmployeeReportTo
+            })
+        })
+        (supervisorValue {
+            name 'supervisorValue'
+            collection true
+            type ({
+                model #EmployeeReportTo
+            })
+        })
+        (include {
+            name 'Include'
+            type ({
+                optionSet #IncludeEmployees
+            })
+        })
+        (jobCategory {
+            name 'Job Category'
+            type ({
+                model #JobCategory
+            })
+        })
+        (jobCategoryValue {
+            name 'Job CategoryValue'
+            type ({
+                model #JobCategory
+            })
+        })
+        (employementStatus {
+            name 'Employement Status'
+            type ({
+                model #EmploymentStatus
+            })
+        })
+        (employementStatusValue {
+            name 'Employement Status Value'
+            type ({
+                model #EmploymentStatus
+            })
+        })
+        (jobTitle {
+            name 'Job Title'
+            type ({
+                model #JobTitle
+            })
+        })
+        (jobTitleValue {
+            name 'Job Title Value'
+            type ({
+                model #JobTitle
+            })
+        })
+        (subUnit {
+            name 'Sub Unit'
+            type ({
+                model #SubUnit
+            })
+        })
+        (subUnitValue {
+            name 'Sub Unit Value'
+            type ({
+                model #SubUnit
+            })
+        })
+        (location {
+            name 'Location'
+            type ({
+                model #Location
+            })
+        })
+        (locationValue {
+            name 'Location Value'
+            type ({
+                model #Location
+            })
+        })
+        (workShift {
+            name 'Work Shift'
+            type ({
+                model #WorkShift
+            })
+        })
+        (workShiftValue {
+            name 'Work Shift Value'
+            type ({
+                model #WorkShift
+            })
+        })
+        (joinDatePeriod {
+            name 'Join Date Period'
+            type ({
+                optionSet #BulkUpdatePeriod
+            })
+        })
+        (joinedDateFrom {
+            name 'Joined Date From'
+            type ({
+                primitive Date
+            })
+        })
+        (joinedDateTo {
+            name 'Joined Date To'
+            type ({
+                primitive Date
+            })
+        })
+        (joinDateValue {
+            name 'JoinDateValue'
+            type ({
+                primitive Date
+            })
+        })
+        (probationEndDatePeriod {
+            name 'Probation End Date Period'
+            type ({
+                optionSet #BulkUpdatePeriod
+            })
+        })
+        (probationEndDateFrom {
+            name 'Probation End Date From'
+            type ({
+                primitive Date
+            })
+        })
+        (probationEndDateTo {
+            name 'Probation End Date To'
+            type ({
+                primitive Date
+            })
+        })
+        (probationDateValue {
+            name 'ProbationDateValue'
+            type ({
+                primitive Date
+            })
+        })
+        (dateOfPermanencyPeriod {
+            name 'Date of Permanency Period'
+            type ({
+                optionSet #BulkUpdatePeriod
+            })
+        })
+        (dateOfPermanencyFrom {
+            name 'Date of Permanency From'
+            type ({
+                primitive Date
+            })
+        })
+        (dateOfPermanencyTo {
+            name 'Date of Permanency To'
+            type ({
+                primitive Date
+            })
+        })
+        (dateOfPermanencyValue {
+            name 'Date of Permanency Value'
+            type ({
+                primitive Date
+            })
+        })
+        (region {
+            name 'Region'
+            type ({
+                primitive String
+            })
+        })
+        (regionValue {
+            name 'RegionValue'
+            type ({
+                primitive String
+            })
+        })
+        (fTE {
+            name 'FTE'
+            type ({
+                primitive String
+            })
+        })
+        (fTEValue {
+            name 'FTEValue'
+            type ({
+                primitive String
+            })
+        })
+        (temporaryDepartment {
+            name 'Temporary Department'
+            type ({
+                primitive String
+            })
+        })
+        (temporaryDepartmentValue {
+            name 'Temporary Department Value'
+            type ({
+                primitive String
+            })
+        })
+        (applyToSupervisorName {
+            name 'ApplyToSupervisor Name'
+            type ({
+                primitive Boolean
+            })
+        })
+        (applyToJobCategory {
+            name 'ApplyToJob Category'
+            type ({
+                primitive Boolean
+            })
+        })
+        (applyToEmploymentStatus {
+            name 'ApplyToEmployment Status'
+            type ({
+                primitive Boolean
+            })
+        })
+        (applyToJobTItle {
+            name 'ApplyTo Job TItle'
+            type ({
+                primitive Boolean
+            })
+        })
+        (applyToSubUnit {
+            name 'ApplyTo SubUnit'
+            type ({
+                primitive Boolean
+            })
+        })
+        (applyToLocation {
+            name 'ApplyTo Location'
+            type ({
+                primitive Boolean
+            })
+        })
+        (applyToWorkShift {
+            name 'Apply To WorkShift'
+            type ({
+                primitive Boolean
+            })
+        })
+        (joinedDate {
+            name 'Joined Date'
+            type ({
+                primitive Boolean
+            })
+        })
+        (applyToProbationEndDate {
+            name 'ApplyToProbation End Date'
+            type ({
+                primitive Boolean
+            })
+        })
+        (dateOfPermenency {
+            name 'Date of Permenency'
+            type ({
+                primitive Boolean
+            })
+        })
+        (applyToRegion {
+            name 'ApplyToRegion'
+            type ({
+                primitive Boolean
+            })
+        })
+        (applyToFTE {
+            name 'ApplyToFTE'
+            type ({
+                primitive Boolean
+            })
+        })
+        (applyToTemporaryDepartment {
+            name 'ApplyTo Temporary Department'
+            type ({
+                primitive Boolean
+            })
+        })
+    ]
+    transient true
+})

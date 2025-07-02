@@ -1,0 +1,56 @@
+(Model PerformanceTracker {
+    name 'Performance Tracker'
+    master #Company
+    allowDynamicReport true
+    package 'rewa.hr.2'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (employee {
+            name 'Employee'
+            type ({
+                model #Employee
+            })
+        })
+        (reviewers {
+            name 'Reviewers'
+            collection true
+            type ({
+                model #Employee
+            })
+            required true
+        })
+        (addedDate {
+            name 'Added Date'
+            type ({
+                primitive Date
+            })
+        })
+        (modifiedDate {
+            name 'Modified Date'
+            type ({
+                primitive Date
+            })
+        })
+        (performanceLog{
+            name 'PerformanceLog'
+            type ({
+                model #PerformanceTrackerLog
+            })
+            inverse true
+            inverseProperty #performanceTracker
+        })
+        (employeeName {
+            type ({
+                primitive String
+            })
+            computed true
+            computation `employee != null ? employee.name : ''`
+        })
+    ]
+})

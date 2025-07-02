@@ -1,0 +1,93 @@
+(Model ExpenseEligiblityGroup {
+    name 'Expense Eligiblity Group'
+    
+    master #Company
+    package 'rewa.hr.2'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (jobTitle {
+            name 'Job Title'
+            collection true
+            type ({
+                model #JobTitle
+            })
+        })
+        (jobCategories {
+            name 'Job Categories'
+            collection true
+            type ({
+                model #JobCategory
+            })
+        })
+        (employmentStatus {
+            name 'Employment Status'
+            collection true
+            type ({
+                model #EmploymentStatus
+            })
+        })
+        (gender {
+            name 'Gender'
+            collection true
+            type ({
+                optionSet #Gender
+            })
+            needAllChildren false
+        })
+        (locations {
+            name 'Locations'
+            collection true
+            type ({
+                model #Location
+            })
+        })
+        (customFields {
+            name 'Custom Fields'
+            collection true
+            type ({
+                model #EligilbilityGroupCustomFieldFilter
+            })
+            child true
+        })
+        (servicePeriodFromYears {
+            name 'Service Period From Years'
+            type ({
+                primitive Integer
+            })
+            required true
+        })
+        (servicePeriodFromMonths {
+            name 'Service Period From Months'
+            type ({
+                primitive Integer
+            })
+            required true
+        })
+        (servicePeriodToYears {
+            name 'Service Period To Years'
+            type ({
+                primitive Integer
+            })
+            required true
+        })
+        (servicePeriodToMonths {
+            name 'Service Period To Months'
+            type ({
+                primitive Integer
+            })
+            required true
+        })
+        (systemCreated {
+            name 'System Created'
+            type ({
+                primitive Boolean
+            })
+        })
+    ]
+})

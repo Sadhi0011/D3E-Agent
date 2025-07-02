@@ -1,0 +1,32 @@
+(Model EmployeeWizardSectionField {
+    name 'Employee Wizard Section Field'
+    
+    package 'rewa.hr.2'
+    properties [
+        (field {
+            name 'Field'
+            type ({
+                optionSet #PIMField
+            })
+        })
+        (customField {
+            name 'Custom Field'
+            type ({
+                model #CustomField
+            })
+        })
+        (required {
+            name 'Required'
+            type ({
+                primitive Boolean
+            })
+        })
+        (available {
+            name 'Available'
+            type ({
+                primitive Boolean
+            })
+        })
+    ]
+    creatable false
+})

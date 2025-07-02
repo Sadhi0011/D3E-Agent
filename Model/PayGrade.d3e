@@ -1,0 +1,25 @@
+(Model PayGrade {
+    name 'Pay Grade'
+    master #Company
+    package 'rewahr.com'
+    allowDynamicReport true
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+            unique true
+        })
+        (currencies{
+            name 'Currencies'
+            type ({
+                model #PayGradeCurrency
+            })
+            collection true
+            child true
+        })
+    ]
+    display `name`
+})

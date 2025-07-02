@@ -1,0 +1,46 @@
+Model {
+    name 'Employee Bank Account'
+    master Employee
+    properties [
+        {
+            name 'Account Number'
+            type String
+            validations [
+                ({
+                    expression `accountNumber.length < 30 && RegExp(r'^[-+]?[0-9]+$').hasMatch(it)`
+                    errorMsg 'AccountNumber should not exceeds 30 characters && Should be a valid number'
+                })
+            ]
+            required true
+        }
+        {
+            name 'Bank Name'
+            type String
+            required true
+        }
+        {
+            name 'Branch Name'
+            type String
+            required true
+        }
+        {
+            name 'ifscCode'
+            type String
+            required true
+        }
+        {
+            name 'Account Holder Name'
+            type String
+            required true
+        }
+        {
+            name 'Account Type'
+            type AccountType
+        }
+        {
+            name 'Is Primary'
+            type Boolean
+        }
+    ]
+    display `accountNumber + ' - ' + bankName + '-' + accountHolderName`
+}

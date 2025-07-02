@@ -1,0 +1,78 @@
+(Model Course {
+    name 'Course'
+    master #Company
+    allowDynamicReport true
+    package 'rewa.hr.2'
+    properties [
+        (title {
+            name 'Title'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (courseCompany{
+            name 'CourseCompany'
+            type (String{
+                primitive String
+            })
+        })
+        (coordinator {
+            name 'Coordinator'
+            type ({
+                model #Employee
+            })
+            required true
+        })
+        (subUnit {
+            name 'Sub Unit'
+            type ({
+                model #SubUnit
+            })
+        })
+        (version {
+            name 'Version'
+            type ({
+                primitive String
+            })
+        })
+        (subVersion {
+            name 'Sub Version'
+            type ({
+                primitive Integer
+            })
+        })
+        (currency {
+            name 'Currency'
+            type ({
+                model #Currency
+            })
+        })
+        (cost {
+            name 'Cost'
+            type ({
+                primitive Double
+            })
+        })
+        (duration {
+            name 'Duration'
+            type ({
+                primitive Duration
+            })
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (active {
+            name 'Active'
+            type ({
+                primitive Boolean
+            })
+        })
+    ]
+    display `title`
+})

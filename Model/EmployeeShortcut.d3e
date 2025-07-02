@@ -1,0 +1,99 @@
+(Model EmployeeShortcut {
+    properties [
+        (supervisor {
+            name 'Supervisor'
+            type ({
+                model #EmployeeReportTo
+            })
+        })
+        (subUnits {
+            name 'SubUnits'
+            collection true
+            type ({
+                model #SubUnit
+            })
+        })
+        (jobTitle {
+            name 'JobTitle'
+            collection true
+            type ({
+                model #JobTitle
+            })
+        })
+        (include {
+            name 'Include'
+            type ({
+                optionSet #IncludeEmployees
+            })
+        })
+        (location {
+            name 'Location'
+            collection true
+            type ({
+                model #Location
+            })
+        })
+        (costCenter {
+            name 'CostCenter'
+            type ({
+                model #CostCenter
+            })
+        })
+        (employee {
+            name 'Employee'
+            type ({
+                model #Employee
+            })
+        })
+        (employeeIdVal {
+            name 'employeeIdVal'
+            type ({
+                primitive String
+            })
+        })
+        (employmentStatus {
+            name 'Employment Status'
+            collection true
+            type ({
+                model #EmploymentStatus
+            })
+        })
+        (company {
+            name 'Company'
+            type ({
+                model #Company
+            })
+            required true
+        })
+        (orderBy {
+            name 'Order By'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (pageSize {
+            name 'Page Size'
+            type ({
+                primitive Integer
+            })
+            defaultValue `100`
+            required true
+        })
+        (offset {
+            name 'Offset'
+            type ({
+                primitive Integer
+            })
+            required true
+        })
+        (ascending {
+            name 'Ascending'
+            type ({
+                primitive Boolean
+            })
+            required true
+        })
+    ]
+    creatable false
+})

@@ -1,0 +1,14 @@
+(Model ImmigrationStatus {
+    name 'Immigration Status'
+    
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (name {
+            name 'name'
+            type ({
+                primitive String
+            })
+        })
+    ]
+})

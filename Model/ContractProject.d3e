@@ -1,0 +1,33 @@
+Model {
+    name 'ContractProject'
+    master EmployeeJob
+    properties [
+        {
+            name 'ProjectName'
+            type String
+            required true
+        }
+        {
+            name 'ClientName'
+            type String
+            required true
+        }
+        {
+            name 'StartDate'
+            type Date
+            required true
+        }
+        {
+            name 'EndDate'
+            type Date
+            required true
+        }
+        {
+            name 'file'
+            type DFile
+        }
+    ]
+    creatable true
+    needCreatedDate true
+    needUpdatedDate true
+}

@@ -1,0 +1,21 @@
+(Model QualificationAttachments {
+    name 'QualificationAttachments'
+    master #Employee
+    package 'rewahr.com'
+    properties [
+        (file {
+            name 'File'
+            type ({
+                primitive DFile
+            })
+            required true
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+    ]
+})

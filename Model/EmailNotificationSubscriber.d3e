@@ -1,0 +1,120 @@
+(Model EmailNotificationSubscriber {
+    name 'Email Notification Subscriber'
+    
+    master #EmailNotification
+    package 'rewa.hr.2'
+    properties [
+        (company {
+            name 'Company'
+            type ({
+                model #Company
+            })
+            required true
+        })
+        (subscriber {
+            name 'Subscriber'
+            type ({
+                primitive String
+            })
+        })
+        (systemCreated {
+            name 'System Created'
+            type ({
+                primitive Boolean
+            })
+        })
+        (employee {
+            name 'Employee'
+            type ({
+                model #Employee
+            })
+        })
+        (role {
+            name 'Role'
+            type ({
+                model #UserRole
+            })
+        })
+        (toEmail {
+            name 'To Email'
+            type ({
+                primitive String
+            })
+        })
+        (toName {
+            name 'To Name'
+            type ({
+                primitive String
+            })
+        })
+        (excludeEmployees {
+            name 'Exclude Employees'
+            collection true
+            type ({
+                model #Employee
+            })
+        })
+        (includeInCC {
+            name 'Include In CC'
+            type ({
+                primitive Boolean
+            })
+            booleanLabels Custom
+            customTrueValue 'CC'
+            customFalseValue 'TO'
+        })
+        (workflowActionScenarios {
+            name 'Workflow Action Scenarios'
+            collection true
+            child true
+            type ({
+                model #WorkflowActionScenario
+            })
+        })
+        (type {
+            name 'Type'
+            type ({
+                optionSet #EmailNotificationSubscriberType
+            })
+        })
+        (schedule {
+            name 'Schedule'
+            type ({
+                optionSet #EmailSchedule
+            })
+        })
+        (affectedEmployee {
+            name 'Affected Employee'
+            type ({
+                model #Employee
+            })
+        })
+        (whenToNotify {
+            name 'When To Notify'
+            type ({
+                optionSet #EmailNotificationTime
+            })
+        })
+        (notifyEmployee {
+            name 'Notify Employee'
+            type ({
+                primitive Boolean
+            })
+        })
+        (template {
+            name 'Template'
+            type ({
+                model #EmailTemplate
+            })
+        })
+        (immediateSupervisorsOnly {
+            name 'Immediate Supervisors Only'
+            type ({
+                primitive Boolean
+            })
+            booleanLabels Custom
+            customTrueValue 'Entire Supervisor Chain'
+            customFalseValue 'Immediate Supervisor Only'
+        })
+    ]
+})

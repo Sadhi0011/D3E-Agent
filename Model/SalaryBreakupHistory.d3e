@@ -1,0 +1,44 @@
+(Model SalaryBreakupHistory {
+    name 'Salary Breakup History'
+    package 'rewa.hr.2'
+    properties [
+        (field {
+            name 'Field'
+            type ({
+                primitive String
+            })
+        })
+        (component{
+            type ({
+                model #SalaryComponent
+            })
+            required true
+        })
+        (changedFrom {
+            name 'Changed From'
+            type ({
+                primitive Double
+            })
+        })
+        (changedTo {
+            name 'Changed To'
+            type ({
+                primitive Double
+            })
+        })
+        (type{
+            type ({
+                primitive Boolean
+            })
+        })
+        (percentage{
+            name 'Percentage'
+            type ({
+                primitive Double
+            })
+            computed true
+            computation `this.changedFrom == 0.0 ? 0.0 :  ((this.changedTo-this.changedFrom)/this.changedFrom)*100`
+        })
+    ]
+    creatable false
+})

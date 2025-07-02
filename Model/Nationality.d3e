@@ -1,0 +1,17 @@
+(Model Nationality {
+    name 'Nationality'
+    allowDynamicReport true
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+            unique true
+        })
+        
+    ]
+})

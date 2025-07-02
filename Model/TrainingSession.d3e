@@ -1,0 +1,75 @@
+(Model TrainingSession {
+    name 'Training Session'
+    master #Company
+    allowDynamicReport true
+    package 'rewa.hr.2'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (courses {
+            name 'Courses'
+            collection true
+            type ({
+                model #Course
+            })
+            required true
+        })
+        (startDate {
+            name 'Start Date'
+            type ({
+                primitive Date
+            })
+        })
+        (endDate {
+            name 'End Date'
+            type ({
+                primitive Date
+            })
+        })
+        (deliveryLocation {
+            name 'Delivery Location'
+            type ({
+                primitive String
+            })
+        })
+        (delivaryMethod {
+            name 'Delivary Method'
+            type ({
+                optionSet #TrainingSessionDeliveryMethod
+            })
+        })
+        (status {
+            name 'Status'
+            type ({
+                optionSet #TrainingSessionStatus
+            })
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+        })
+        (trainingSessionAttachment {
+            type ({
+                model #Attachment
+            })
+            inverse true
+            inverseProperty #session
+        })
+        (members {
+            name 'Members'
+            type ({
+                model #TrainingSessionMember
+            })
+            collection true
+            inverse true
+            inverseProperty #trainingSession
+        })
+    ]
+})

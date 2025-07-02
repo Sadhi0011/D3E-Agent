@@ -1,0 +1,58 @@
+(Model DocumentTemplate {
+    name 'Document Template'
+    
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+            unique true
+        })
+        (section {
+            name 'Section'
+            type ({
+                optionSet #LinkToSection
+            })
+            required true
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (attachments {
+            name 'Attachments'
+            collection true
+            type ({
+                primitive DFile
+            })
+            needAllChildren false
+        })
+        (pageSize {
+            name 'Page Size'
+            type ({
+                optionSet #PageSize
+            })
+        })
+        (margin {
+            name 'Margin'
+            type ({
+                model #PageMargins
+            })
+            child true
+        })
+        (content {
+            name 'Content'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+    ]
+})

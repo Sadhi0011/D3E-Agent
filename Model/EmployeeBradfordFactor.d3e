@@ -1,0 +1,29 @@
+(Model EmployeeBradfordFactor {
+    name 'Employee Bradford Factor'
+    
+    master #Employee
+    package 'rewa.hr.2'
+    properties [
+        (numberOfSpells {
+            name 'Number of Spells'
+            type ({
+                primitive Integer
+            })
+            readType ReadOnly
+        })
+        (numberOfDays {
+            name 'Number of Days'
+            type ({
+                primitive Double
+            })
+            readType ReadOnly
+        })
+        (bradfordFactor {
+            name 'Bradford Factor'
+            type ({
+                primitive Double
+            })
+            readType ReadOnly
+        })
+    ]
+})

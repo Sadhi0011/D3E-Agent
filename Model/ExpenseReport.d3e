@@ -1,0 +1,26 @@
+(Model ExpenseReport {
+    name 'Expense Report'
+    
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+        })
+        (report {
+            type ({
+                model #DynamicReport
+            })
+            required true
+        })
+        (detailed {
+            name 'Detailed'
+            type ({
+                primitive Boolean
+            })
+        })
+    ]
+})

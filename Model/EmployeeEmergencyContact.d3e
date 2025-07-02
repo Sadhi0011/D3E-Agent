@@ -1,0 +1,133 @@
+(Model EmployeeEmergencyContact {
+    name 'Employee Emergency Contact'
+    
+    master #Employee
+    enableCustomFields true
+    package 'rewahr.com'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            validations [
+                ({
+                    expression `name.length < 50`
+                    errorMsg 'Name should not exceeds 50 characters'
+                })
+            ]
+            required true
+        })
+        (homeTelephone {
+            name 'Home Telephone'
+            type ({
+                primitive String
+            })
+            validations [
+                ({
+                    errorMsg 'Allows numbers and only + - / ( )'
+                    expression `it.isEmpty || it == '' || RegExp(r'(\+?([ ()-+]|[0-9])+)$').hasMatch(it)`
+                })
+            ]
+        })
+        (workTelephone {
+            name 'Work Telephone'
+            type ({
+                primitive String
+            })
+            validations [
+                ({
+                    errorMsg 'Allows numbers and only + - / ( )'
+                    expression `it.isEmpty || it == '' || RegExp(r'(\+?([ ()-+]|[0-9])+)$').hasMatch(it)`
+                })
+            ]
+        })
+        (relationship {
+            name 'Relationship'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (mobile {
+            name 'Mobile'
+            type ({
+                primitive String
+            })
+              validations [
+                ({
+                    errorMsg 'Allows numbers and only + - / ( )'
+                    expression `it.isEmpty || it == '' || RegExp(r'(\+?([ ()-+]|[0-9])+)$').hasMatch(it)`
+                })
+            ]
+        })
+    ]
+    actions [
+        (saveAuditRecordOnCreate {
+            runOn OnCreate
+            block ```
+                List<String> changes = [
+                    EmployeeUtil.getChangedStringForNewField('Name', name),
+                    EmployeeUtil.getChangedStringForNewField('Home Telephone', homeTelephone),
+                    EmployeeUtil.getChangedStringForNewField('Work Telephone', workTelephone),
+                    EmployeeUtil.getChangedStringForNewField('Relationship', relationship),
+                    EmployeeUtil.getChangedStringForNewField('Mobile', mobile),
+                ].where((x) => x != null);
+
+                if (changes.isNotEmpty) {
+                    EmployeeUtil.addAuditRecord(
+                        company: employee.company,
+                        action: 'ADD EMERGENCY CONTACT DETAILS -I',
+                        employee: employee,
+                        section: 'Emergency Contacts',
+                        actionDescription: changes.join('\n'),
+                    );
+                }
+            ```
+        })
+        (saveAuditRecordOnUpdate {
+            runOn OnUpdate
+            block ```
+                if (old == null) {
+                    return;
+                }
+
+                List<String> changes = [
+                    EmployeeUtil.getChangedFromString('Name', name, old.name),
+                    EmployeeUtil.getChangedFromString('Home Telephone', homeTelephone, old.homeTelephone),
+                    EmployeeUtil.getChangedFromString('Work Telephone', workTelephone, old.workTelephone),
+                    EmployeeUtil.getChangedFromString('Relationship', relationship, old.relationship),
+                    EmployeeUtil.getChangedFromString('Mobile', mobile, old.mobile),
+                ].where((x) => x != null);
+
+                if (changes.isNotEmpty) {
+                    EmployeeUtil.addAuditRecord(
+                        company: employee.company,
+                        action: 'UPDATE EMERGENCY CONTACT DETAILS -U',
+                        employee: employee,
+                        section: 'Emergency Contacts',
+                        actionDescription: changes.join('\n'),
+                    );
+                }
+            ```
+        })
+        (deleteAuditRecordOnDelete {
+            runOn OnDelete
+            block ```
+                EmployeeUtil.addAuditRecord(
+                    company: employee.company,
+                    action: 'DELETE EMERGENCY CONTACT DETAILS',
+                    employee: employee,
+                    section: 'Emergency Contacts',
+                    actionDescription: [
+                        name,
+                        homeTelephone.toString(),
+                        workTelephone.toString(),
+                        relationship.toString(),
+                        mobile.toString(),
+                    ].join('\n'),
+                );
+            ```
+        })
+    ]
+})

@@ -1,0 +1,82 @@
+(Model Holiday {
+    name 'Holiday'
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+            unique true
+        })
+        (date {
+            name 'Date'
+            type ({
+                primitive Date
+            })
+            required true
+        })
+        (repeatsAnnually {
+            name 'Repeats Annually'
+            type ({
+                primitive Boolean
+            })
+        })
+        (holidayType {
+            name 'HolidayType'
+            type ({
+                optionSet #DayCycle
+            })
+            required true
+        })
+        (country {
+            name 'Country'
+            type ({
+                primitive String
+            })
+            required true
+            referenceFrom `HRMCSUtils.allCountries()`
+        })
+        (locations {
+            name 'Locations'
+            collection true
+            type ({
+                model #Location
+            })
+            required true
+            needAllChildren false
+            referenceFrom `this.company.locations`
+        })
+        (originalHoliday {
+            type ({
+                model #Holiday
+            })
+            onDelete DeleteThis
+        })
+        (workShifts {
+            name 'workShifts'
+            type WorkShift
+            collection true
+        })
+    ]
+    actions [
+        (onCreateRepeatAnnually {
+            block ```
+                // if repeatsAnnually true create next two years Holiday objects and place originalHoliday as this
+                // delete also must be handle - Done by DeleteThis on originalHoliday
+
+                // Setting repeatsAnnually to true in this model will cause an infinite loop
+                if (repeatsAnnually) {
+                    Holiday nextYear = HolidayUtil.createNextHoliday(this, this);
+                    Holiday yearAfter = HolidayUtil.createNextHoliday(nextYear, this);
+                    Database.saveAll([
+                        nextYear,
+                        yearAfter
+                    ]);
+                }
+            ```
+        })
+    ]
+})

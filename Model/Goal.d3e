@@ -1,0 +1,218 @@
+(Model Goal {
+    name 'Goal'
+    master #Employee
+    package 'rewa.hr.2'
+    allowDynamicReport true
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+             validations [
+                ({
+                    expression `name.length < 30`
+                    errorMsg 'Name should not exceeds 30 characters'
+                })
+            ]
+            required true
+        })
+        (individual {
+            name 'Individual'
+            type ({
+                primitive Boolean
+            })
+        })
+        (priority {
+            name 'Priority'
+            type ({
+                optionSet #GoalPriority
+            })
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (parentGoal {
+            name 'Parent Goal'
+            type ({
+                model #Goal
+            })
+        })
+        (dueDate {
+            name 'Due Date'
+            type ({
+                primitive Date
+            })
+            required true
+        })
+        (mainEvaluator {
+            name 'Main Evaluator'
+            type ({
+                primitive Boolean
+            })
+        })
+        (self {
+            name 'Self'
+            type ({
+                primitive Boolean
+            })
+        })
+        (supervisor {
+            name 'Supervisor'
+            type ({
+                primitive Boolean
+            })
+        })
+        (peers {
+            name 'Peers'
+            type ({
+                primitive Boolean
+            })
+        })
+        (completion {
+            name 'Completion'
+            type ({
+                primitive Integer
+            })
+        })
+        (assignedTo {
+            name 'Assigned To'
+            type ({
+                model #Employee
+            })
+            required true
+        })
+        (addToLibrary {
+            name 'Add To Library'
+            type ({
+                primitive Boolean
+            })
+        })
+        (readOnly {
+            name 'Read Only'
+            type ({
+                primitive Boolean
+            })
+        })
+        (status {
+            name 'Status'
+            type ({
+                optionSet #GoalStatus
+            })
+        })
+        (comments {
+            name 'Comments'
+            collection true
+            type ({
+                model #GoalComment
+            })
+        })
+        (attachments {
+            name 'Attachments'
+            collection true
+            type ({
+                primitive DFile
+            })
+        })
+        (subGoals {
+            name 'Sub Goals'
+            collection true
+            type ({
+                model #Goal
+            })
+            inverse true
+            inverseProperty #parentGoal
+        })
+        (okr {
+            name 'okr'
+            type ({
+                primitive Boolean
+            })
+        })
+        (company{
+            name 'Company'
+            type ({
+                model #Company
+            })
+            computed true
+            computation `employee.company`
+        })
+        (jobTitles {
+            name 'JobTitles'
+            type ({
+                model #JobTitle
+            })
+            collection true
+        })
+    ]
+    display `this.name`
+    actions [
+        (SendEmailsOnGoalUpdate {
+            runOn OnUpdate
+            name 'SendEmailsOnGoalUpdate'
+            block ```
+                EndUser user = CurrentUser.get() as EndUser;
+                
+                // Goal Approval
+                EmailContext repl = EmailContext(Map.fromIterables([
+                    'performerFullName',
+                    'goalType',
+                    'goalName',
+                    'actionComment'
+                ], [
+                    user.employee.name,
+                    '<Goal Type>',
+                    name,
+                    comments.isNotEmpty ? comments.last.toString() : null
+                ])).addLink('link', Link('Goal', [this]));
+                
+                NotificationHelper.sendActionBasedEmails(
+                    GoalApprovals,
+                    repl,employee,
+                    EmailNotificationUtil.getGoalState(old.status),
+                    EmailNotificationUtil.getGoalState(this.status),
+                );
+                
+                // Goal Assignments
+                NotificationHelper.sendActionBasedEmails(
+                    GoalAssignments,
+                    repl,
+                    employee,
+                    EmailNotificationUtil.getGoalState(old.status),
+                    EmailNotificationUtil.getGoalState(this.status),
+                );
+                
+                // Goal Rejection
+                NotificationHelper.sendActionBasedEmails(
+                    GoalRejections,
+                    repl,
+                    employee,
+                    EmailNotificationUtil.getGoalState(old.status),
+                    EmailNotificationUtil.getGoalState(this.status),
+                );
+                
+                // Goal Submissions
+                NotificationHelper.sendActionBasedEmails(
+                    GoalSubmissions,
+                    repl,
+                    employee,
+                    EmailNotificationUtil.getGoalState(old.status),
+                    EmailNotificationUtil.getGoalState(this.status),
+                );
+                
+                // Goal Updates
+                NotificationHelper.sendActionBasedEmails(
+                    GoalUpdates,
+                    repl,
+                    employee,
+                    EmailNotificationUtil.getGoalState(old.status),
+                    EmailNotificationUtil.getGoalState(this.status),
+                );
+            ```
+        })
+    ]
+})

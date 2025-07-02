@@ -1,0 +1,23 @@
+(Model ImportRequest {
+    name 'Import Request'
+    
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (importType {
+            name 'ImportType'
+            type ({
+                model #DataImport
+            })
+            required true
+        })
+        (file {
+            name 'File'
+            type ({
+                primitive DFile
+            })
+            required true
+        })
+    ]
+    transient true
+})

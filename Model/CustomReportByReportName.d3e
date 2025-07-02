@@ -1,0 +1,11 @@
+DataQuery {
+    name 'CustomReportByReportName'
+    query `CustomReport.all.where((a) => a.name == inputs.name)`
+    inputs [
+        {
+            name 'name'
+            type String
+        }
+    ]
+    enableSync true
+}

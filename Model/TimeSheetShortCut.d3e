@@ -1,0 +1,82 @@
+(Model  TimeSheetShortCut {
+    properties [
+        (employee {
+            type ({
+                model #Employee
+            })
+            collection true
+        })
+        (timesheetPeriod {
+            type ({
+                model #TimesheetPeriod
+            })
+        })
+        (company {
+            type ({
+                model #Company
+            })
+        })
+        (status {
+            type ({
+                optionSet #WeeklyTimesheetStatus
+            })
+            collection true
+        })
+        (totalHours {
+            type ({
+                primitive Double
+            })
+        })
+        (pageSize {
+            type ({
+                primitive Integer
+            })
+            defaultValue `100`
+            required true
+        })
+        (orderBy {
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (offset {
+            type ({
+                primitive Integer
+            })
+            required true
+        })
+        (subUnits {
+            type ({
+                model #SubUnit
+            })
+        })
+        (ascending {
+            type ({
+                primitive Boolean
+            })
+            required true
+        })
+        (location {
+            type ({
+                model #Location 
+            })
+        })
+        (includeEmployees {
+            type ({
+                optionSet #IncludeEmployees
+            })
+        })
+        (from {
+            type ({
+                primitive Date
+            })
+        })
+        (to {
+            type ({
+                primitive Date
+            })
+        })
+    ]
+    creatable false
+})

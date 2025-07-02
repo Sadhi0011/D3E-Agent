@@ -1,0 +1,47 @@
+(Model EmployeeTaskWithEvent {
+    name 'Employee Task With Event'
+    master #Company
+    allowDynamicReport true
+    package 'rewahr.com'
+    properties [
+        (event {
+            name 'Event'
+            type ({
+                model #OnboardingEvent
+            })
+        })
+        (taskTypes {
+            type ({
+                model #TaskType
+            })
+            collection true
+        })
+    ]
+    actions [
+        (onCreate{
+            runOn OnCreate
+            block ```
+                List<EmployeeTask> all = [];
+                for(TaskType taskType in taskTypes){
+                  for(Employee participant in event.participients){
+                    all.add(
+                        EmployeeTask(
+                            name: taskType.name,
+                            taskType: taskType,
+                            taskOwner: taskType.createdBy,
+                            event: event,
+                            participant : participant,
+                            completed: false,
+                            priority: TaskPriority.Low,
+                            dueDate: event.dueDate ,
+                            company:company
+                        )
+                    );
+                  }
+                }
+                Database.saveAll(all);
+            ```
+        })
+    ]
+    transient true
+})

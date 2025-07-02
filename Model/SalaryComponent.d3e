@@ -1,0 +1,191 @@
+(Model SalaryComponent {
+    name 'Salary Component'
+    allowDynamicReport true
+    master #Company
+    package 'rewa.hr.2'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+            unique true
+        })
+        (addDirectDepositDetails {
+            name 'Add Direct Deposit Details'
+            type ({
+                primitive Boolean
+            })
+        })
+        (type {
+            name 'Type'
+            type SalaryComponentType
+        })
+        (addToTotalPayable {
+            name 'Add To Total Payable'
+            type ({
+                primitive Boolean
+            })
+        })
+        (addToCostToCompany {
+            name 'Add To Cost To Company'
+            type ({
+                primitive Boolean
+            })
+        })
+        (amount {
+            name 'Amount'
+            type ({
+                primitive Double
+            })
+            existsIf `operation == Operation.Fixed`
+        })
+        (default {
+            name 'Default'
+            type ({
+                primitive Boolean
+            })
+        })
+        (operation {
+            name 'Operation'
+            type Operation
+            existsIf `!dependOnAttandance`
+        })
+        (defaultPercentage {
+            name 'Default Percentage'
+            type ({
+                primitive Double
+            })
+            existsIf `operation == Operation.Percentage`
+        })
+        (on {
+            name 'On'
+            type ({
+                model #SalaryComponent
+            })
+            collection true
+        })
+        (dependOnAttandance {
+            name 'Depend On Attandance'
+            type ({
+                primitive Boolean
+            })
+        })
+        (visibleInPayRunner {
+            name 'Visible In Pay Runner'
+            type ({
+                primitive Boolean
+            })
+            defaultValue `true`
+        })
+        (conditionals {
+            type ({
+                model #ConditionalPayHeadValue
+            })
+            child true
+            collection true
+            existsIf `operation == Operation.Conditional`
+        })
+        (order {
+            name 'Order'
+            type ({
+                primitive Integer
+            })
+        })
+        (showIfZero {
+            name 'Show If Zero'
+            type ({
+                primitive Boolean
+            })
+            defaultValue `true`
+        })
+    ]
+    display `name`
+    actions [
+        (AddToEmployeeSalaries {
+            runOn OnCreate
+            block ```
+                List<EmployeeSalary> salaries = Database.getEmployeeSalariesInCompany(company: company);
+
+                salaries.forEach((s) {
+                    EmployeeSalaryBreakup esb = EmployeeSalaryBreakup(
+                        component: this,
+                        isPercentage: operation == Operation.Percentage,
+                    );
+
+                    if (type == SalaryComponentType.Earning) {
+                        s.earnings.add(esb);
+                    } if(type == SalaryComponentType.Deduction) {
+                        s.deductions.add(esb);
+                    }
+                });
+
+                Database.saveAll(salaries);
+            ```
+        })
+        (UpdateEmployeeSalaries {
+            runOn OnUpdate
+            block ```
+                // Only type change affects EmployeeSalaryBreakup values, since that would need removing from one list and adding to another
+                if (old.type != type) {
+                    // Remove from one and add to other
+                    List<EmployeeSalary> salaries = Database.getEmployeeSalariesInCompany(
+                        company: company,
+                        applyComponent: true,
+                        component: old
+                    );
+
+                    for (EmployeeSalary es in salaries) {
+                        List<EmployeeSalaryBreakup> breakups =  [];
+                        if(old.type == SalaryComponentType.Earning) {
+                            breakups = es.earnings;
+                        } if(type == SalaryComponentType.Deduction) {
+                            breakups = es.deductions;
+                        }
+
+                        EmployeeSalaryBreakup esb = breakups.firstWhere(x => x.component.name == name);
+
+                        if (esb != null) {
+                            if (old.type == SalaryComponentType.Earning) {
+                                // Old is in earnings
+                                // Move it to deductions
+                                es.earnings.remove(esb);
+                                es.deductions.add(esb);
+                            } if(type == SalaryComponentType.Deduction) {
+                                // Inverse of above
+                                es.deductions.remove(esb);
+                                es.earnings.add(esb);
+                            }
+                        }
+                    }
+
+                    Database.saveAll(salaries);
+                }
+            ```
+        })
+        (RemoveFromEmployeeSalaries {
+            runOn OnDelete
+            block ```
+                List<EmployeeSalary> salaries = Database.getEmployeeSalariesInCompany(company: company);
+
+                salaries.forEach((s) {
+                    if(type == SalaryComponentType.Earning) {
+                        EmployeeSalaryBreakup esb = s.earnings.firstWhere(e => e.component.name == name);
+                        if (esb != null) {
+                            s.earnings.remove(esb);
+                        }
+                    } if(type == SalaryComponentType.Deduction) {
+                        EmployeeSalaryBreakup esb = s.deductions.firstWhere(e => e.component.name == name);
+                        if (esb != null) {
+                            s.deductions.remove(esb);
+                        }
+                    }
+                });
+
+                Database.saveAll(salaries);
+            ```
+        })
+    ]
+    needCreatedDate true
+})

@@ -1,0 +1,136 @@
+(Model Document {
+    name 'Document'
+    master #Company
+    package 'rewa.hr.2'
+    allowDynamicReport true
+    properties [
+        (topic {
+            name 'Topic'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (requestAcknowledgment {
+            name 'RequestAcknowledgment'
+            type ({
+                primitive Boolean
+            })
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (attachments {
+            name 'Attachments'
+            collection true
+            type ({
+                model #Attachment
+            })
+            inverse true
+            inverseProperty #document
+        })
+        (publishedDate {
+            name 'Published Date'
+            type ({
+                primitive Date
+            })
+        })
+        (userRoles {
+            name 'User Roles'
+            collection true
+            type ({
+                model #UserRole
+            })
+            needAllChildren false
+        })
+        (employees {
+            name 'Employees'
+            collection true
+            type ({
+                model #Employee
+            })
+            needAllChildren false
+        })
+        (locations {
+            name 'Locations'
+            collection true
+            type ({
+                model #Location
+            })
+            needAllChildren false
+        })
+        (employmentStatus {
+            name 'Employment Status'
+            collection true
+            type ({
+                model #EmploymentStatus
+            })
+            needAllChildren false
+        })
+        (jobTitles {
+            name 'Job Titles'
+            collection true
+            type ({
+                model #JobTitle
+            })
+            needAllChildren false
+        })
+        (subUnits {
+            name 'Sub Units'
+            collection true
+            type ({
+                model #SubUnit
+            })
+            needAllChildren false
+        })
+        (status {
+            name 'Status'
+            type ({
+                optionSet #DocumentStatus
+            })
+        })
+        (category {
+            name 'Category'
+            type ({
+                model #DocumentCategory
+            })
+            required true
+        })
+        (publishToAllLocations {
+            type ({
+                primitive Boolean
+            })
+        })
+        (publishToAllUsersRoles {
+            type ({
+                primitive Boolean
+            })
+        })
+    ]
+    actions [
+        (ModelAction sendEmailOnDocumentCreate {
+            runOn OnCreate
+            block ```
+                EmailContext repl = EmailContext(Map.fromIterables([
+                    'topic'
+                ], [
+                    topic
+                ]));
+
+                employees.forEach((e) {
+                    NotificationHelper.sendActionBasedEmails(
+                        PublishDocumentNotification,
+                        repl,
+                        e,
+                        Archived,
+                        EmailNotificationUtil.getDocumentState(status),
+                    );
+                });
+            ```
+        })
+    ]
+})

@@ -1,0 +1,38 @@
+(Model TrainingSessionMember {
+    name 'Training Session Member'
+    master #TrainingSession
+    package 'rewahr.com'
+    properties [
+        (employee {
+            name 'Employee'
+            type ({
+                model #Employee
+            })
+        })
+        (attended {
+            name 'Attended'
+            type ({
+                primitive Boolean
+            })
+        })
+        (sessionRating {
+            name 'Session Rating'
+            type ({
+                optionSet #TrainingSessionRating
+            })
+        })
+        (comments {
+            name 'Comments'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (trainer {
+            name 'Trainer'
+            type ({
+                primitive Boolean
+            })
+        })
+    ]
+})

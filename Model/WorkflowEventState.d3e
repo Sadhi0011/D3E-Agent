@@ -1,0 +1,16 @@
+(OptionSet WorkflowEventState {
+    options [
+        (Initiated {
+            name 'Initiated'
+        })
+        (Scheduled {
+            name 'Scheduled'
+        })
+        (Rescheduled {
+            name 'Rescheduled'
+        })
+        (Completed {
+            name 'Completed'
+        })
+    ]
+})

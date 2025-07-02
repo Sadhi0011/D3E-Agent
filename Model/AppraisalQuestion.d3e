@@ -1,0 +1,51 @@
+(Model AppraisalQuestion {
+    name 'Appraisal Question'
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (question {
+            name 'Question'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (jobTitles {
+            name 'Job Titles'
+            collection true
+            type ({
+                model #JobTitle
+            })
+        })
+        (mainEvaluator {
+            name 'Main Evaluator '
+            type ({
+                primitive Boolean
+            })
+        })
+        (self {
+            name 'Self'
+            type ({
+                primitive Boolean
+            })
+        })
+        (supervisors {
+            name 'Supervisors'
+            type ({
+                primitive Boolean
+            })
+        })
+        (peers {
+            name 'Peers'
+            type ({
+                primitive Boolean
+            })
+        })
+        (subordinates {
+            name 'Subordinates'
+            type ({
+                primitive Boolean
+            })
+        })
+    ]
+})

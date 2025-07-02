@@ -1,0 +1,56 @@
+Model {
+    package 'rewa.hr.2'
+    name 'Leave Day'
+    properties [
+        {
+            name 'Leave Type'
+            type LeaveType
+        }
+        {
+            name 'Date'
+            type Date
+        }
+        {
+            name 'Comments'
+            type String
+            longText true
+        }
+        {
+            name 'Net Leave Balance Days'
+            type Double
+        }
+        {
+            name 'Status'
+            type LeaveStatus
+        }
+        {
+            name 'Duration'
+            type LeaveDuration
+        }
+        {
+            name 'Morning Half'
+            type Boolean
+        }
+        {
+            name 'From Time'
+            type Time
+        }
+        {
+            name 'End Time'
+            type Time
+        }
+        {
+            name 'Hours'
+            type Double
+        }
+        {
+            name 'entitlement'
+            type LeaveEntitlement
+        }
+        {
+            name 'Paid Leave'
+            type Boolean
+        }
+    ]
+    creatable false
+}

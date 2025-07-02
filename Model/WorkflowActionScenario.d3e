@@ -1,0 +1,41 @@
+(Model WorkflowActionScenario {
+    name 'Workflow Action Scenario'
+    
+    package 'rewahr.com'
+    creatable false
+    properties [
+        (config {
+            name 'config'
+            type ({
+                model #EmailWorkflowActionScenarioConfig
+            })
+            referenceFrom `masterEmailNotificationSubscriber.emailNotification.scenarioConfig`
+        })
+        (role {
+            name 'Role'
+            type ({
+                model #UserRole
+            })
+        })
+        (performedBy {
+            name 'Performed By'
+            type ({
+                primitive String
+            })
+        })
+        (notify {
+            name 'Notify'
+            type ({
+                primitive Boolean
+            })
+        })
+        (template {
+            name 'Template'
+            type ({
+                model #EmailTemplate
+            })
+            referenceFrom `masterEmailNotificationSubscriber.emailNotification.templates`
+        })
+    ]
+    creatable false
+})

@@ -1,0 +1,34 @@
+(Model EmployeeSalaryBreakup {
+    name 'Employee Salary Breakup'
+    allowDynamicReport true
+    creatable false
+    package 'rewahr.com'
+    properties [
+        (widget{
+            name 'Component'
+            type ({
+                model #SalaryComponent
+            })
+            onDelete DeleteThis
+            required true
+            onDelete DeleteThis
+        })
+        (amount {
+            name 'Amount'
+            type ({
+                primitive Double
+            })
+        })
+        (total {
+            name 'Total'
+            type ({
+                primitive Double
+            })
+        })
+        (isPercentage{
+            type ({
+                primitive Boolean
+            })
+        })
+    ]
+})

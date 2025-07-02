@@ -1,0 +1,280 @@
+(Model WorkWeek {
+    name 'Work Week'
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (country {
+            name 'Country'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (location {
+            name 'Location'
+            type ({
+                model #Location
+            })
+            referenceFrom `company.locations`
+        })
+        (monday {
+            name 'Monday'
+            type ({
+                optionSet #DayCycle
+            })
+            required true
+        })
+        (mondayShiftIn {
+            name 'Monday Shift In'
+            type ({
+                primitive Time
+            })
+        })
+        (mondayShiftOut {
+            name 'Monday Shift Out'
+            type ({
+                primitive Time
+            })
+        })
+        (mondayLunchIn {
+            name 'Monday Lunch In'
+            type ({
+                primitive Time
+            })
+        })
+        (mondayLunchOut {
+            name 'Monday Lunch Out'
+            type ({
+                primitive Time
+            })
+        })
+        (mondayDuration {
+            name 'Monday Duration'
+            type ({
+                primitive Duration
+            })
+        })
+        (tuesday {
+            name 'Tuesday'
+            type ({
+                optionSet #DayCycle
+            })
+            required true
+        })
+        (tuesdayShiftIn {
+            name 'Tuesday Shift In'
+            type ({
+                primitive Time
+            })
+        })
+        (tuesdayShiftOut {
+            name 'Tuesday Shift Out'
+            type ({
+                primitive Time
+            })
+        })
+        (tuesdayLunchIn {
+            name 'Tuesday Lunch In'
+            type ({
+                primitive Time
+            })
+        })
+        (tuesdayLunchOut {
+            name 'Tuesday Lunch Out'
+            type ({
+                primitive Time
+            })
+        })
+        (tuesdayDuration {
+            name 'Tuesday Duration'
+            type ({
+                primitive Duration
+            })
+        })
+        (wednesday {
+            name 'Wednesday'
+            type ({
+                optionSet #DayCycle
+            })
+            required true
+        })
+        (wednesdayShiftIn {
+            name 'Wednesday Shift In'
+            type ({
+                primitive Time
+            })
+        })
+        (wednesdayShiftOut {
+            name 'Wednesday Shift Out'
+            type ({
+                primitive Time
+            })
+        })
+        (wednesdayLunchIn {
+            name 'Wednesday Lunch In'
+            type ({
+                primitive Time
+            })
+        })
+        (wednesdayLunchOut {
+            name 'Wednesday Lunch Out'
+            type ({
+                primitive Time
+            })
+        })
+        (wednesdayDuration {
+            name 'Wednesday Duration'
+            type ({
+                primitive Duration
+            })
+        })
+        (thursday {
+            name 'Thursday'
+            type ({
+                optionSet #DayCycle
+            })
+            required true
+        })
+        (thursdayShiftIn {
+            name 'Thursday Shift In'
+            type ({
+                primitive Time
+            })
+        })
+        (thursdayShiftOut {
+            name 'Thursday Shift Out'
+            type ({
+                primitive Time
+            })
+        })
+        (thursdayLunchIn {
+            name 'Thursday Lunch In'
+            type ({
+                primitive Time
+            })
+        })
+        (thursdayLunchOut {
+            name 'Thursday Lunch Out'
+            type ({
+                primitive Time
+            })
+        })
+        (thursdayDuration {
+            name 'Thursday Duration'
+            type ({
+                primitive Duration
+            })
+        })
+        (friday {
+            name 'Friday'
+            type ({
+                optionSet #DayCycle
+            })
+            required true
+        })
+        (fridayShiftIn {
+            name 'Friday Shift In'
+            type ({
+                primitive Time
+            })
+        })
+        (fridayShiftOut {
+            name 'Friday Shift Out'
+            type ({
+                primitive Time
+            })
+        })
+        (fridayLunchIn {
+            name 'Friday Lunch In'
+            type ({
+                primitive Time
+            })
+        })
+        (fridayLunchOut {
+            name 'Friday Lunch Out'
+            type ({
+                primitive Time
+            })
+        })
+        (fridayDuration {
+            name 'Friday Duration'
+            type ({
+                primitive Duration
+            })
+        })
+        (saturday {
+            name 'Saturday'
+            type ({
+                optionSet #DayCycle
+            })
+            required true
+        })
+        (saturdayShiftIn {
+            name 'Saturday Shift In'
+            type ({
+                primitive Time
+            })
+        })
+        (saturdayShiftOut {
+            name 'Saturday Shift Out'
+            type ({
+                primitive Time
+            })
+        })
+        (saturdayLunchIn {
+            name 'Saturday Lunch In'
+            type ({
+                primitive Time
+            })
+        })
+        (saturdayLunchOut {
+            name 'Saturday Lunch Out'
+            type ({
+                primitive Time
+            })
+        })
+        (saturdayDuration {
+            name 'Saturday Duration'
+            type ({
+                primitive Duration
+            })
+        })
+        (sunday {
+            name 'Sunday'
+            type ({
+                optionSet #DayCycle
+            })
+            required true
+        })
+        (sundayShiftIn {
+            name 'Sunday Shift In'
+            type ({
+                primitive Time
+            })
+        })
+        (sundayShiftOut {
+            name 'Sunday Shift Out'
+            type ({
+                primitive Time
+            })
+        })
+        (sundayLunchIn {
+            name 'Sunday Lunch In'
+            type ({
+                primitive Time
+            })
+        })
+        (sundayLunchOut {
+            name 'Sunday Lunch Out'
+            type ({
+                primitive Time
+            })
+        })
+        (sundayDuration {
+            name 'Sunday Duration'
+            type ({
+                primitive Duration
+            })
+        })
+    ]
+})

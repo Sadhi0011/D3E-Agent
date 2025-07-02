@@ -1,0 +1,15 @@
+(Model CoverageType {
+    name 'Coverage Type'
+    
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (title {
+            name 'Title'
+            type ({
+                primitive String
+            })
+            unique true
+        })
+    ]
+})

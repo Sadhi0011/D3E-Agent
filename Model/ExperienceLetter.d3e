@@ -1,0 +1,32 @@
+Model {
+    name 'ExperienceLetter'
+    needCreatedDate true
+    properties [
+        {
+            name 'Employee'
+            type Employee
+        }
+        {
+            name 'Termination Date'
+            type Date
+        }
+        {
+            name 'joinedDate'
+            type Date
+        }
+        {
+            name 'Adjused Termination Date'
+            type Date
+            description 'Modified Termination date'
+        }
+        {
+            name 'Date'
+            type Date
+            description 'A date which is generated date on the experiance letter'
+        }
+        {
+            name 'letter'
+            type DFile
+        }
+    ]
+}

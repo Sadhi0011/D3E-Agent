@@ -1,0 +1,51 @@
+(Model OptionalFields {
+    name 'Optional Fields'
+    
+    package 'rewahr.com'
+    embedded true
+    properties [
+        (showNickNameSmokerMilitaryServiceInPersonalDetails {
+            name 'Show Nick Name-Smoker-Military Service in Personal Details'
+            type ({
+                primitive Boolean
+            })
+        })
+        (showUsTaxExemptionsMenu {
+            name 'Show Us tax Exemptions menu'
+            type ({
+                primitive Boolean
+            })
+        })
+        (showSINFieldInPersonalDetails {
+            name 'Show SIN Field In Personal Details'
+            type ({
+                primitive Boolean
+            })
+        })
+        (showMainIdInPersonalDetails {
+            name 'Show Main Id in Personal Details'
+            type ({
+                primitive Boolean
+            })
+        })
+        (mainIdLabel {
+            name 'Main Id Label'
+            type ({
+                primitive String
+            })
+        })
+        (showNationalityOfDependents {
+            name 'Show Nationality of Dependents'
+            type ({
+                primitive Boolean
+            })
+        })
+        (showSSNFieldInPersonalDetails {
+            name 'Show SSN Field In Personal Details'
+            type ({
+                primitive Boolean
+            })
+        })
+    ]
+    creatable false
+})

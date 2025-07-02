@@ -1,0 +1,38 @@
+(Model PIMAttachment {
+    name 'PIM Attachment'
+    
+    package 'rewahr.com'
+    properties [
+        (employee {
+            name 'Employee'
+            type ({
+                model #Employee
+            })
+        })
+        (file {
+            name 'File'
+            type ({
+                primitive DFile
+            })
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (createdDate {
+            name 'Created Date'
+            type ({
+                primitive DateTime
+            })
+        })
+        (createdBy {
+            name 'Created By'
+            type ({
+                model #EndUser
+            })
+        })
+    ]
+})

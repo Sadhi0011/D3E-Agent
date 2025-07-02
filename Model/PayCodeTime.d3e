@@ -1,0 +1,20 @@
+(Model PayCodeTime {
+    name 'Pay Code Time'
+    description 'Used to store how much they worked for each pay code'
+    package 'rewahr.com'
+    properties [
+        (rule {
+            name 'Rule'
+            type ({
+                model #PayPolicyRule
+            })
+        })
+        (time {
+            name 'Time'
+            type ({
+                primitive Duration
+            })
+        })
+    ]
+    creatable false
+})

@@ -1,0 +1,53 @@
+Model {
+    package 'rewahr.com'
+    name 'Attendance Configuration'
+    master Company
+    properties [
+        {
+            name 'Can Change Time'
+            type Boolean
+        }
+        {
+            name 'How Can Change'
+            type UserRole
+            existsIf `canChangeTime`
+        }
+        {
+            name 'Can Edit or Delete Own Records'
+            type Boolean
+        }
+        {
+            name 'Can Supervisor Edit or Delete Records'
+            type Boolean
+        }
+        {
+            name 'Pay Policies Enabled'
+            type Boolean
+        }
+        {
+            name 'IP Based Restiction Enabled'
+            type Boolean
+        }
+        {
+            name 'locationRequiredInAttendance'
+            type Boolean
+        }
+        {
+            name 'AllowedIpRanges'
+            collection true
+            type IPRange
+            child true
+        }
+        {
+            name 'WorkDuration'
+            type Duration
+        }
+        {
+            name 'Auto Punch Configurations'
+            collection true
+            type AutoPunchOutConfiguration
+            inverse true
+            inverseProperty attendanceConfiguration
+        }
+    ]
+}

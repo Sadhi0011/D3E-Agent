@@ -1,0 +1,41 @@
+(Model LeavePeriod {
+    name 'Leave Period'
+    
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (startMonth {
+            name 'Start Month'
+            type ({
+                optionSet #Months
+            })
+        })
+        (startDate {
+            name 'Start Date'
+            type ({
+                primitive Date
+            })
+        })
+        (endDate {
+            name 'End Date'
+            type ({
+                primitive Date
+            })
+        })
+        (year {
+            name 'Year'
+            type ({
+                primitive Integer
+            })
+        })
+        (currentLeavePeriod {
+            name 'Current Leave Period'
+            type ({
+                primitive String
+            })
+            computed true
+            computation `startDate.toString() + ' to ' + endDate.toString()`
+            readType ReadOnly
+        })
+    ]
+})

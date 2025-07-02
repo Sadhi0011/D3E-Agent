@@ -1,0 +1,59 @@
+(Model ExportAttendaceData {
+    name 'Export Attendace Data'
+    
+    master #Company
+    package 'rewa.hr.2'
+    properties [
+        (employee{
+            name 'Employee'
+            type ({
+                model #Employee
+            })
+        })
+        (type {
+            name 'Type'
+            type ({
+                optionSet #ReportType
+            })
+        })
+        (employmentStatus {
+            name 'Employment Status'
+            type ({
+                model #EmploymentStatus
+            })
+            existsIf `this.type == ReportType.Changed_Employees || this.type == ReportType.All_Employees`
+            needAllChildren false
+        })
+        (subUnit {
+            name 'Sub Unit'
+            collection true
+            type ({
+                model #SubUnit
+            })
+            existsIf `this.type == ReportType.Changed_Employees || this.type == ReportType.All_Employees`
+            needAllChildren false
+        })
+        (from {
+            name 'From'
+            type ({
+                primitive Date
+            })
+            existsIf `this.type == ReportType.Changed_Employees`
+            required true
+        })
+        (to {
+            name 'To'
+            type ({
+                primitive Date
+            })
+            existsIf `this.type == ReportType.Changed_Employees`
+            required true
+        })
+        (includeDaysWithoutAttendanceRecord{
+            type ({
+                primitive Boolean
+            })
+        })
+    ]
+    transient true
+})

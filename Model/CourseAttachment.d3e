@@ -1,0 +1,28 @@
+(Model CourseAttachment {
+    name 'Course Attachment'
+    
+    master #Company
+    package 'rewa.hr.2'
+    properties [
+        (course {
+            name 'Course'
+            type ({
+                model #Course
+            })
+        })
+        (file {
+            name 'File'
+            type ({
+                primitive DFile
+            })
+            collection true
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+    ]
+})

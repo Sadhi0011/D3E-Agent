@@ -1,0 +1,24 @@
+Model {
+    name 'Auto PunchOut Configuration'
+    master AttendanceConfiguration
+    properties [
+        {
+            name 'Company'
+            type Company
+            required true
+        }
+        {
+            name 'location'
+            type Location
+            required true
+            referenceFrom `company.locations`
+        }
+        {
+            name 'Auto Punch Out Time'
+            type Time
+            defaultValue `Time.of(0,0,0,0)`
+            description 'If employee forgets to punch out, system will automatically punch out at this time.'
+        }
+    ]
+    creatable true
+}

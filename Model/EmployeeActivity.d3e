@@ -1,0 +1,72 @@
+(Model EmployeeActivity {
+    name 'Employee Activity'
+    
+    package 'rewahr.com'
+    properties [
+        (from {
+            name 'From'
+            type ({
+                primitive Time
+            })
+        })
+        (to {
+            name 'To'
+            type ({
+                primitive Time
+            })
+        })
+        (hours {
+            name 'hours'
+            type ({
+                primitive Duration
+            })
+        })
+        (extraHours {
+            name 'extraHours'
+            type ({
+                primitive Duration
+            })
+        })
+        (isBasicSheet {
+            name 'IsBasicSheet'
+            type ({
+                primitive Boolean
+            })
+            defaultValue `false`
+        })
+        (duration {
+            name 'Duration'
+            type ({
+                primitive Duration
+            })
+            computed true
+            computation `isBasicSheet ? (hours.plus(extraHours)) : to.difference(from)`
+        })
+        (description {
+            name 'Description'
+            type ({
+                primitive String
+            })
+        })
+        (project {
+            name 'Project'
+            type ({
+                model #Project
+            })
+        })
+        (activity {
+            name 'Activity'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (date {
+            name 'Date'
+            type ({
+                primitive Date
+            })
+        })
+    ]
+    creatable false
+})

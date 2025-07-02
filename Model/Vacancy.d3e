@@ -1,0 +1,139 @@
+(Model Vacancy {
+    name 'Vacancy'
+    
+    master #Company
+    package 'rewa.hr.2'
+    properties [
+        (name {
+            name 'Name'
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (jobTitle {
+            name 'Job Title'
+            type ({
+                model #JobTitle
+            })
+            required true
+        })
+        (location {
+            name 'Location'
+            type ({
+                model #Location
+            })
+            required true
+        })
+        (subUnit {
+            name 'Sub Unit'
+            type ({
+                model #SubUnit
+            })
+        })
+        (hiringManagers {
+            name 'Hiring Managers'
+            collection true
+            type ({
+                model #Employee
+            })
+            required true
+        })
+        (numberOfPositions {
+            name 'Number of Positions'
+            type ({
+                primitive Integer
+            })
+        })
+        (consetRequired {
+            name 'Conset Required'
+            type ({
+                primitive Boolean
+            })
+            description 'Request Conset to Keep Candidate Data for later processing'
+        })
+        (resumeRequired {
+            name 'Resume Required'
+            type ({
+                primitive Boolean
+            })
+            defaultValue `true`
+        })
+        (publishedDate {
+            name 'Published Date'
+            type ({
+                primitive Date
+            })
+        })
+        (status {
+            name 'Status'
+            type ({
+                optionSet #VacancyStatus
+            })
+        })
+        (jobApplicationTitle {
+            name 'Job Application Title'
+            type ({
+                primitive String
+            })
+        })
+        (applications {
+            name 'Applications'
+            collection true
+            type ({
+                primitive String
+            })
+        })
+        (jobDescription {
+            name 'Job Description'
+            type ({
+                primitive String
+            })
+            longText true
+        })
+        (applicationSections {
+            name 'Application Sections'
+            collection true
+            type ({
+                model #JobApplicationSection
+            })
+            child true
+        })
+        (workflowStages {
+            name 'Workflow Stages'
+            collection true
+            type ({
+                model #VacancyWorkflowStage
+            })
+            child true
+        })
+        (interviewTemplates {
+            name 'Interview Templates'
+            collection true
+            type ({
+                model #InterviewTemplate
+            })
+        })
+        (numberOfApplicants{
+            type ({
+                primitive Integer
+            })
+            readType ReadOnly
+        })
+        (numberOfShortlisted{
+            type ({
+                primitive Integer
+            })
+            readType ReadOnly
+        })
+        (numberOfHired{
+            type ({
+                primitive Integer
+            })
+            readType ReadOnly
+        })
+    ]
+    display `this.name`
+    actions [
+    ]
+})

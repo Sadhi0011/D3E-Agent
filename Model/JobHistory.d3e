@@ -1,0 +1,307 @@
+(Model JobHistory {
+    name 'Job History'
+    master #Employee
+    allowDynamicReport true
+    package 'rewa.hr.2'
+    properties [
+        (event {
+            name 'Event'
+            type ({
+                optionSet #JobEvent
+            })
+        })
+        (effectiveFrom {
+            name 'Effective From'
+            type ({
+                primitive Date
+            })
+        })
+        (joinedDate {
+            name 'Joined Date'
+            type ({
+                primitive Date
+            })
+        })
+        (probationEndDate {
+            name 'Probation End Date'
+            type ({
+                primitive Date
+            })
+        })
+        (dateOfPermanency {
+            name 'Date Of Permanency'
+            type ({
+                primitive Date
+            })
+        })
+        (jobTitle {
+            name 'Job Title'
+            type ({
+                primitive String
+            })
+        })
+        (employmentStatus {
+            name 'Employment Status'
+            type ({
+                primitive String
+            })
+        })
+        (jobCategory {
+            name 'Job Category'
+            type ({
+                primitive String
+            })
+        })
+        (subUnit {
+            name 'Sub unit'
+            type ({
+                primitive String
+            })
+        })
+        (costCenter {
+            name 'Cost Center'
+            type ({
+                primitive String
+            })
+        })
+        (workShift {
+            name 'Work Shift'
+            type ({
+                primitive String
+            })
+        })
+        (payPolicy {
+            name 'Pay Policy'
+            type ({
+                primitive String
+            })
+        })
+        (comments {
+            name 'Comments'
+            type ({
+                primitive String
+            })
+        })
+        (hasContractDetails {
+            name 'Has Contract Details'
+            type ({
+                primitive Boolean
+            })
+        })
+        (region {
+            name 'Region'
+            type ({
+                primitive String
+            })
+        })
+        (fte {
+            name 'Fte'
+            type ({
+                primitive Double
+            })
+        })
+        (temporaryDepartment {
+            name 'Temporary Department'
+            type ({
+                primitive String
+            })
+        })
+         (joinedDateNew {
+            name 'Joined Date New'
+            type ({
+                primitive Date
+            })
+        })
+        (probationEndDateNew {
+            name 'Probation End Date New'
+            type ({
+                primitive Date
+            })
+        })
+        (dateOfPermanencyNew {
+            name 'Date Of Permanency New'
+            type ({
+                primitive Date
+            })
+        })
+        (jobTitleNew {
+            name 'Job Title New'
+            type ({
+                primitive String
+            })
+        })
+        (employmentStatusNew {
+            name 'Employment Status New'
+            type ({
+                primitive String
+            })
+        })
+        (jobCategoryNew {
+            name 'Job Category New'
+            type ({
+                primitive String
+            })
+        })
+        (subUnitNew{
+            name 'Sub unit New'
+            type ({
+                primitive String
+            })
+        })
+        (costCenterNew {
+            name 'Cost Center New'
+            type ({
+                primitive String
+            })
+        })
+        (locationNew {
+            name 'locationNew'
+            type ({
+                primitive String
+            })
+        })
+        (location{
+            name 'location'
+            type ({
+                primitive String
+            })
+        })
+        (workShiftNew {
+            name 'Work Shift New'
+            type ({
+                primitive String
+            })
+        })
+        (payPolicyNew {
+            name 'Pay Policy New'
+            type ({
+                primitive String
+            })
+        })
+        (commentsNew {
+            name 'Comments New'
+            type ({
+                primitive String
+            })
+        })
+        (hasContractDetailsNew {
+            name 'Has Contract Details New'
+            type ({
+                primitive Boolean
+            })
+        })
+        (regionNew{
+            name 'Region New'
+            type ({
+                primitive String
+            })
+        })
+        (fteNew {
+            name 'Fte New'
+            type ({
+                primitive Double
+            })
+        })
+        (temporaryDepartmentNew {
+            name 'Temporary Department New'
+            type ({
+                primitive String
+            })
+        })
+        (contractStartDate {
+            name 'Contract Start Date'
+            type ({
+                primitive Date
+            })
+        })
+        (contractEndDate {
+            name 'Contract End Date'
+            type ({
+                primitive Date
+            })
+        })
+        (contractDetails {
+            name 'Contract Details'
+            type ({
+                primitive DFile
+            })
+        })
+        (contractStartDateNew {
+            name 'Contract Start Date New'
+            type ({
+                primitive Date
+            })
+        })
+        (contractEndDateNew {
+            name 'Contract End Date New'
+            type ({
+                primitive Date
+            })
+        })
+        (contractDetailsNew {
+            name 'Contract Details New'
+            type ({
+                primitive DFile
+            })
+        })
+        (jobTitleObj {
+            name 'jobTitleObj'
+            type ({
+                model #JobTitle
+            })
+        })
+        (employmentStatusObj {
+            name 'Employment Status Obj'
+            type ({
+                model #EmploymentStatus
+            })
+        })
+        (jobCategoryObj {
+            name 'Job Category Obj'
+            type ({
+                model #JobCategory
+            })
+        })
+        (subUnitObj {
+            name 'SubUnit Obj'
+            type ({
+                model #SubUnit
+            })
+        })
+        (locationObj {
+            name 'LocationObj'
+            type ({
+                model #Location
+            })
+        })
+        (workShiftObj {
+            name 'Work ShiftObj'
+            type ({
+                model #WorkShift
+            })
+        })
+        (payPolicyObj {
+            name 'Pay PolicyObj'
+            type ({
+                model #PayPolicy
+            })
+            onDelete DeleteThis
+        })
+        (costCenterObj {
+            name 'costCenterObj'
+            type ({
+                model #CostCenter
+            })
+        })
+    ]
+    actions [
+        (updateEmployeeJobObject {
+            runOn OnCreate
+            block ```
+                if(effectiveFrom <= Date.now()) {
+                    EmployeeUtil.updateEmployeeJob(effectiveFrom, emp:employee);
+                }
+            ```
+        })
+    ]
+})

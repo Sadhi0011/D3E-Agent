@@ -1,0 +1,50 @@
+(Model DaysOff {
+    name 'Days Off'
+    
+    master #Company
+    package 'rewahr.com'
+    properties [
+        (monday {
+            name 'Monday'
+            type ({
+                primitive String
+            })
+        })
+        (tuesday {
+            name 'Tuesday'
+            type ({
+                primitive String
+            })
+        })
+        (wednesday {
+            name 'Wednesday'
+            type ({
+                primitive String
+            })
+        })
+        (thursday {
+            name 'Thursday'
+            type ({
+                primitive String
+            })
+        })
+        (friday {
+            name 'Friday'
+            type ({
+                primitive String
+            })
+        })
+        (saturday {
+            name 'Saturday'
+            type ({
+                primitive String
+            })
+        })
+        (sunday {
+            name 'Sunday'
+            type ({
+                primitive String
+            })
+        })
+    ]
+})

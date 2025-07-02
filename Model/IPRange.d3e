@@ -1,0 +1,17 @@
+(Model IPRange{
+    properties [
+        (from{
+            type ({
+                primitive String
+            })
+            required true
+        })
+        (to{
+            type ({
+                primitive String
+            })
+            required true
+        })
+    ]
+    creatable false
+})

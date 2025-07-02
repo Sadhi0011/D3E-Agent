@@ -1,0 +1,18 @@
+Model {
+    name 'Custom Report Section'
+    master Company
+    properties [
+        {
+            name 'Section'
+            type String
+        }
+        {
+            name 'Items'
+            type PIMReport
+            inverse true
+            collection true
+            inverseProperty #folder
+        }
+    ]
+    display `section`
+}

@@ -1,0 +1,63 @@
+client class DataGroupUtils{
+    static List<String> prepareSections(UserType type) {
+        List<String> allSections;
+        if(type == UserType.Admin) {
+             allSections = ['HR Administration', 'Training', 'Attendance', 'Leave', 'Onboarding', 'Performance', 'Employee Management', 'Recruitment', 'Report Catalog',
+                    'Career Development', 'Time Tracking', 'Travel and Expense', 'Other'];
+        }else if(type == ESS) {
+             allSections = ['Training', 'Attendance', 'Performance', 'Employee Management',
+                    'Career Development','Travel and Expense', 'Other'];
+        }else {
+             allSections = ['Training', 'Attendance', 'Leave', 'Performance', 'Employee Management',
+                    'Career Development','Time Tracking' , 'Travel and Expense'];
+        }
+       return allSections;
+    }
+
+    static List<DataGroupPermission> getPermissions(UserRole role, List<UserRole> userRoles) {
+        List<DataGroupPermission> permissions = [];
+        if(userRoles.isNotEmpty){
+            if(role.type == UserType.Admin) {
+                permissions = userRoles.firstWhere((a) => a.type == UserType.Admin && a.name == 'Global Admin').permissions;
+            }else if(role.type == UserType.ESS) {
+                permissions = userRoles.firstWhere((a) => a.type == UserType.ESS && a.name == 'Default ESS').permissions;
+            }else {
+                permissions = userRoles.firstWhere((a) => a.type == UserType.Supervisor && a.name == 'Default Supervisor').permissions;
+            }
+        }
+
+        return permissions;
+    }
+
+    static Boolean isPropAvailable(Boolean isWizard, AddEmployeeWizardSectionConfiguration wizard, PIMField field, String section) {
+        if (isWizard && wizard != null) {
+            return wizard.sections
+                .firstWhere((s) => s.section == section, orElse: () => null)
+                .fields
+                .firstWhere((a) => a.field == field, orElse: () => null)
+                .available ??
+                false;
+        } else {
+            return true;
+        }
+    }
+    static String getSizeOfFile (DFile file) {
+        String sizeValue;
+        String size;
+        Integer fileSize;
+        if (file.size < 1000) {
+            sizeValue = 'B';
+            fileSize = file.size.round();
+        }
+        else if (file.size >= 1000 && file.size < 1000000) {
+            sizeValue = 'KB';
+            fileSize = (file.size / 1000).round();
+        }
+        else {
+            sizeValue = 'MB';
+            fileSize = (file.size / 1000000).round();
+        }
+        return fileSize.toString() + sizeValue;
+    }
+
+}
