@@ -1,0 +1,33 @@
+Model {
+    name 'DefaultUser'
+    singleton true
+    actions [
+        {
+            name 'CreateAdmin'
+            block ```
+                Company company = Company(
+                    name: 'Default Company',
+                    isLeadService: true,
+                    isCustomerService: false,
+                );
+                Database.save(company);
+                User user = User(
+                    company: company,
+                    firstName: 'George',
+                    lastName: 'Washington',
+                    email: 'george@gmail.com',
+                    password: '123456',
+                    role: UserRole.Manager,
+                    status: true,
+                    lastLogin: DateTime.now(),
+
+                );
+                MicroSoftAcc acc = MicroSoftAcc(
+                    user: user,
+                );
+                Database.save(user); 
+                Database.save(acc);
+            ```
+        }
+    ]
+}

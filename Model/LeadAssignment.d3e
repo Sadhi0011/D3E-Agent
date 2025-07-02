@@ -25,7 +25,7 @@ Model {
             type Boolean
         }
     ]
-    actions [
+     actions [
         {
             name 'OnCreateAssignedBy'
             block ```
@@ -33,4 +33,4 @@ Model {
             ```
         }
     ]
-} 
+}

@@ -1,17 +1,29 @@
-(Model Education {
+Model {
     name 'Education'
-    
-    master #Company
-    package 'rewahr.com'
+    creatable false
     properties [
-        (name {
-            name 'Name'
-            type ({
-                primitive String
-            })
+        {
+            name 'Institution'
+            type String
             required true
-            unique true
-        })
+        }
+        {
+            name 'Degree'
+            type String
+            required true
+        }
+        {
+            name 'Field of Study'
+            type String
+        }
+        {
+            name 'Start Date'
+            type Date
+            required true
+        }
+        {
+            name 'End Date'
+            type Date
+        }
     ]
-    display `this.name`
-})
+}

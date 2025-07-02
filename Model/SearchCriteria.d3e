@@ -1,0 +1,174 @@
+Struct {
+    name 'SearchCriteria'
+    properties [
+        {
+            name 'page'
+            type Integer
+            defaultValue `1`
+        }
+        {
+            name 'perPage'
+            type Integer
+            defaultValue `20`
+        }
+        {
+            name 'SearchText'
+            type String
+        }
+        {
+            name 'FullName'
+            type String
+        }
+        {
+            name 'PersonLocations'
+            collection true
+            type String
+        }
+        {
+            name 'TimeZones'
+            collection true
+            type String
+        }
+        {
+            name 'AccountLocation'
+            collection true
+            type String
+        }
+        {
+            name 'JobPostingHiringFor'
+            collection true
+            type String
+        }
+        {
+            name 'JobPostingLocation'
+            collection true
+            type String
+        }
+        {
+            name 'JobTitles'
+            collection true
+            type String
+        }
+        {
+            name 'Languages'
+            collection true
+            type String
+        }
+        {
+            name 'Keywords'
+            collection true
+            type String
+        }
+        {
+            name 'CompanyTagIDs'
+            collection true
+            type String
+        }
+        {
+            name 'Technologies'
+            collection true
+            type String
+        }
+        {
+            name 'MinYearExp'
+            type String
+        }
+        {
+            name 'MaxYearExp'
+            type String
+        }
+        {
+            name 'MinYearCurrentRole'
+            type String
+        }
+        {
+            name 'MaxYearCurrentRole'
+            type String
+        }
+        {
+            name 'MinMonthCurrentRole'
+            type String
+        }
+        {
+            name 'MaxMonthCurrentRole'
+            type String
+        }
+        {
+            name 'SICCodes'
+            collection true
+            type String
+        }
+        {
+            name 'MinGrowPercentage'
+            type String
+        }
+        {
+            name 'MaxGrowPercentage'
+            type String
+        }
+        {
+            name 'TimeFrame'
+            type String
+        }
+        {
+            name 'Department'
+            type String
+        }
+        {
+            name 'FundingFromDate'
+            type String
+        }
+        {
+            name 'FundingToDate'
+            type String
+        }
+        {
+            name 'MinFundingAmount'
+            type String
+        }
+        {
+            name 'MaxFundingAmount'
+            type String
+        }
+        {
+            name 'MinFoundedYear'
+            type String
+        }
+        {
+            name 'MaxFoundedYear'
+            type String
+        }
+        {
+            name 'MinRetailLocation'
+            type String
+        }
+        {
+            name 'MaxRetailLocation'
+            type String
+        }
+        {
+            name 'MinJobPosting'
+            type String
+        }
+        {
+            name 'MaxJobPosting'
+            type String
+        }
+        {
+            name 'JobPostedFromDate'
+            type String
+        }
+        {
+            name 'JobPostedToDate'
+            type String
+        }
+        {
+            name 'MinEmployeeRange'
+            type String
+        }
+        {
+            name 'MaxEmployeeRange'
+            type String
+        }
+    ]
+}

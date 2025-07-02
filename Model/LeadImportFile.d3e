@@ -1,0 +1,18 @@
+Model {
+    name 'LeadImportFile'
+    properties [
+        {
+            name 'File'
+            type DFile
+        }
+    ]
+    transient true 
+    actions [
+        {
+            name 'CreateLead'
+            block ```
+                ImportCSVFileUtils.createLeadData(this.file);
+            ```
+        }
+    ]
+}

@@ -1,51 +1,19 @@
-(Model AuditRecord {
-    name 'Audit Record'
-    
-    master #Company
-    package 'rewa.hr.2'
+Model {
+    name 'AuditRecord'
+    needCreatedDate true
     properties [
-        (on {
-            name 'On'
-            type ({
-                primitive DateTime
-            })
-        })
-        (actionOwner {
+        {
             name 'Action Owner'
-            type ({
-                primitive String
-            })
-        })
-        (action {
+            type User
+        }
+        {
             name 'Action'
-            type ({
-                primitive String
-            })
-        })
-        (employee {
-            name 'Employee'
-            type ({
-                model #Employee
-            })
-        })
-        (section {
-            name 'Section'
-            type ({
-                primitive String
-            })
-        })
-        (actionDescription {
+            type String
+        }
+        {
             name 'Action Description'
-            type ({
-                primitive String
-            })
+            type String
             longText true
-        })
-        (module {
-            name 'Module'
-            type ({
-                primitive String
-            })
-        })
+        }
     ]
-})
+}
