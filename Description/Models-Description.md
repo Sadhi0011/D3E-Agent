@@ -13,9 +13,9 @@ Here are some examples of Models:
 5. Agent and
 6. User
 
-These are the data which we store in the database depending on your application. 
+These are the data which we store in the database depending on your application.
 
-Usually every form you have in your application needs one or more models. 
+Usually every form you have in your application needs one or more models.
 Also there are models which you normally don't see in UI, but are required to store some essential data.
 
 Unlike SQL or Excel Sheets, which describe your data in rows and columns, D3E describes your data in terms of objects.
@@ -36,7 +36,7 @@ To create a model in D3E Studio, you can follow these steps:
 1. Navigate to Data Section
 2. Click on Models
 3. In the submenu click on “Create Model” button to create a new model
-      a. Give your model a appropriate name & Description for Identification
+   a. Give your model a appropriate name & Description for Identification
 
 ## Model Properties
 
@@ -53,8 +53,8 @@ To create properties for a model, you can follow these steps:
 1. Click on Models in the Data Section
 2. Select an existing model or create a new model in the model’s menu
 3. In the properties section click on “Create Property” to create properties
-      • The name defines the name(identity) of the property.
-      • Type can be a primitive, another model or option set.
+   • The name defines the name(identity) of the property.
+   • Type can be a primitive, another model or option set.
 
 ## Unique Properties
 
@@ -70,31 +70,31 @@ For example, in a resume, there will be a "Summary" section. In that section, we
 
 You can use the OnDelete method to delete a property from a model. OnDelete is an event that is used to delete a property from a model.
 
-| Field      | Description                                                               |
-|:-----------|:--------------------------------------------------------------------------|
-| Name       | Name of the property. Property identity will be derived from it           |
+| Field      | Description                                                              |
+| :--------- | :----------------------------------------------------------------------- |
+| Name       | Name of the property. Property identity will be derived from it          |
 | Type       | Type of the property. It can be Primitive, or reference to another Model |
-| Collection | If this is a single value or a List of values of specified type           |
+| Collection | If this is a single value or a List of values of specified type          |
 
 Property type can be primitive, another model or option set.
 
 ### Primitive Types
 
-| Type       | Default Value | Description                                             |
-|:-----------|:--------------|:--------------------------------------------------------|
-| String     | null |For storing small or big text. Everything is stored in UTF8 format  |
-| Boolean    | false|true or false                                                       |
-| Integer    | 0    |Mathematical integer. It is 64 bit Signed value                       |
-| Double     | 0.0  |Floating point value. 64 bit signed value                            |
-| Date       | null |To represent Date                                                   |
-| Time       | null |To represent Time                                                   |
-| DateTime   | null |To represent Data and Time together.                                |
-| File       | null |Anything you want to store in a file.                                 |
-| Duration   | null |Represents time gap between two DateTimes                           |
+| Type     | Default Value | Description                                                        |
+| :------- | :------------ | :----------------------------------------------------------------- |
+| String   | null          | For storing small or big text. Everything is stored in UTF8 format |
+| Boolean  | false         | true or false                                                      |
+| Integer  | 0             | Mathematical integer. It is 64 bit Signed value                    |
+| Double   | 0.0           | Floating point value. 64 bit signed value                          |
+| Date     | null          | To represent Date                                                  |
+| Time     | null          | To represent Time                                                  |
+| DateTime | null          | To represent Data and Time together.                               |
+| File     | null          | Anything you want to store in a file.                              |
+| Duration | null          | Represents time gap between two DateTimes                          |
 
 ### Creatable
 
-Every model is creatable by default. For example if we create model called 'Contact', 
+Every model is creatable by default. For example if we create model called 'Contact',
 then automatically in the generated application you will get an API to create/update/delete contacts.
 
 ```Dart
@@ -108,7 +108,7 @@ then automatically in the generated application you will get an API to create/up
 Non-creatable models are mainly used as internal structures of other creatable models.
 
 For example **Address** is a non creatable model which is used as address field in **Contact** model.
-In this case *address* is a child property in **Contact**. 
+In this case _address_ is a child property in **Contact**.
 
 ### Embedded
 
@@ -123,7 +123,7 @@ Embedded models are similar to non creatable models. But they will never be null
    Address get address;
    set address(Address val);
  }
-``` 
+```
 
 ```Dart
  // If Address is embedded model
@@ -131,11 +131,11 @@ Embedded models are similar to non creatable models. But they will never be null
    String get name;
    set name(String val);
 
-   // There will always be an address in Contact and you can not set it. 
+   // There will always be an address in Contact and you can not set it.
    // You can only change values inside address
    Address get address;
  }
-``` 
+```
 
 Embedded models are always considered as children whereever they are used.
 
@@ -148,7 +148,7 @@ When a property is marked as a collection, it becomes a list of its type.
    String get name; //name is not a collection
    List<String> get names; //names is a collection property
  }
-``` 
+```
 
 Collection property values will never be null. It will always be an empty list.
 
@@ -163,18 +163,19 @@ The Model whose properties and methods are inherited is known as the "parent Mod
 
 ### Property Validations
 
-Property Validations are rules to check before accepting a given value for a field. 
+Property Validations are rules to check before accepting a given value for a field.
 If rule is not passed, then current operation (create/update) will be rejected and
-given Error Message is shown in the UI. 
+given Error Message is shown in the UI.
 
-These expressions are written in D3E. 
+These expressions are written in D3E.
 Lets say your business rule is Invoice date can not be more than 7 days before today.
 
 ```Dart
 !it.before(Date.now().subtract(Duration(days:7)))
 ```
-Here *it* refers to the property in which this expression is being written. 
-type of *it* depends on the type of property.
+
+Here _it_ refers to the property in which this expression is being written.
+type of _it_ depends on the type of property.
 
 ### Model Validations
 
@@ -185,9 +186,11 @@ Here we can add advanced conditions that depend on more than one field of model.
 // Invoice date should be before due date
 this.invoiceDate.before(this.dueDate)
 ```
+
 ## Validating Models
 
 You can validate models by following these steps
+
 1. In the data section click on the model you want to validate
 2. Navigate to the “validations” section in the control toolbar
 3. Click on “Create Validation” & fill the fields with appropriate information
@@ -199,13 +202,12 @@ You can make some properties required so that the property of the value must be 
 
 Ex: In the sign-in form, users should provide their e-mail and password values. Here, mail and password are required properties, which means if a user does not give email and password, he can not sign in.
 
-
 ### Actions
 
-Only way to modify any data on the D3E Application is by invoking *create/update/delete* methods on **Mutation** type.
-There are no other ways of modifying data. 
+Only way to modify any data on the D3E Application is by invoking _create/update/delete_ methods on **Mutation** type.
+There are no other ways of modifying data.
 
-By default every creatable model will be automatically saved, updated or deleted when those requests are called. 
+By default every creatable model will be automatically saved, updated or deleted when those requests are called.
 Before that validations will be checked and only if every validation passes, then they will be saved.
 
 Actions allow us to do any modifications to these data, and also perfom some other operations.
@@ -220,8 +222,8 @@ RunOn value tells when you want to run this particular action.
 Actions can be invoked due to external calls(API) or internal calls (from other actions).
 But each action happens only once during one external invocation.
 
-Actions are run within the context of the current object. And *old* object is available for developers
-to use. 
+Actions are run within the context of the current object. And _old_ object is available for developers
+to use.
 
 Read [actions](/d3e/actions) for more details on what you can do with actions.
 
@@ -250,12 +252,11 @@ Imagine a Model `Contact` and it has a child property called `address` which is 
 
 If we are writing an expression in which we have an object of type `Address`.
 
-We know that `Address` is a child of `Contact`. So if we want to access `Contact` from `Address` we use *master* properties.
+We know that `Address` is a child of `Contact`. So if we want to access `Contact` from `Address` we use _master_ properties.
 
-These properties are similar to normal properties, but they will be automatically created by the system. 
+These properties are similar to normal properties, but they will be automatically created by the system.
 
-
-```Dart 
+```Dart
 
 class Contact {
   String get name;
@@ -272,7 +273,7 @@ Contact c = add.masterContact; // we can get its master like this.
 
 ```
 
-Master properties/fields will be created only if the current model is used as a child. If it is used as reference then master properties will not be created/present. 
+Master properties/fields will be created only if the current model is used as a child. If it is used as reference then master properties will not be created/present.
 
 If more than one model uses current model as child, then both(all) masters will be created.
 
@@ -298,6 +299,7 @@ Contact c = add.masterContact; // c will be null
 Office o = add.masterOffice; // o will be o1
 
 ```
+
 ## Saving Model Object from Component
 
 You can save model object from a component by following the steps given below
@@ -308,7 +310,7 @@ You can save model object from a component by following the steps given below
 2. Select a component that you want to work on
 3. On the right side click on the bell icon to view available model objects
 4. Select from the list of objects as for your need
-    a. Following the above action, a code console will popup which allows you to write code to Save data into model
+   a. Following the above action, a code console will popup which allows you to write code to Save data into model
 
 ## Model Property – References
 
@@ -350,7 +352,7 @@ To keep a user remembered in an application from sign in till sign out we have t
 ## Creating a Base session:
 
 To book a session in D3E Studio following code could do the job
-        CurrentUser.getsession [login/logout]
+CurrentUser.getsession [login/logout]
 
 ## Default Values in Model Properties
 

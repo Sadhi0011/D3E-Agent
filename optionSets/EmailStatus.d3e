@@ -1,0 +1,20 @@
+OptionSet {
+    name 'EmailStatus'
+    options [
+        {
+            name 'Unavailable'
+        }
+        {
+           name  'Verified'
+        }
+        {
+            name 'Unverified'
+        }
+        {
+            name 'Update Required'
+        }
+        {
+            name 'Likely To Engage'
+        }
+    ]
+}

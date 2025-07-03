@@ -1,0 +1,41 @@
+OptionSet {
+    name 'CallStatus'
+    options [
+        {
+            name 'Initiated'
+        }
+        {
+            name 'InProgress'
+        }
+        {
+            name 'Ringing'
+        }
+        {
+            name 'Answered'
+        }
+        {
+            name 'Completed'
+        }
+        {
+            name 'Failed'
+        }
+        {
+            name 'Busy'
+        }
+        {
+            name 'Unanswered'
+        }
+        {
+            name 'Unknown'
+        }
+        {
+            name 'Connecting'
+        }
+        {
+            name 'Cancelled'
+        }
+        {
+            name 'Rejected'
+        }
+    ]
+}

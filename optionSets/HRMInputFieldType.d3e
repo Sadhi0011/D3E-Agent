@@ -1,0 +1,18 @@
+OptionSet {
+    package 'rewa.hr.2'
+    name 'HRMInputFieldType'
+    options [
+        {
+            name 'Rectangle'
+        }
+        {
+            name 'Circle'
+        }
+        {
+            name 'Underline'
+        }
+        {
+            name 'None'
+        }
+    ]
+}

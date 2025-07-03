@@ -1,0 +1,17 @@
+(OptionSet InputFieldType){
+    name 'InputFieldType'
+    options [
+        (Rectangle){
+            name 'Rectangle'
+        }
+        (Circle){
+            name 'Circle'
+        }
+        (Underline){
+            name 'Underline'
+        }
+        (None){
+            name 'None'
+        }
+    ]
+}
