@@ -13,7 +13,7 @@ A collection property allows a model to hold a list (array) of values, rather th
 "Create a [ModelName] model with a collection property [propertyName] of type [Type]"
 
 **Example Prompts:**
-- "Createa student model with name, email,phone number,passed Subjects and Enrolled Courses ,and age "
+- "Create a student model with name, email,phone number,passed Subjects and Enrolled Courses ,and age "
 - "Create a Lead model with a collection of skills (String) and a collection of education history (Education model)"
 - "Create a Contact model with phone numbers as a collection of strings"
 
