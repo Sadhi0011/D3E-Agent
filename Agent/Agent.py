@@ -11,7 +11,7 @@ def load_context(file_name):
 
 # Load the D3E context
 all_ctx = {
-    'ModelWithChildProperties': load_context('model-with-computed-properties'),
+    'ModelWithChildProperties': load_context('model-with-default-values'),
 }
 
 # CRITICAL: Enhanced system message that enforces D3E-only output

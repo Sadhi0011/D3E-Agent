@@ -101,4 +101,3 @@ Model {
 - The `computation` attribute must be a valid D3E expression, wrapped in backticks.
 - Computed properties are always read-only and cannot be set directly.
 - Computed properties can reference other properties, perform calculations, or use conditional logic.
-- For more on property attributes and expressions, see the [Models-Guide.md](../Models-Guide.md).
