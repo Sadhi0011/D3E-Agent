@@ -12,7 +12,7 @@ def load_context(file_name):
 
 # Load the D3E context
 all_ctx = {
-    'ModelWithChildProperties': load_context('model-with-child-properties'),
+    'ModelWithChildProperties': load_context('model-with-optionsets'),
 }
 
 # CRITICAL: Enhanced system message that enforces D3E-only output
@@ -42,6 +42,7 @@ while True:
 
     # Check if the prompt is for model creation or update
     model_match = re.match(r"(create|update) model (\w+):(.+)", user_prompt.strip(), re.IGNORECASE | re.DOTALL)
+    optionset_match = re.match(r"(create|update) optionset (\w+):(.+)", user_prompt.strip(), re.IGNORECASE | re.DOTALL)
     if model_match:
         action = model_match.group(1).lower()
         model_name = model_match.group(2)
@@ -70,6 +71,34 @@ while True:
                     f.write(model_content)
                 print(f"✅ Model '{model_name}' updated at {model_file}")
         continue  # Skip D3E code generation for model file operations
+    elif optionset_match:
+        action = optionset_match.group(1).lower()
+        optionset_name = optionset_match.group(2)
+        optionset_content = optionset_match.group(3).strip()
+        optionset_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../optionSets')
+        optionset_file = os.path.join(optionset_dir, f"{optionset_name}.d3e")
+
+        # Ensure optionSets directory exists
+        if not os.path.exists(optionset_dir):
+            os.makedirs(optionset_dir)
+            print(f"📁 Created optionSets directory at {optionset_dir}")
+
+        # Create or update the OptionSet file
+        if action == 'create':
+            if os.path.exists(optionset_file):
+                print(f"⚠️ OptionSet '{optionset_name}' already exists. Use 'update optionset' to modify it.")
+            else:
+                with open(optionset_file, 'w', encoding='utf-8') as f:
+                    f.write(optionset_content)
+                print(f"✅ OptionSet '{optionset_name}' created at {optionset_file}")
+        elif action == 'update':
+            if not os.path.exists(optionset_file):
+                print(f"⚠️ OptionSet '{optionset_name}' does not exist. Use 'create optionset' to create it first.")
+            else:
+                with open(optionset_file, 'w', encoding='utf-8') as f:
+                    f.write(optionset_content)
+                print(f"✅ OptionSet '{optionset_name}' updated at {optionset_file}")
+        continue  # Skip D3E code generation for OptionSet file operations
 
     # Enhanced prompt that reinforces D3E-only output
     enhanced_prompt = f"""
@@ -142,6 +171,24 @@ Request: {user_prompt}
                     i += 1
             return blocks
 
+        def extract_optionset_blocks(text):
+            blocks = []
+            pattern = re.compile(r'OptionSet\s*\{', re.MULTILINE)
+            for match in pattern.finditer(text):
+                start = match.start()
+                brace_count = 0
+                i = start
+                while i < len(text):
+                    if text[i] == '{':
+                        brace_count += 1
+                    elif text[i] == '}':
+                        brace_count -= 1
+                        if brace_count == 0:
+                            blocks.append(text[start:i+1])
+                            break
+                    i += 1
+            return blocks
+
         model_blocks = extract_model_blocks(d3e_output)
         for block in model_blocks:
             # Extract model name
@@ -157,6 +204,23 @@ Request: {user_prompt}
             with open(model_file, 'w', encoding='utf-8') as f:
                 f.write(block)
             print(f"📄 Model '{model_name}' saved/updated at {model_file}")
+
+        # --- New logic: Save OptionSets to files ---
+        optionset_blocks = extract_optionset_blocks(d3e_output)
+        for block in optionset_blocks:
+            # Extract OptionSet name
+            name_match = re.search(r"name ['\"]([^'\"]+)['\"]", block)
+            if not name_match:
+                continue
+            optionset_name = name_match.group(1)
+            optionset_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../optionSets')
+            optionset_file = os.path.join(optionset_dir, f"{optionset_name}.d3e")
+            if not os.path.exists(optionset_dir):
+                os.makedirs(optionset_dir)
+            # Write or update the OptionSet file
+            with open(optionset_file, 'w', encoding='utf-8') as f:
+                f.write(block)
+            print(f"📄 OptionSet '{optionset_name}' saved/updated at {optionset_file}")
 
     save_models_from_d3e_output(result)
 
