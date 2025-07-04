@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+import re
 
 # Load your complete D3E context (rules + examples)
 def load_context(file_name):
@@ -11,7 +12,7 @@ def load_context(file_name):
 
 # Load the D3E context
 all_ctx = {
-    'ModelWithChildProperties': load_context('model-with-default-values'),
+    'ModelWithChildProperties': load_context('model-with-child-properties'),
 }
 
 # CRITICAL: Enhanced system message that enforces D3E-only output
@@ -38,6 +39,37 @@ while True:
     if user_prompt.strip().lower() in ['exit', 'quit']:
         print("👋 Exiting D3E Language Assistant.")
         break
+
+    # Check if the prompt is for model creation or update
+    model_match = re.match(r"(create|update) model (\w+):(.+)", user_prompt.strip(), re.IGNORECASE | re.DOTALL)
+    if model_match:
+        action = model_match.group(1).lower()
+        model_name = model_match.group(2)
+        model_content = model_match.group(3).strip()
+        model_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../Model')
+        model_file = os.path.join(model_dir, f"{model_name}.d3e")
+
+        # Ensure Model directory exists
+        if not os.path.exists(model_dir):
+            os.makedirs(model_dir)
+            print(f"📁 Created Model directory at {model_dir}")
+
+        # Create or update the model file
+        if action == 'create':
+            if os.path.exists(model_file):
+                print(f"⚠️ Model '{model_name}' already exists. Use 'update model' to modify it.")
+            else:
+                with open(model_file, 'w', encoding='utf-8') as f:
+                    f.write(model_content)
+                print(f"✅ Model '{model_name}' created at {model_file}")
+        elif action == 'update':
+            if not os.path.exists(model_file):
+                print(f"⚠️ Model '{model_name}' does not exist. Use 'create model' to create it first.")
+            else:
+                with open(model_file, 'w', encoding='utf-8') as f:
+                    f.write(model_content)
+                print(f"✅ Model '{model_name}' updated at {model_file}")
+        continue  # Skip D3E code generation for model file operations
 
     # Enhanced prompt that reinforces D3E-only output
     enhanced_prompt = f"""
@@ -88,6 +120,45 @@ Request: {user_prompt}
         result = f"❗ Exception occurred: {str(e)}"
 
     print(f"\n🤖 D3E Language AI:\n{result}")
+
+    # --- New logic: Save models to files ---
+    def save_models_from_d3e_output(d3e_output):
+        import re
+        def extract_model_blocks(text):
+            blocks = []
+            pattern = re.compile(r'Model\s*\{', re.MULTILINE)
+            for match in pattern.finditer(text):
+                start = match.start()
+                brace_count = 0
+                i = start
+                while i < len(text):
+                    if text[i] == '{':
+                        brace_count += 1
+                    elif text[i] == '}':
+                        brace_count -= 1
+                        if brace_count == 0:
+                            blocks.append(text[start:i+1])
+                            break
+                    i += 1
+            return blocks
+
+        model_blocks = extract_model_blocks(d3e_output)
+        for block in model_blocks:
+            # Extract model name
+            name_match = re.search(r"name ['\"]([^'\"]+)['\"]", block)
+            if not name_match:
+                continue
+            model_name = name_match.group(1)
+            model_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../Model')
+            model_file = os.path.join(model_dir, f"{model_name}.d3e")
+            if not os.path.exists(model_dir):
+                os.makedirs(model_dir)
+            # Write or update the model file
+            with open(model_file, 'w', encoding='utf-8') as f:
+                f.write(block)
+            print(f"📄 Model '{model_name}' saved/updated at {model_file}")
+
+    save_models_from_d3e_output(result)
 
 # Additional function to validate D3E output
 def validate_d3e_output(output):

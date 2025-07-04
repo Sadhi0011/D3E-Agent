@@ -6,6 +6,8 @@ A child property is a property that is conceptually a part of another entity, of
 
 - **Independence:** Child properties do not exist independently. They are part of the parent entity and are managed together.
 
+> **Warning:** When defining properties in a model, do **not** repeat property keys (such as `name`, `type`, or `required`) within the same property block. Each property should have each key only once. Repeating keys (e.g., two `name` or two `type` lines) is incorrect and will cause errors. See the examples below for the correct format.
+
 ## Prompt for Creating
 
 "Create a [ModelName] model with child property [propertyName] of type [ChildModelName]"
@@ -18,6 +20,8 @@ A child property is a property that is conceptually a part of another entity, of
 -
 
 ## D3E Examples
+
+> **Note:** The following examples demonstrate the correct way to define properties. Each property block should have unique keys (no duplicates). If you see repeated keys in your output, please correct them to match the examples below.
 
 ### Example 1: Lead with Education History (Child Collection)
 
