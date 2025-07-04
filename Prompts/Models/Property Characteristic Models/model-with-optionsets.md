@@ -14,12 +14,12 @@ An OptionSet property allows a model to restrict the value of a property to a pr
 
 ## Prompt for Creating
 
-"Create a [ModelName] model with a property [propertyName] of type [OptionSetName]"
+"Create a [ModelName] model with [property1] ([OptionSet1]), [property2] ([OptionSet2]), and [property3] ([OptionSet3])"
 
 **Example Prompts:**
 - "Create a User model with first name, last name, email, role (UserRole), and marital status (MaritalStatus)"
-- "Create a Family Info model with spouse name, children, and marital status (MaritalStatus)"
-- "Create an Interaction model with type (InteractionType), call status (CallStatus), and message status (MessageStatus)"
+- "Create an Employee model with employee ID, full name, email, department (Department), employment type (EmploymentType), and experience level (ExperienceLevel)"
+- "Create a Task model with title, description, category (TaskCategory), status (TaskStatus), and priority (TaskPriority)"
 - "Create a MicroSoftAcc model with oauthStatus (OAuthCredentialsStatus)"
 
 ## D3E Examples
